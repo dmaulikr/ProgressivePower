@@ -13,9 +13,10 @@ import ObjectMapper
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var allExercises: Array<Exercise> = []
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        var tempArray: Array<Exercise> = []
+        
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             if let path = NSBundle.mainBundle().pathForResource("exercises", ofType: "json"){
@@ -34,9 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             if let exerciseDetails = exerciseDetails{
                                 exercise.details = exerciseDetails
                             }
-                            self.allExercises.append(exercise)
+                            tempArray.append(exercise)
                         }
+                        ExerciseData.allExercises = tempArray
                         
+                        print(ExerciseData.allExercises)
                     } catch let error as NSError{
                         print(error)
                     }

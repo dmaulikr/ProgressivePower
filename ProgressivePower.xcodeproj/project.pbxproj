@@ -8,29 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */; };
-		4C57E1BA1D4A1BAA0034CBF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B91D4A1BAA0034CBF0 /* ViewController.swift */; };
+		4C57E1BA1D4A1BAA0034CBF0 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */; };
 		4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */; };
 		4C57E1BF1D4A1BAA0034CBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */; };
 		4C57E1C21D4A1BAA0034CBF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1C01D4A1BAA0034CBF0 /* LaunchScreen.storyboard */; };
 		4CC6F4E81D4A1ED6002D69B8 /* exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6F4E71D4A1ED6002D69B8 /* exercises.json */; };
 		4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */; };
-		4CC6F4F11D4A2CC0002D69B8 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6F4F01D4A2CC0002D69B8 /* test.json */; };
 		4CC6F4F31D4A5BD1002D69B8 /* UserExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6F4F21D4A5BD1002D69B8 /* UserExercises.swift */; };
+		4CCB68AE1D4A664100B2A1B1 /* NextLiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB68AD1D4A664100B2A1B1 /* NextLiftViewController.swift */; };
+		4CCB68B01D4A6A3300B2A1B1 /* ExerciseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB68AF1D4A6A3300B2A1B1 /* ExerciseData.swift */; };
 		D254913F44F1B3F54E88E682 /* Pods_ProgressivePower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D070C0DC2D72E423457B5 /* Pods_ProgressivePower.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4C57E1B41D4A1BAA0034CBF0 /* ProgressivePower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgressivePower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4C57E1B91D4A1BAA0034CBF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		4C57E1BC1D4A1BAA0034CBF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C57E1C11D4A1BAA0034CBF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C57E1C31D4A1BAA0034CBF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CC6F4E71D4A1ED6002D69B8 /* exercises.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exercises.json; sourceTree = "<group>"; };
 		4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseLoading.swift; sourceTree = "<group>"; };
-		4CC6F4F01D4A2CC0002D69B8 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		4CC6F4F21D4A5BD1002D69B8 /* UserExercises.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserExercises.swift; sourceTree = "<group>"; };
+		4CCB68AD1D4A664100B2A1B1 /* NextLiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextLiftViewController.swift; sourceTree = "<group>"; };
+		4CCB68AF1D4A6A3300B2A1B1 /* ExerciseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseData.swift; sourceTree = "<group>"; };
 		658D070C0DC2D72E423457B5 /* Pods_ProgressivePower.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProgressivePower.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73506466A70276BE55B8DF54 /* Pods-ProgressivePower.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProgressivePower.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ProgressivePower/Pods-ProgressivePower.debug.xcconfig"; sourceTree = "<group>"; };
 		89FC4563093E4E9555A7972A /* Pods-ProgressivePower.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProgressivePower.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProgressivePower/Pods-ProgressivePower.release.xcconfig"; sourceTree = "<group>"; };
@@ -79,13 +81,12 @@
 			isa = PBXGroup;
 			children = (
 				4CC6F4E91D4A1EF5002D69B8 /* Model */,
+				4CCB68AD1D4A664100B2A1B1 /* NextLiftViewController.swift */,
+				4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */,
 				4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */,
-				4C57E1B91D4A1BAA0034CBF0 /* ViewController.swift */,
 				4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */,
-				4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */,
 				4C57E1C01D4A1BAA0034CBF0 /* LaunchScreen.storyboard */,
-				4C57E1C31D4A1BAA0034CBF0 /* Info.plist */,
-				4CC6F4F01D4A2CC0002D69B8 /* test.json */,
+				4CCB68B11D4A6AC400B2A1B1 /* Supporting Files */,
 			);
 			path = ProgressivePower;
 			sourceTree = "<group>";
@@ -96,8 +97,18 @@
 				4CC6F4E71D4A1ED6002D69B8 /* exercises.json */,
 				4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */,
 				4CC6F4F21D4A5BD1002D69B8 /* UserExercises.swift */,
+				4CCB68AF1D4A6A3300B2A1B1 /* ExerciseData.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		4CCB68B11D4A6AC400B2A1B1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C57E1C31D4A1BAA0034CBF0 /* Info.plist */,
+				4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		EDBFE86E887ADB682E2A0FC4 /* Frameworks */ = {
@@ -171,7 +182,6 @@
 			files = (
 				4C57E1C21D4A1BAA0034CBF0 /* LaunchScreen.storyboard in Resources */,
 				4C57E1BF1D4A1BAA0034CBF0 /* Assets.xcassets in Resources */,
-				4CC6F4F11D4A2CC0002D69B8 /* test.json in Resources */,
 				4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */,
 				4CC6F4E81D4A1ED6002D69B8 /* exercises.json in Resources */,
 			);
@@ -233,7 +243,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CC6F4F31D4A5BD1002D69B8 /* UserExercises.swift in Sources */,
-				4C57E1BA1D4A1BAA0034CBF0 /* ViewController.swift in Sources */,
+				4CCB68B01D4A6A3300B2A1B1 /* ExerciseData.swift in Sources */,
+				4CCB68AE1D4A664100B2A1B1 /* NextLiftViewController.swift in Sources */,
+				4C57E1BA1D4A1BAA0034CBF0 /* PlanViewController.swift in Sources */,
 				4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */,
 				4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */,
 			);

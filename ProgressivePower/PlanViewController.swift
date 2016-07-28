@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PlanViewController.swift
 //  ProgressivePower
 //
 //  Created by Michael Lee on 7/28/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class PlanViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
