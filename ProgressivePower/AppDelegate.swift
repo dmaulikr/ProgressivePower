@@ -38,8 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             tempArray.append(exercise)
                         }
                         ExerciseData.allExercises = tempArray
-                        
-                        print(ExerciseData.allExercises)
                     } catch let error as NSError{
                         print(error)
                     }

@@ -14,6 +14,7 @@ class UserExercise: Object{
     dynamic var sets = 0
     dynamic var lowerRepRange = 0
     dynamic var upperRepRange = 0
+    dynamic var currentRepRange = 0;
 }
 class Workout: Object{
     let exercises = List<UserExercise>()

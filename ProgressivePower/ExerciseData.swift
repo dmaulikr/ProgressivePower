@@ -9,5 +9,5 @@
 import Foundation
 
 struct ExerciseData {
-    static var allExercises: Array<Exercise>!
+    static var allExercises: Array<Exercise>?
 }

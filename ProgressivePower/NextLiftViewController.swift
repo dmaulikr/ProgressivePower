@@ -8,11 +8,13 @@
 
 import UIKit
 
-class NextLiftViewController: UIViewController {
+
+class NextLiftViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         // Do any additional setup after loading the view.
     }
 
@@ -21,7 +23,21 @@ class NextLiftViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = WorkoutCell(style: .Default, reuseIdentifier: "WorkoutCell")
+        return cell
+    }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44
+    }
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
     /*
     // MARK: - Navigation
 

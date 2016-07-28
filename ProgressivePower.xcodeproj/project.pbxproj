@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C1659AF1D4A76DC00ABD352 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1659AE1D4A76DC00ABD352 /* WorkoutTableViewCell.swift */; };
+		4C1659AF1D4A76DC00ABD352 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1659AE1D4A76DC00ABD352 /* WorkoutCell.swift */; };
 		4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */; };
 		4C57E1BA1D4A1BAA0034CBF0 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */; };
 		4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */; };
 		4C57E1BF1D4A1BAA0034CBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */; };
 		4C57E1C21D4A1BAA0034CBF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1C01D4A1BAA0034CBF0 /* LaunchScreen.storyboard */; };
+		4C6377711D4A91450092BD6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6377701D4A91450092BD6A /* main.m */; };
 		4CC6F4E81D4A1ED6002D69B8 /* exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6F4E71D4A1ED6002D69B8 /* exercises.json */; };
 		4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */; };
 		4CC6F4F31D4A5BD1002D69B8 /* UserExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6F4F21D4A5BD1002D69B8 /* UserExercises.swift */; };
@@ -23,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4C1659AE1D4A76DC00ABD352 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
+		4C1659AE1D4A76DC00ABD352 /* WorkoutCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
 		4C57E1B41D4A1BAA0034CBF0 /* ProgressivePower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgressivePower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +32,7 @@
 		4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C57E1C11D4A1BAA0034CBF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C57E1C31D4A1BAA0034CBF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C6377701D4A91450092BD6A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4CC6F4E71D4A1ED6002D69B8 /* exercises.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exercises.json; sourceTree = "<group>"; };
 		4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseLoading.swift; sourceTree = "<group>"; };
 		4CC6F4F21D4A5BD1002D69B8 /* UserExercises.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserExercises.swift; sourceTree = "<group>"; };
@@ -76,7 +78,7 @@
 		4C1659AD1D4A706D00ABD352 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4C1659AE1D4A76DC00ABD352 /* WorkoutTableViewCell.swift */,
+				4C1659AE1D4A76DC00ABD352 /* WorkoutCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -84,6 +86,7 @@
 		4C57E1AB1D4A1BAA0034CBF0 = {
 			isa = PBXGroup;
 			children = (
+				4C6377701D4A91450092BD6A /* main.m */,
 				4C57E1B61D4A1BAA0034CBF0 /* ProgressivePower */,
 				4C57E1B51D4A1BAA0034CBF0 /* Products */,
 				4B62A32D10825FEAFD3BFE1B /* Pods */,
@@ -267,10 +270,11 @@
 				4CC6F4F31D4A5BD1002D69B8 /* UserExercises.swift in Sources */,
 				4CCB68B01D4A6A3300B2A1B1 /* ExerciseData.swift in Sources */,
 				4CCB68AE1D4A664100B2A1B1 /* NextLiftViewController.swift in Sources */,
-				4C1659AF1D4A76DC00ABD352 /* WorkoutTableViewCell.swift in Sources */,
+				4C1659AF1D4A76DC00ABD352 /* WorkoutCell.swift in Sources */,
 				4C57E1BA1D4A1BAA0034CBF0 /* PlanViewController.swift in Sources */,
 				4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */,
 				4CCB68B51D4A6B6F00B2A1B1 /* ProgressionViewController.swift in Sources */,
+				4C6377711D4A91450092BD6A /* main.m in Sources */,
 				4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +332,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -387,10 +392,13 @@
 			baseConfigurationReference = 73506466A70276BE55B8DF54 /* Pods-ProgressivePower.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = ProgressivePower/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ProgressivePower.ProgressivePower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -399,6 +407,7 @@
 			baseConfigurationReference = 89FC4563093E4E9555A7972A /* Pods-ProgressivePower.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ProgressivePower/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ProgressivePower.ProgressivePower;

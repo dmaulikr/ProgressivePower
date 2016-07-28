@@ -1,0 +1,2 @@
+/Users/Michael/Library/Developer/Xcode/DerivedData/ProgressivePower-ffrfubhnfgxydgfpsqtnpduuamxi/Build/Products/Debug-iphoneos/ProgressivePower.app
+iPhone Developer
