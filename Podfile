@@ -5,6 +5,7 @@ use_frameworks!
 target 'ProgressivePower' do
     pod 'ChameleonFramework'
     pod 'RealmSwift'
+    pod 'SnapKit', '~> 0.15.0'
     pod 'ObjectMapper', '~> 1.3'
 end
 
