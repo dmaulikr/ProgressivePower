@@ -16,7 +16,7 @@ class UserExercise: Object{
     dynamic var upperRepRange = 0
 }
 class Workout: Object{
-    let exercises = List<Exercise>()
+    let exercises = List<UserExercise>()
 }
 class Split: Object {
     let workouts = List<Workout>()

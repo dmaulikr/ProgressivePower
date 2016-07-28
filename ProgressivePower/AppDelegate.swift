@@ -8,47 +8,45 @@
 
 import UIKit
 import ObjectMapper
-import RealmSwift
-
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var allExercises: Array<Exercise> = []
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        //Clear realm for testing
-        let realm = try! Realm()
-        try! realm.write{
-            realm.deleteAll()
-        }
-        
-        if let path = NSBundle.mainBundle().pathForResource("exercises", ofType: "json"){
-            do{
-                let jsonData = try NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
-                do {
-                    let jsonResult: NSArray = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .MutableContainers ) as! NSArray
-                    for dict in jsonResult as! [NSDictionary]{
-                        let exerciseName: String = dict.allKeys[0] as! String//Get key value to open object data
-                        let details = dict.valueForKey(exerciseName) //Get details
-                        
-                        let exerciseDetails = Mapper<ExerciseDetails>().map(details)
-                        
-                        let exercise = Exercise()
-                        exercise.name = exerciseName
-                        if let exerciseDetails = exerciseDetails{
-                            exercise.details = exerciseDetails
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            if let path = NSBundle.mainBundle().pathForResource("exercises", ofType: "json"){
+                do{
+                    let jsonData = try NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
+                    do {
+                        let jsonResult: NSArray = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .MutableContainers ) as! NSArray
+                        for dict in jsonResult as! [NSDictionary]{
+                            let exerciseName: String = dict.allKeys[0] as! String//Get key value to open object data
+                            let details = dict.valueForKey(exerciseName) //Get details
+                            
+                            let exerciseDetails = Mapper<ExerciseDetails>().map(details)
+                            
+                            let exercise = Exercise()
+                            exercise.name = exerciseName
+                            if let exerciseDetails = exerciseDetails{
+                                exercise.details = exerciseDetails
+                            }
+                            self.allExercises.append(exercise)
                         }
+                        
+                    } catch let error as NSError{
+                        print(error)
                     }
                 } catch let error as NSError{
                     print(error)
                 }
-            } catch let error as NSError{
-                print(error)
             }
-            
+
         }
-        
+
         // Override point for customization after application launch.
         return true
     }
