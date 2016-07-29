@@ -7,5 +7,7 @@ target 'ProgressivePower' do
     pod 'RealmSwift'
     pod 'SnapKit', '~> 0.15.0'
     pod 'ObjectMapper', '~> 1.3'
+    pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
+
 end
 

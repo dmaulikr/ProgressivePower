@@ -28,7 +28,7 @@ class NextLiftViewController: UITableViewController {
         return cell
     }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 44
+        return UITableViewAutomaticDimension
     }
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
