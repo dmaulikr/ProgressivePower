@@ -24,7 +24,7 @@ class NextLiftViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = WorkoutCell(style: .Default, reuseIdentifier: "WorkoutCell")
+        let cell = UITableViewCell(style: .Default, reuseIdentifier: "workoutCell")
         return cell
     }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

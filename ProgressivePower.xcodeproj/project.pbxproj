@@ -13,7 +13,6 @@
 		4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */; };
 		4C57E1BF1D4A1BAA0034CBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */; };
 		4C57E1C21D4A1BAA0034CBF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1C01D4A1BAA0034CBF0 /* LaunchScreen.storyboard */; };
-		4C6377711D4A91450092BD6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6377701D4A91450092BD6A /* main.m */; };
 		4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */; };
 		4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */; };
 		4CC65E481D4C570400950011 /* PlateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC65E471D4C570400950011 /* PlateViewController.swift */; };
@@ -35,7 +34,6 @@
 		4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C57E1C11D4A1BAA0034CBF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C57E1C31D4A1BAA0034CBF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4C6377701D4A91450092BD6A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateGenerator.swift; sourceTree = "<group>"; };
 		4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		4CC65E471D4C570400950011 /* PlateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 		4C57E1AB1D4A1BAA0034CBF0 = {
 			isa = PBXGroup;
 			children = (
-				4C6377701D4A91450092BD6A /* main.m */,
 				4C57E1B61D4A1BAA0034CBF0 /* ProgressivePower */,
 				4C57E1B51D4A1BAA0034CBF0 /* Products */,
 				4B62A32D10825FEAFD3BFE1B /* Pods */,
@@ -286,7 +283,6 @@
 				4CCB68B51D4A6B6F00B2A1B1 /* ProgressionViewController.swift in Sources */,
 				4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */,
 				4C2634821D4D0B6E00DF939B /* AutoCompleteTextField.swift in Sources */,
-				4C6377711D4A91450092BD6A /* main.m in Sources */,
 				4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
