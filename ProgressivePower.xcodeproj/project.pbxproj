@@ -15,6 +15,8 @@
 		4C57E1C21D4A1BAA0034CBF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1C01D4A1BAA0034CBF0 /* LaunchScreen.storyboard */; };
 		4C6377711D4A91450092BD6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6377701D4A91450092BD6A /* main.m */; };
 		4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */; };
+		4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */; };
+		4CC65E481D4C570400950011 /* PlateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC65E471D4C570400950011 /* PlateViewController.swift */; };
 		4CC6F4E81D4A1ED6002D69B8 /* exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6F4E71D4A1ED6002D69B8 /* exercises.json */; };
 		4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */; };
 		4CC6F4F31D4A5BD1002D69B8 /* UserExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6F4F21D4A5BD1002D69B8 /* UserExercises.swift */; };
@@ -35,6 +37,8 @@
 		4C57E1C31D4A1BAA0034CBF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C6377701D4A91450092BD6A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateGenerator.swift; sourceTree = "<group>"; };
+		4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
+		4CC65E471D4C570400950011 /* PlateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateViewController.swift; sourceTree = "<group>"; };
 		4CC6F4E71D4A1ED6002D69B8 /* exercises.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exercises.json; sourceTree = "<group>"; };
 		4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseLoading.swift; sourceTree = "<group>"; };
 		4CC6F4F21D4A5BD1002D69B8 /* UserExercises.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserExercises.swift; sourceTree = "<group>"; };
@@ -73,6 +77,7 @@
 				4CCB68AD1D4A664100B2A1B1 /* NextLiftViewController.swift */,
 				4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */,
 				4CCB68B41D4A6B6F00B2A1B1 /* ProgressionViewController.swift */,
+				4CC65E471D4C570400950011 /* PlateViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 				4CC6F4E91D4A1EF5002D69B8 /* Model */,
 				4C1659AC1D4A6F5100ABD352 /* View Controllers */,
 				4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */,
+				4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */,
 				4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */,
 				4C57E1C01D4A1BAA0034CBF0 /* LaunchScreen.storyboard */,
 				4CCB68B11D4A6AC400B2A1B1 /* Supporting Files */,
@@ -271,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CC6F4F31D4A5BD1002D69B8 /* UserExercises.swift in Sources */,
+				4CC65E481D4C570400950011 /* PlateViewController.swift in Sources */,
 				4CCB68B01D4A6A3300B2A1B1 /* ExerciseData.swift in Sources */,
 				4CCB68AE1D4A664100B2A1B1 /* NextLiftViewController.swift in Sources */,
 				4C1659AF1D4A76DC00ABD352 /* WorkoutCell.swift in Sources */,
@@ -278,6 +285,7 @@
 				4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */,
 				4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */,
 				4CCB68B51D4A6B6F00B2A1B1 /* ProgressionViewController.swift in Sources */,
+				4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */,
 				4C6377711D4A91450092BD6A /* main.m in Sources */,
 				4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */,
 			);

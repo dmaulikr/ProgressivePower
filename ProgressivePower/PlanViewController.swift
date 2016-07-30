@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ChameleonFramework
+import Spring
 
 class PlanViewController: UIViewController {
 
@@ -16,8 +16,8 @@ class PlanViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = "Splits"
-        let s = PlateGenerator(frame: self.view.frame)
-        self.view.addSubview(s)
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
