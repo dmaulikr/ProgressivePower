@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C2634821D4D0B6E00DF939B /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */; };
 		4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */; };
 		4C57E1BA1D4A1BAA0034CBF0 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */; };
 		4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
 		4C57E1B41D4A1BAA0034CBF0 /* ProgressivePower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgressivePower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		4C1659AD1D4A706D00ABD352 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */,
 				4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */,
 			);
 			name = Views;
@@ -282,6 +285,7 @@
 				4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */,
 				4CCB68B51D4A6B6F00B2A1B1 /* ProgressionViewController.swift in Sources */,
 				4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */,
+				4C2634821D4D0B6E00DF939B /* AutoCompleteTextField.swift in Sources */,
 				4C6377711D4A91450092BD6A /* main.m in Sources */,
 				4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */,
 			);
@@ -407,6 +411,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ProgressivePower.ProgressivePower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/ProgressivePower/AutocompleteTextfieldSwift-master\"/**";
 			};
 			name = Debug;
 		};
@@ -420,6 +425,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ProgressivePower.ProgressivePower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/ProgressivePower/AutocompleteTextfieldSwift-master\"/**";
 			};
 			name = Release;
 		};
