@@ -9,7 +9,7 @@
 import UIKit
 import Spring
 
-class PlanViewController: UIViewController {
+class WorkoutDisplayController: UICollectionViewController {
 
     @IBOutlet weak var autocompleteTextfield: AutoCompleteTextField!
    

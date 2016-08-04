@@ -9,10 +9,13 @@
 /* Begin PBXBuildFile section */
 		4C2634821D4D0B6E00DF939B /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */; };
 		4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */; };
-		4C57E1BA1D4A1BAA0034CBF0 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */; };
+		4C57E1BA1D4A1BAA0034CBF0 /* WorkoutDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B91D4A1BAA0034CBF0 /* WorkoutDisplayController.swift */; };
 		4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */; };
 		4C57E1BF1D4A1BAA0034CBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */; };
 		4C57E1C21D4A1BAA0034CBF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1C01D4A1BAA0034CBF0 /* LaunchScreen.storyboard */; };
+		4C8794831D4D646F00AC1814 /* WorkoutNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8794821D4D646F00AC1814 /* WorkoutNameController.swift */; };
+		4C8794861D4D665400AC1814 /* WorkoutBuildController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8794851D4D665400AC1814 /* WorkoutBuildController.swift */; };
+		4C8794881D4D667D00AC1814 /* AddExerciseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8794871D4D667D00AC1814 /* AddExerciseController.swift */; };
 		4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */; };
 		4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */; };
 		4CC65E481D4C570400950011 /* PlateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC65E471D4C570400950011 /* PlateViewController.swift */; };
@@ -29,11 +32,14 @@
 		4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
 		4C57E1B41D4A1BAA0034CBF0 /* ProgressivePower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgressivePower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
+		4C57E1B91D4A1BAA0034CBF0 /* WorkoutDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDisplayController.swift; sourceTree = "<group>"; };
 		4C57E1BC1D4A1BAA0034CBF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C57E1C11D4A1BAA0034CBF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C57E1C31D4A1BAA0034CBF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C8794821D4D646F00AC1814 /* WorkoutNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutNameController.swift; sourceTree = "<group>"; };
+		4C8794851D4D665400AC1814 /* WorkoutBuildController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutBuildController.swift; sourceTree = "<group>"; };
+		4C8794871D4D667D00AC1814 /* AddExerciseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExerciseController.swift; sourceTree = "<group>"; };
 		4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateGenerator.swift; sourceTree = "<group>"; };
 		4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		4CC65E471D4C570400950011 /* PlateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateViewController.swift; sourceTree = "<group>"; };
@@ -73,7 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				4CCB68AD1D4A664100B2A1B1 /* NextLiftViewController.swift */,
-				4C57E1B91D4A1BAA0034CBF0 /* PlanViewController.swift */,
+				4C8794841D4D647D00AC1814 /* Workout */,
 				4CCB68B41D4A6B6F00B2A1B1 /* ProgressionViewController.swift */,
 				4CC65E471D4C570400950011 /* PlateViewController.swift */,
 			);
@@ -83,6 +89,7 @@
 		4C1659AD1D4A706D00ABD352 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C8794811D4D582200AC1814 /* Cells */,
 				4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */,
 				4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */,
 			);
@@ -120,6 +127,24 @@
 				4CCB68B11D4A6AC400B2A1B1 /* Supporting Files */,
 			);
 			path = ProgressivePower;
+			sourceTree = "<group>";
+		};
+		4C8794811D4D582200AC1814 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		4C8794841D4D647D00AC1814 /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+				4C57E1B91D4A1BAA0034CBF0 /* WorkoutDisplayController.swift */,
+				4C8794821D4D646F00AC1814 /* WorkoutNameController.swift */,
+				4C8794851D4D665400AC1814 /* WorkoutBuildController.swift */,
+				4C8794871D4D667D00AC1814 /* AddExerciseController.swift */,
+			);
+			name = Workout;
 			sourceTree = "<group>";
 		};
 		4CC6F4E91D4A1EF5002D69B8 /* Model */ = {
@@ -274,13 +299,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CC6F4F31D4A5BD1002D69B8 /* UserExercises.swift in Sources */,
+				4C8794881D4D667D00AC1814 /* AddExerciseController.swift in Sources */,
 				4CC65E481D4C570400950011 /* PlateViewController.swift in Sources */,
+				4C8794831D4D646F00AC1814 /* WorkoutNameController.swift in Sources */,
 				4CCB68B01D4A6A3300B2A1B1 /* ExerciseData.swift in Sources */,
 				4CCB68AE1D4A664100B2A1B1 /* NextLiftViewController.swift in Sources */,
-				4C57E1BA1D4A1BAA0034CBF0 /* PlanViewController.swift in Sources */,
+				4C57E1BA1D4A1BAA0034CBF0 /* WorkoutDisplayController.swift in Sources */,
 				4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */,
 				4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */,
 				4CCB68B51D4A6B6F00B2A1B1 /* ProgressionViewController.swift in Sources */,
+				4C8794861D4D665400AC1814 /* WorkoutBuildController.swift in Sources */,
 				4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */,
 				4C2634821D4D0B6E00DF939B /* AutoCompleteTextField.swift in Sources */,
 				4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */,
