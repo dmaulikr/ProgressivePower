@@ -9,15 +9,16 @@
 import Foundation
 import RealmSwift
 
-class UserExercise: Object{
+class UserExercises: Object{
     dynamic var name = ""
+    dynamic var weight = 0.0
     dynamic var sets = 0
-    dynamic var lowerRepRange = 0
-    dynamic var upperRepRange = 0
-    dynamic var currentRepRange = 0;
+    dynamic var reps = 0
+    dynamic var progression = 0.0
 }
 class Workout: Object{
-    let exercises = List<UserExercise>()
+    dynamic var name = ""
+    let exercises = List<UserExercises>()
 }
 class Split: Object {
     let workouts = List<Workout>()

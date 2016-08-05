@@ -70,7 +70,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WorkoutCell" id="YMW-VY-UbZ" customClass="WorkoutCell" customModule="ProgressivePower" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NextWorkoutCell" id="YMW-VY-UbZ" customClass="WorkoutCell" customModule="ProgressivePower" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YMW-VY-UbZ" id="mYL-Yl-CsL">
@@ -123,7 +123,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hS8-Vm-kSg">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WorkoutCollectionCell" id="hS8-Vm-kSg">
                                 <rect key="frame" x="0.0" y="64" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -147,7 +147,7 @@
         <!--Workout Name-->
         <scene sceneID="iCS-Nd-kjt">
             <objects>
-                <viewController id="TaN-Yt-DaZ" customClass="WorkoutNameController" customModule="ProgressivePower" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateWorkout" id="TaN-Yt-DaZ" customClass="WorkoutNameController" customModule="ProgressivePower" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="v0a-dB-aVb"/>
                         <viewControllerLayoutGuide type="bottom" id="LF8-Ra-NJh"/>
@@ -162,24 +162,32 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A12-Fj-cSk">
-                                <rect key="frame" x="272" y="181" width="57" height="35"/>
+                                <rect key="frame" x="233" y="181" width="134" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Create"/>
+                                <state key="normal" title="Create Workout"/>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zrn-jL-TWy">
                                 <rect key="frame" x="45" y="113" width="510" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Give your workout a great memorable name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3np-aM-oeo">
+                                <rect key="frame" x="177" y="148" width="247" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.51676699110000002" green="0.51676699110000002" blue="0.51676699110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="3np-aM-oeo" firstAttribute="centerX" secondItem="biS-ql-nSp" secondAttribute="centerX" id="3cr-Nl-apC"/>
                             <constraint firstItem="A12-Fj-cSk" firstAttribute="centerX" secondItem="biS-ql-nSp" secondAttribute="centerX" id="6Wt-Me-Fo2"/>
                             <constraint firstItem="Zrn-jL-TWy" firstAttribute="top" secondItem="goa-jr-799" secondAttribute="bottom" constant="38" id="6Z6-lR-Zqu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Zrn-jL-TWy" secondAttribute="trailing" constant="25" id="98d-rX-K9n"/>
                             <constraint firstItem="Zrn-jL-TWy" firstAttribute="top" secondItem="v0a-dB-aVb" secondAttribute="bottom" constant="93" id="AJK-sw-VvP"/>
                             <constraint firstItem="Zrn-jL-TWy" firstAttribute="leading" secondItem="biS-ql-nSp" secondAttribute="leadingMargin" constant="25" id="p0z-KA-HnR"/>
                             <constraint firstItem="A12-Fj-cSk" firstAttribute="top" secondItem="Zrn-jL-TWy" secondAttribute="bottom" constant="38" id="qCL-rr-mg6"/>
+                            <constraint firstItem="3np-aM-oeo" firstAttribute="top" secondItem="Zrn-jL-TWy" secondAttribute="bottom" constant="5" id="qMn-2C-e1S"/>
                             <constraint firstItem="goa-jr-799" firstAttribute="centerX" secondItem="biS-ql-nSp" secondAttribute="centerX" id="tlr-BO-2IS"/>
                         </constraints>
                     </view>
@@ -189,18 +197,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJh-8Y-qQk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2891" y="-56"/>
+            <point key="canvasLocation" x="2895" y="-77"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Workout Build Controller-->
         <scene sceneID="PLc-R4-Fo1">
             <objects>
-                <tableViewController id="oFx-zx-Fda" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="WorkoutBuildController" id="oFx-zx-Fda" customClass="WorkoutBuildController" customModule="ProgressivePower" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="1tQ-3J-79i">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="QnV-0z-X36">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BuilderCell" id="QnV-0z-X36">
                                 <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QnV-0z-X36" id="KdE-z6-w08">
@@ -220,10 +228,10 @@
             </objects>
             <point key="canvasLocation" x="3558" y="-77"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Exercise Controller-->
         <scene sceneID="Ge3-U4-ydR">
             <objects>
-                <viewController id="laS-Ol-x2O" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddExerciseController" id="laS-Ol-x2O" customClass="AddExerciseController" customModule="ProgressivePower" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FJT-wn-HPQ"/>
                         <viewControllerLayoutGuide type="bottom" id="WSm-Ak-ZtS"/>
@@ -265,7 +273,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZn-NC-P1H">
                                 <rect key="frame" x="30" y="149" width="69" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHY-Tc-E3Q">
@@ -281,36 +289,41 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yxn-Bc-8hU">
+                                <rect key="frame" x="520" y="380" width="50" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q87-vx-vEm">
-                                <rect key="frame" x="270" y="442" width="60" height="36"/>
+                                <rect key="frame" x="231" y="442" width="139" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Create"/>
+                                <state key="normal" title="Create Exercise"/>
                                 <connections>
-                                    <segue destination="e5L-wZ-nJp" kind="show" id="9Kh-l8-H7r"/>
+                                    <action selector="createExercisePressed:" destination="laS-Ol-x2O" eventType="touchUpInside" id="y68-9d-Jqg"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progression:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6I9-jH-Ock">
                                 <rect key="frame" x="30" y="223" width="112" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scheme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFi-qj-hcv">
                                 <rect key="frame" x="30" y="296" width="74" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sets:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXG-jH-IeC">
                                 <rect key="frame" x="448" y="352" width="46" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reps:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkD-5T-I4j">
                                 <rect key="frame" x="448" y="383" width="51" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the weight you will add every workout." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4a2-ik-eHX">
@@ -337,6 +350,7 @@
                                     <segment title="+ 2.5 lbs"/>
                                     <segment title="+ 5.0 lbs"/>
                                     <segment title="+ 7.5 lbs"/>
+                                    <segment title="+ 10 lbs"/>
                                 </segments>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lUl-6S-101">
@@ -346,17 +360,21 @@
                                     <segment title="3x8"/>
                                     <segment title="Custom"/>
                                 </segments>
+                                <connections>
+                                    <action selector="schemeDidChange:" destination="laS-Ol-x2O" eventType="valueChanged" id="KPW-kb-H2h"/>
+                                </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F4a-xP-6fQ">
                                 <rect key="frame" x="272" y="415" width="109" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="5   x   5"/>
                             </button>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yxn-Bc-8hU">
-                                <rect key="frame" x="520" y="380" width="50" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight in pounds." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXY-Cg-nKp">
+                                <rect key="frame" x="468" y="181" width="102" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.51676699110000002" green="0.51676699110000002" blue="0.51676699110000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -381,6 +399,7 @@
                             <constraint firstItem="apK-R6-2qa" firstAttribute="top" secondItem="FHY-Tc-E3Q" secondAttribute="bottom" constant="45" id="NDV-dv-Ehm"/>
                             <constraint firstItem="6I9-jH-Ock" firstAttribute="leading" secondItem="SZn-NC-P1H" secondAttribute="leading" id="OLk-eB-lNL"/>
                             <constraint firstItem="EXG-jH-IeC" firstAttribute="centerY" secondItem="r1c-RH-2Ez" secondAttribute="centerY" id="OMa-SN-GXC"/>
+                            <constraint firstItem="VXY-Cg-nKp" firstAttribute="trailing" secondItem="FHY-Tc-E3Q" secondAttribute="trailing" id="PIa-4B-C4k"/>
                             <constraint firstItem="r1c-RH-2Ez" firstAttribute="trailing" secondItem="lUl-6S-101" secondAttribute="trailing" id="QFK-Rz-wMG"/>
                             <constraint firstItem="NkD-5T-I4j" firstAttribute="leading" secondItem="EXG-jH-IeC" secondAttribute="leading" id="Rsy-gz-XLA"/>
                             <constraint firstItem="QFi-qj-hcv" firstAttribute="leading" secondItem="6I9-jH-Ock" secondAttribute="leading" id="Sst-Oe-efy"/>
@@ -406,6 +425,7 @@
                             <constraint firstItem="AaK-8n-KZD" firstAttribute="top" secondItem="QF4-rh-Vlc" secondAttribute="bottom" constant="15" id="mK8-C4-GN8"/>
                             <constraint firstItem="lUl-6S-101" firstAttribute="leading" secondItem="QFi-qj-hcv" secondAttribute="trailing" constant="20" id="mde-xh-mK6"/>
                             <constraint firstItem="hfK-Hb-qCh" firstAttribute="trailing" secondItem="lUl-6S-101" secondAttribute="trailing" id="oSS-6a-B1w"/>
+                            <constraint firstItem="VXY-Cg-nKp" firstAttribute="top" secondItem="FHY-Tc-E3Q" secondAttribute="bottom" constant="5" id="qDx-jE-qLp"/>
                             <constraint firstItem="FHY-Tc-E3Q" firstAttribute="leading" secondItem="SZn-NC-P1H" secondAttribute="trailing" constant="20" id="s4O-lV-kGn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AaK-8n-KZD" secondAttribute="trailing" constant="10" id="sH0-cn-4U5"/>
                             <constraint firstItem="4a2-ik-eHX" firstAttribute="leading" secondItem="6I9-jH-Ock" secondAttribute="leading" id="tTL-yl-lRV"/>
@@ -439,28 +459,20 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="exerciseField" destination="AaK-8n-KZD" id="MMd-yp-Bm2"/>
+                        <outlet property="progressionControl" destination="apK-R6-2qa" id="8vl-p7-Jat"/>
+                        <outlet property="repsField" destination="yxn-Bc-8hU" id="RFW-fT-EHw"/>
+                        <outlet property="repsLabel" destination="NkD-5T-I4j" id="VoZ-gu-04D"/>
+                        <outlet property="schemeControl" destination="lUl-6S-101" id="sJ3-5W-pzJ"/>
+                        <outlet property="setsField" destination="r1c-RH-2Ez" id="bnp-qY-axk"/>
+                        <outlet property="setsLabel" destination="EXG-jH-IeC" id="GXy-DQ-0BE"/>
+                        <outlet property="weightField" destination="FHY-Tc-E3Q" id="sRi-LW-LKK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kIG-27-B1s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4269" y="-81"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="aDk-1u-e3J">
-            <objects>
-                <viewController id="e5L-wZ-nJp" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7ta-D1-Ihy"/>
-                        <viewControllerLayoutGuide type="bottom" id="6bx-Ew-6mq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cNT-eZ-can">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1cR-7c-CCe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4917" y="-81"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="zHO-I9-i2C">

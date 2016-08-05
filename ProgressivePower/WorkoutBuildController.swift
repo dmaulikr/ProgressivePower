@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import RealmSwift
 
 class WorkoutBuildController: UITableViewController {
-
+    var exercises: Results<UserExercises>{
+        get{
+            let realm = try! Realm()
+            return realm.objects(UserExercises.self)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
@@ -20,6 +25,15 @@ class WorkoutBuildController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return exercises.count
+    }
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .Default, reuseIdentifier: "WorkoutBuildCell")
+        
+        return cell
+    }
+    
     
 
     /*
