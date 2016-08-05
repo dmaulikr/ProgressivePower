@@ -11,6 +11,8 @@ import RealmSwift
 
 class AddExerciseController: UIViewController {
 
+    var workout: Workout?
+    
     @IBOutlet weak var exerciseField: AutoCompleteTextField!
     @IBOutlet weak var weightField: UITextField!
     @IBOutlet weak var progressionControl: UISegmentedControl!
@@ -27,7 +29,10 @@ class AddExerciseController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -50,12 +55,8 @@ class AddExerciseController: UIViewController {
         repsField.hidden = value
     }
     func error(){
-        let controller = UIAlertController(title: "Error", message: "One or more of the fields were invalid", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        controller.addAction(okAction)
-        
-        self.presentViewController(controller, animated: true, completion: nil)
-        
+        let alertController = Algorithm.errorAlertWithMessage("One or more fields were invalid.  Please change them, and try again.")
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     //Check whether exercise name exists in exercise data.
     @IBAction func createExercisePressed(sender: AnyObject) {
@@ -70,7 +71,9 @@ class AddExerciseController: UIViewController {
         }
         else{
             error()
+            return
         }
+        
         
         if let weight = weightField.text{
             let weightValue = Double(weight)
@@ -79,6 +82,7 @@ class AddExerciseController: UIViewController {
             }
             else{
                 error()
+                return
             }
         }
         switch progressionControl.selectedSegmentIndex {
@@ -106,6 +110,7 @@ class AddExerciseController: UIViewController {
                 }
                 else{
                     error()
+                    return
                 }
 
             }
@@ -116,16 +121,18 @@ class AddExerciseController: UIViewController {
                 }
                 else{
                     error()
+                    return
                 }
             }
         default:
             exercise.sets = 5
             exercise.reps = 5
         }
-        //Save to db
+        
         let realm = try! Realm()
         realm.beginWrite()
         realm.add(exercise)
+        workout?.exercises.append(exercise)
         try! realm.commitWrite()
         //Pop back to build controller
         self.navigationController?.popViewControllerAnimated(true)

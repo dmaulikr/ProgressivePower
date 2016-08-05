@@ -6,7 +6,7 @@
 //  Copyright © 2016 ProgressivePower. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Algorithm{
     
@@ -32,4 +32,12 @@ struct Algorithm{
         return [p45, p25, p10, p5, lp25]
 
     }
+    static func errorAlertWithMessage(message :String) -> UIAlertController {
+        let controller = UIAlertController(title: "Error", message:message, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        controller.addAction(okAction)
+        
+        return controller
+    }
+    
 }
