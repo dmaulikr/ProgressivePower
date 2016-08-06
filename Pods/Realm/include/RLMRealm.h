@@ -17,7 +17,6 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #import <Foundation/Foundation.h>
-#import "RLMConstants.h"
 
 @class RLMRealmConfiguration, RLMObject, RLMSchema, RLMMigration, RLMNotificationToken;
 
@@ -35,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  within a single iteration of the run loop will normally return the same
  `RLMRealm` object.
  
- If you specifically want to ensure an `RLMRealm` instance is
+ If you specifically want to ensure a `RLMRealm` instance is
  destroyed (for example, if you wish to open a Realm, check some property, and
  then possibly delete the Realm file and re-open it), place the code which uses
  the Realm within an `@autoreleasepool {}` and ensure you have no other
@@ -57,9 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
  Obtains an instance of the default Realm.
 
  The default Realm is used by the `RLMObject` class methods
- which do not take an `RLMRealm` parameter, but is otherwise not special. The
- default Realm is persisted as *default.realm* under the *Documents* directory of
- your Application on iOS, and in your application's *Application Support*
+ which do not take a `RLMRealm` parameter, but is otherwise not special. The
+ default Realm is persisted as default.realm under the Documents directory of
+ your Application on iOS, and in your application's Application Support
  directory on OS X.
  
  The default Realm is created using the default `RLMRealmConfiguration`, which
@@ -98,9 +97,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Indicates if the Realm is currently engaged in a write transaction.
 
- @warning   Do not simply check this property and then start a write transaction whenever an object needs to be
-            created, updated, or removed. Doing so might cause a large number of write transactions to be created,
-            degrading performance. Instead, always prefer performing multiple updates during a single transaction.
+ @warning Wrapping mutating operations in a write transaction if this property returns `NO`
+          may cause a large number of write transactions to be created, which could negatively
+          impact Realm's performance. Always prefer performing multiple mutations in a single
+          transaction when possible.
  */
 @property (nonatomic, readonly) BOOL inWriteTransaction;
 
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @see `-[RLMRealm addNotificationBlock:]`
  */
-typedef void (^RLMNotificationBlock)(RLMNotification notification, RLMRealm *realm);
+typedef void (^RLMNotificationBlock)(NSString *notification, RLMRealm *realm);
 
 #pragma mark - Receiving Notification when a Realm Changes
 
@@ -137,7 +137,7 @@ typedef void (^RLMNotificationBlock)(RLMNotification notification, RLMRealm *rea
 
  The block has the following definition:
 
-     typedef void(^RLMNotificationBlock)(RLMNotification notification, RLMRealm *realm);
+     typedef void(^RLMNotificationBlock)(NSString *notification, RLMRealm *realm);
 
  It receives the following parameters:
 
@@ -277,7 +277,7 @@ typedef void (^RLMNotificationBlock)(RLMNotification notification, RLMRealm *rea
  will need to manually call `-refresh` in order to update to the latest version,
  even if `autorefresh` is set to `YES`.
 
- Even with this property enabled, you can still call `-refresh` at any time to update the
+ Even with this enabled, you can still call `-refresh` at any time to update the
  Realm before the automatic refresh would occur.
 
  Notifications are sent when a write transaction is committed whether or not
@@ -286,7 +286,7 @@ typedef void (^RLMNotificationBlock)(RLMNotification notification, RLMRealm *rea
  Disabling `autorefresh` on a Realm without any strong references to it will not
  have any effect, and `autorefresh` will revert back to `YES` the next time the Realm is created.
  This is normally irrelevant as it means that there is
- nothing to refresh (as managed `RLMObject`s, `RLMArray`s, and `RLMResults` have strong
+ nothing to refresh (as persisted `RLMObject`s, `RLMArray`s, and `RLMResults` have strong
  references to the Realm that manages them), but it means that setting
  `RLMRealm.defaultRealm.autorefresh = NO` in
  `application:didFinishLaunchingWithOptions:` and only later storing Realm
@@ -315,7 +315,7 @@ typedef void (^RLMNotificationBlock)(RLMNotification notification, RLMRealm *rea
 - (BOOL)writeCopyToURL:(NSURL *)fileURL encryptionKey:(nullable NSData *)key error:(NSError **)error;
 
 /**
- Invalidates all `RLMObject`s, `RLMResults`, `RLMLinkingObjects`, and `RLMArray`s managed by the Realm.
+ Invalidates all `RLMObject`s and `RLMResults` managed by the Realm.
 
  A Realm holds a read lock on the version of the data accessed by it, so
  that changes made to the Realm on different threads do not modify or delete the
@@ -463,8 +463,7 @@ typedef void (^RLMMigrationBlock)(RLMMigration *migration, uint64_t oldSchemaVer
 
  @return The version of the Realm at `fileURL`, or `RLMNotVersioned` if the version cannot be read.
  */
-+ (uint64_t)schemaVersionAtURL:(NSURL *)fileURL encryptionKey:(nullable NSData *)key error:(NSError **)error
-NS_REFINED_FOR_SWIFT;
++ (uint64_t)schemaVersionAtURL:(NSURL *)fileURL encryptionKey:(nullable NSData *)key error:(NSError **)error;
 
 /**
  Performs the given Realm configuration's migration block on a Realm at the given path.
@@ -478,7 +477,7 @@ NS_REFINED_FOR_SWIFT;
 
  @see                 RLMMigration
  */
-+ (nullable NSError *)migrateRealm:(RLMRealmConfiguration *)configuration;
++ (NSError *)migrateRealm:(RLMRealmConfiguration *)configuration;
 
 @end
 

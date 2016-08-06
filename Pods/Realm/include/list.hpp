@@ -20,7 +20,6 @@
 #define REALM_LIST_HPP
 
 #include "collection_notifications.hpp"
-#include "impl/collection_notifier.hpp"
 
 #include <realm/link_view_fwd.hpp>
 #include <realm/row.hpp>
@@ -42,11 +41,6 @@ public:
     List() noexcept;
     List(std::shared_ptr<Realm> r, LinkViewRef l) noexcept;
     ~List();
-
-    List(const List&);
-    List& operator=(const List&);
-    List(List&&);
-    List& operator=(List&&);
 
     const std::shared_ptr<Realm>& get_realm() const { return m_realm; }
     Query get_query() const;
@@ -91,21 +85,21 @@ public:
     // The List object has been invalidated (due to the Realm being invalidated,
     // or the containing object being deleted)
     // All non-noexcept functions can throw this
-    struct InvalidatedException : public std::runtime_error {
-        InvalidatedException() : std::runtime_error("Access to invalidated List object") {}
-    };
+    struct InvalidatedException {};
 
     // The input index parameter was out of bounds
-    struct OutOfBoundsIndexException : public std::out_of_range {
-        OutOfBoundsIndexException(size_t r, size_t c);
+    struct OutOfBoundsIndexException {
         size_t requested;
         size_t valid_count;
     };
 
+    // The input Row object is not attached
+    struct DetatchedAccessorException { };
+
 private:
     std::shared_ptr<Realm> m_realm;
     LinkViewRef m_link_view;
-    _impl::CollectionNotifier::Handle<_impl::CollectionNotifier> m_notifier;
+    std::shared_ptr<_impl::CollectionNotifier> m_notifier;
 
     void verify_valid_row(size_t row_ndx, bool insertion = false) const;
 

@@ -30,8 +30,6 @@ class ResultsNotifier : public CollectionNotifier {
 public:
     ResultsNotifier(Results& target);
 
-    void target_results_moved(Results& old_target, Results& new_target);
-
 private:
     // Target Results to update
     // Can only be used with lock_target() held

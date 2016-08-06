@@ -212,8 +212,8 @@ public:
     /// Exceptions thrown by completion handlers will always propagate back
     /// through run().
     ///
-    /// Syncronous operations (e.g., socket::connect()) execute independently of
-    /// the event loop, and do not require that any thread calls run().
+    /// Syncronous operations (e.g., socket::connect()) executes independently
+    /// of the event loop, and does not require that any thread calls run().
     void run();
 
     /// @{ \brief Stop event loop execution.
@@ -236,30 +236,30 @@ public:
     void reset() noexcept;
     /// @}
 
-    /// \brief Submit a handler to be executed by the event loop thread.
+    /// \brief Submit a handler to the event loop.
     ///
     /// Register the sepcified completion handler for immediate asynchronous
-    /// execution. The specified handler will be executed by an expression on
-    /// the form `handler()`. If the the handler object is movable, it will
-    /// never be copied. Otherwise, it will be copied as necessary.
+    /// execution. The specified handler object will be copied as necessary, and
+    /// will be executed by an expression on the form `handler()`.
     ///
     /// This function is thread-safe, that is, it may be called by any
     /// thread. It may also be called from other completion handlers.
     ///
     /// The handler will never be called as part of the execution of post(). It
     /// will always be called by a thread that is executing run(). If no thread
-    /// is currently executing run(), the handler will not be executed until a
-    /// thread starts executing run(). If post() is called while another thread
-    /// is executing run(), the handler may be called before post() returns. If
-    /// post() is called from another completion handler, the submitted handler
-    /// is guaranteed to not be called during the execution of post().
+    /// is executing run(), the handler will not be executed. If post() is
+    /// called while another thread is executing run(), the handler may be
+    /// called before post() returns. If post() is called from another
+    /// completion handler, the submitted handler is guaranteed to not be called
+    /// during the execution of post().
     ///
     /// Completion handlers added through post() will be executed in the order
     /// that they are added. More precisely, if post() is called twice to add
-    /// two handlers, A and B, and the execution of post(A) ends before the
+    /// two handlers, A and B, and the execution of post(A) ands before the
     /// beginning of the execution of post(B), then A is guaranteed to execute
     /// before B.
-    template<class H> void post(H handler);
+    template<class H>
+    void post(const H& handler);
 
 private:
     class async_oper;
@@ -292,10 +292,10 @@ private:
     void add_wait_oper(LendersWaitOperPtr);
     void add_completed_oper(LendersOperPtr) noexcept;
 
-    using PostOperConstr = post_oper_base*(void* addr, size_t size, impl&, void* cookie);
-    void do_post(PostOperConstr, size_t size, void* cookie);
+    using PostOperConstr = post_oper_base*(void* addr, size_t size, impl&, const void* cookie);
+    void do_post(PostOperConstr, size_t size, const void* cookie);
     template<class H>
-    static post_oper_base* post_oper_constr(void* addr, size_t size, impl&, void* cookie);
+    static post_oper_base* post_oper_constr(void* addr, size_t size, impl&, const void* cookie);
     static void recycle_post_oper(impl&, post_oper_base*) noexcept;
 
     using clock = std::chrono::steady_clock;
@@ -317,10 +317,8 @@ public:
 
     io_service& service() noexcept;
 
-    /// @{ \brief Resolve the specified query to one or more endpoints.
     void resolve(const query&, endpoint::list&);
     std::error_code resolve(const query&, endpoint::list&, std::error_code&);
-    /// @}
 
 private:
     io_service& m_service;
@@ -337,10 +335,10 @@ public:
         address_configured = AI_ADDRCONFIG
     };
 
-    query(std::string service_port, int init_flags = passive|address_configured);
-    query(const protocol&, std::string service_port, int init_flags = passive|address_configured);
-    query(std::string host_name, std::string service_port, int init_flags = address_configured);
-    query(const protocol&, std::string host_name, std::string service_port, int init_flags = address_configured);
+    query(std::string service, int flags = passive|address_configured);
+    query(const protocol&, std::string service, int flags = passive|address_configured);
+    query(std::string host, std::string service, int flags = address_configured);
+    query(const protocol&, std::string host, std::string service, int flags = address_configured);
 
     ~query() noexcept;
 
@@ -367,12 +365,8 @@ public:
 
     bool is_open() const noexcept;
 
-    /// @{ \brief Open the socket for use with the specified protocol.
-    ///
-    /// It is an error to call open() on a socket that is already open.
     void open(const protocol&);
     std::error_code open(const protocol&, std::error_code&);
-    /// @}
 
     /// \brief Close this socket.
     ///
@@ -398,16 +392,16 @@ public:
     void cancel() noexcept;
 
     template<class O>
-    void get_option(O& opt) const;
+    void get_option(O& option) const;
 
     template<class O>
-    std::error_code get_option(O& opt, std::error_code&) const;
+    std::error_code get_option(O& option, std::error_code&) const;
 
     template<class O>
-    void set_option(const O& opt);
+    void set_option(const O& option);
 
     template<class O>
-    std::error_code set_option(const O& opt, std::error_code&);
+    std::error_code set_option(const O& option, std::error_code&);
 
     void bind(const endpoint&);
     std::error_code bind(const endpoint&, std::error_code&);
@@ -477,9 +471,9 @@ private:
 };
 
 struct socket_base::linger_opt {
-    linger_opt(bool enable, int timeout_seconds = 0)
+    linger_opt(bool enabled, int timeout_seconds = 0)
     {
-        m_linger.l_onoff = enable ? 1 : 0;
+        m_linger.l_onoff = enabled ? 1 : 0;
         m_linger.l_linger = timeout_seconds;
     }
 
@@ -506,60 +500,26 @@ public:
     /// called when the operation completes. The operation completes when the
     /// connection is established, or an error occurs.
     ///
-    /// The completion handler is always executed by the event loop thread,
-    /// i.e., by a thread that is executing io_service::run(). Conversely, the
-    /// completion handler is guaranteed to not be called while no thread is
-    /// executing io_service::run(). The execution of the completion handler is
-    /// always deferred to the event loop, meaning that it never happens as a
-    /// synchronous side effect of the execution of async_connect(), even when
-    /// async_connect() is executed by the event loop thread. The completion
-    /// handler is guaranteed to be called eventually, as long as there is time
-    /// enough for the operation to complete or fail, and a thread is executing
-    /// io_service::run() for long enough.
-    ///
-    /// The operation can be canceled by calling cancel(), and will be
-    /// automatically canceled if the socket is closed. If the operation is
-    /// canceled, it will fail with `error::operation_aborted`. The operation
-    /// remains cancelable up until the point in time where the completion
-    /// handler starts to execute. This means that if cancel() is called before
-    /// the completion handler starts to execute, then the completion handler is
-    /// guaranteed to have `error::operation_aborted` passed to it. This is true
-    /// regardless of whether cancel() is called explicitly or implicitly, such
-    /// as when the socket is destroyed.
-    ///
-    /// If the socket is not already open, it will be opened as part of the
-    /// connect operation as if by calling `open(ep.protocol())`. If the opening
-    /// operation succeeds, but the connect operation fails, the socket will be
-    /// left in the opened state.
-    ///
-    /// The specified handler will be executed by an expression on the form
-    /// `handler(ec)` where `ec` is the error code. If the the handler object is
-    /// movable, it will never be copied. Otherwise, it will be copied as
-    /// necessary.
+    /// The specified handler object will be copied as necessary, and will be
+    /// executed by an expression on the form `handler(ec)` where `ec` is the
+    /// error code.
     ///
     /// It is an error to start a new connect operation (synchronous or
     /// asynchronous) while an asynchronous connect operation is in progress. An
     /// asynchronous connect operation is considered complete as soon as the
-    /// completion handler starts to execute.
+    /// completion handler starts executing.
+    ///
+    /// The operation can be canceled by calling cancel(), and will be
+    /// automatically canceled if the socket is closed. If the operation is
+    /// canceled, it will fail with `error::operation_aborted`. The completion
+    /// handler will always be called, as long as the event loop is running.
     ///
     /// \param ep The remote endpoint of the connection to be established.
-    template<class H> void async_connect(const endpoint& ep, H handler);
+    template<class H>
+    void async_connect(const endpoint& ep, const H& handler);
 
-    /// @{ \brief Perform a synchronous write operation.
-    ///
-    /// write() will not return until all the specified bytes have been written
-    /// to the socket, or an error occurs.
-    ///
-    /// The versions of write() that does not take an `std::error_code&`
-    /// argument will throw std::system_error on failure.
-    ///
-    /// The versions that does take an `std::error_code&` argument will set \a
-    /// ec to `std::error_code()` on success, and to something else on
-    /// failure. It returns the same error code as it assigns to \a ec.
-    ///
     void write(const char* data, size_t size);
-    std::error_code write(const char* data, size_t size, std::error_code& ec) noexcept;
-    /// @}
+    std::error_code write(const char* data, size_t size, std::error_code&) noexcept;
 
     /// \brief Perform an asynchronous write operation.
     ///
@@ -567,31 +527,9 @@ public:
     /// called when the operation completes. The operation completes when all
     /// the specified bytes have been written to the socket, or an error occurs.
     ///
-    /// The completion handler is always executed by the event loop thread,
-    /// i.e., by a thread that is executing io_service::run(). Conversely, the
-    /// completion handler is guaranteed to not be called while no thread is
-    /// executing io_service::run(). The execution of the completion handler is
-    /// always deferred to the event loop, meaning that it never happens as a
-    /// synchronous side effect of the execution of async_write(), even when
-    /// async_write() is executed by the event loop thread. The completion
-    /// handler is guaranteed to be called eventually, as long as there is time
-    /// enough for the operation to complete or fail, and a thread is executing
-    /// io_service::run() for long enough.
-    ///
-    /// The operation can be canceled by calling cancel(), and will be
-    /// automatically canceled if the socket is closed. If the operation is
-    /// canceled, it will fail with `error::operation_aborted`. The operation
-    /// remains cancelable up until the point in time where the completion
-    /// handler starts to execute. This means that if cancel() is called before
-    /// the completion handler starts to execute, then the completion handler is
-    /// guaranteed to have `error::operation_aborted` passed to it. This is true
-    /// regardless of whether cancel() is called explicitly or implicitly, such
-    /// as when the socket is destroyed.
-    ///
-    /// The specified handler will be executed by an expression on the form
-    /// `handler(ec, n)` where `ec` is the error code, and `n` is the number of
-    /// bytes written (of type `size_t`). If the the handler object is movable,
-    /// it will never be copied. Otherwise, it will be copied as necessary.
+    /// The specified handler object will be copied as necessary, and will be
+    /// executed by an expression on the form `handler(ec, n)` where `ec` is the
+    /// error code, and `n` is the number of bytes written (of type `size_t`).
     ///
     /// It is an error to start an asynchronous write operation before the
     /// socket is connected.
@@ -599,10 +537,16 @@ public:
     /// It is an error to start a new write operation (synchronous or
     /// asynchronous) while an asynchronous write operation is in progress. An
     /// asynchronous write operation is considered complete as soon as the
-    /// completion handler starts to execute. This means that a new write
+    /// completion handler starts executing. This means that a new write
     /// operation can be started from the completion handler of another
     /// asynchronous write operation.
-    template<class H> void async_write(const char* data, size_t size, H handler);
+    ///
+    /// The operation can be canceled by calling cancel(), and will be
+    /// automatically canceled if the socket is closed. If the operation is
+    /// canceled, it will fail with `error::operation_aborted`. The completion
+    /// handler will always be called, as long as the event loop is running.
+    template<class H>
+    void async_write(const char* data, size_t size, const H& handler);
 
     /// @{ \brief Read at least one byte from this socket.
     ///
@@ -705,7 +649,7 @@ private:
     using LendersWriteOperPtr =
         std::unique_ptr<write_oper_base, io_service::LendersOperDeleter>;
 
-    size_t do_read_some(char* buffer, size_t size, std::error_code&) noexcept;
+    size_t do_read_some(char* buffer, size_t size, std::error_code& ec) noexcept;
     size_t do_write_some(const char* data, size_t size, std::error_code&) noexcept;
 
     void do_async_connect(LendersConnectOperPtr);
@@ -742,31 +686,9 @@ public:
     /// the specified local socket will have become connected to a remote
     /// socket.
     ///
-    /// The completion handler is always executed by the event loop thread,
-    /// i.e., by a thread that is executing io_service::run(). Conversely, the
-    /// completion handler is guaranteed to not be called while no thread is
-    /// executing io_service::run(). The execution of the completion handler is
-    /// always deferred to the event loop, meaning that it never happens as a
-    /// synchronous side effect of the execution of async_accept(), even when
-    /// async_accept() is executed by the event loop thread. The completion
-    /// handler is guaranteed to be called eventually, as long as there is time
-    /// enough for the operation to complete or fail, and a thread is executing
-    /// io_service::run() for long enough.
-    ///
-    /// The operation can be canceled by calling cancel(), and will be
-    /// automatically canceled if the acceptor is closed. If the operation is
-    /// canceled, it will fail with `error::operation_aborted`. The operation
-    /// remains cancelable up until the point in time where the completion
-    /// handler starts to execute. This means that if cancel() is called before
-    /// the completion handler starts to execute, then the completion handler is
-    /// guaranteed to have `error::operation_aborted` passed to it. This is true
-    /// regardless of whether cancel() is called explicitly or implicitly, such
-    /// as when the acceptor is destroyed.
-    ///
-    /// The specified handler will be executed by an expression on the form
-    /// `handler(ec)` where `ec` is the error code. If the the handler object is
-    /// movable, it will never be copied. Otherwise, it will be copied as
-    /// necessary.
+    /// The specified handler object will be copied as necessary, and will be
+    /// executed by an expression on the form `handler(ec)` where `ec` is the
+    /// error code.
     ///
     /// It is an error to start a new accept operation (synchronous or
     /// asynchronous) while an asynchronous accept operation is in progress. An
@@ -774,14 +696,22 @@ public:
     /// completion handler starts executing. This means that a new accept
     /// operation can be started from the completion handler.
     ///
+    /// The operation can be canceled by calling cancel(), and will be
+    /// automatically canceled if the acceptor is closed. If the operation is
+    /// canceled, it will fail with `error::operation_aborted`. The completion
+    /// handler will always be called, as long as the event loop is running.
+    ///
     /// \param sock This is the local socket, that upon successful completion
     /// will have become connected to the remote socket. It must be in the
     /// closed state (socket::is_open()) when async_accept() is called.
     ///
     /// \param ep Upon completion, the remote peer endpoint will have been
     /// assigned to this variable.
-    template<class H> void async_accept(socket& sock, H handler);
-    template<class H> void async_accept(socket& sock, endpoint& ep, H handler);
+    template<class H>
+    void async_accept(socket& sock, const H& handler);
+
+    template<class H>
+    void async_accept(socket& sock, endpoint& ep, const H& handler);
     /// @}
 
 private:
@@ -793,7 +723,8 @@ private:
 
     using LendersAcceptOperPtr = std::unique_ptr<accept_oper_base, io_service::LendersOperDeleter>;
 
-    template<class H> void async_accept(socket&, endpoint*, H);
+    template<class H>
+    void async_accept(socket&, endpoint*, const H&);
     void do_async_accept(LendersAcceptOperPtr);
 };
 
@@ -803,37 +734,12 @@ public:
     buffered_input_stream(socket&);
     ~buffered_input_stream() noexcept;
 
-    /// @{ \brief Perform a synchronous read operation.
-    ///
-    /// read() will not return until the specified buffer is full, or an error
-    /// occurs. Reaching the end of input before the buffer is filled, is
-    /// considered an error, and will cause the operation to fail with
-    /// `network::end_of_input`.
-    ///
-    /// read_until() will not return until the specified buffer contains the
-    /// specified delimiter, or an error occurs. If the buffer is filled before
-    /// the delimiter is found, the operation fails with
-    /// `network::delim_not_found`. Otherwise, if the end of input is reached
-    /// before the delimiter is found, the operation fails with
-    /// `network::end_of_input`. If the operation succeeds, the last byte placed
-    /// in the buffer is the delimiter.
-    ///
-    /// The versions of read() and read_until() that do not take an
-    /// `std::error_code&` argument will throw std::system_error on failure.
-    ///
-    /// The versions that do take an `std::error_code&` argument will set \a ec
-    /// to `std::error_code()` on success, and to something else on failure. On
-    /// failure they will return the number of bytes placed in the specified
-    /// buffer before the error occured.
-    ///
-    /// \return The number of bytes places in the specified buffer upon return.
     size_t read(char* buffer, size_t size);
-    size_t read(char* buffer, size_t size, std::error_code& ec) noexcept;
+    size_t read(char* buffer, size_t size, std::error_code&) noexcept;
 
     size_t read_until(char* buffer, size_t size, char delim);
     size_t read_until(char* buffer, size_t size, char delim,
-                           std::error_code& ec) noexcept;
-    /// @}
+                           std::error_code&) noexcept;
 
     /// @{ \brief Perform an asynchronous read operation.
     ///
@@ -853,37 +759,10 @@ public:
     /// `network::end_of_input`. Otherwise, if the operation succeeds, the last
     /// byte placed in the buffer is the delimiter.
     ///
-    /// The completion handler is always executed by the event loop thread,
-    /// i.e., by a thread that is executing io_service::run(). Conversely, the
-    /// completion handler is guaranteed to not be called while no thread is
-    /// executing io_service::run(). The execution of the completion handler is
-    /// always deferred to the event loop, meaning that it never happens as a
-    /// synchronous side effect of the execution of async_read() or
-    /// async_read_until(), even when async_read() or async_read_until() is
-    /// executed by the event loop thread. The completion handler is guaranteed
-    /// to be called eventually, as long as there is time enough for the
-    /// operation to complete or fail, and a thread is executing
-    /// io_service::run() for long enough.
-    ///
-    /// The operation can be canceled by calling cancel() on the associated
-    /// socket, and will be automatically canceled if the associated socket is
-    /// closed. If the operation is canceled, it will fail with
-    /// `error::operation_aborted`. The operation remains cancelable up until
-    /// the point in time where the completion handler starts to execute. This
-    /// means that if cancel() is called before the completion handler starts to
-    /// execute, then the completion handler is guaranteed to have
-    /// `error::operation_aborted` passed to it. This is true regardless of
-    /// whether cancel() is called explicitly or implicitly, such as when the
-    /// socket is destroyed.
-    ///
-    /// The specified handler will be executed by an expression on the form
-    /// `handler(ec, n)` where `ec` is the error code, and `n` is the number of
-    /// bytes placed in the buffer (of type `size_t`). `n` is guaranteed to be
-    /// less than, or equal to \a size. If the the handler object is movable, it
-    /// will never be copied. Otherwise, it will be copied as necessary.
-    ///
-    /// It is an error to start a read operation before the associated socket is
-    /// connected.
+    /// The specified handler object will be copied as necessary, and will be
+    /// executed by an expression on the form `handler(ec, n)` where `ec` is the
+    /// error code, and `n` is the number of bytes placed in the buffer. `n` is
+    /// guaranteed to be less than, or equal to \a size.
     ///
     /// It is an error to start a new read operation (synchronous or
     /// asynchronous) while an asynchronous read operation is in progress. An
@@ -892,6 +771,12 @@ public:
     /// operation can be started from the completion handler of another
     /// asynchronous buffered read operation.
     ///
+    /// The operation can be canceled by calling socket::cancel(), and will be
+    /// automatically canceled if the associated socket is closed. If the
+    /// operation is canceled, it will fail with `error::operation_aborted`. The
+    /// completion handler will always be called, as long as the event loop is
+    /// running.
+    ///
     /// When an asynchronous operation is started, the caller must ensure that
     /// one (or both) of the following events occur before the destruction of
     /// the stream object:
@@ -899,8 +784,11 @@ public:
     ///  - The completion handler is called (entry into the completion handler).
     ///
     ///  - The asynchronous operation is canceled (the socket is closed).
-    template<class H> void async_read(char* buffer, size_t size, H handler);
-    template<class H> void async_read_until(char* buffer, size_t size, char delim, H handler);
+    template<class H>
+    void async_read(char* buffer, size_t size, const H& handler);
+
+    template<class H>
+    void async_read_until(char* buffer, size_t size, char delim, const H& handler);
     /// @}
 
     /// Discard any buffered input.
@@ -920,7 +808,8 @@ private:
 
     size_t do_read(char* buffer, size_t size, int delim, std::error_code&) noexcept;
 
-    template<class H> void async_read(char* buffer, size_t size, int delim, H);
+    template<class H>
+    void async_read(char* buffer, size_t size, int delim, const H& handler);
     void do_async_read(LendersReadOperPtr);
 };
 
@@ -937,42 +826,29 @@ public:
     ///
     /// Initiate an asynchronous wait operation. The completion handler becomes
     /// ready to execute when the expiration time is reached, or an error occurs
-    /// (cancellation counts as an error here). The expiration time is the time
-    /// of initiation plus the specified delay. The error code passed to the
-    /// complition handler will **never** indicate success, unless the
-    /// expiration time was reached.
+    /// (cancellation counts as an error here). The completion handler will
+    /// **always** be executed, as long as a thread is executing the event
+    /// loop. The error code passed to the complition handler will **never**
+    /// indicate success, unless the expiration time was reached. The completion
+    /// handler will never be called directly as part of the execution of
+    /// async_wait().
     ///
-    /// The completion handler is always executed by the event loop thread,
-    /// i.e., by a thread that is executing io_service::run(). Conversely, the
-    /// completion handler is guaranteed to not be called while no thread is
-    /// executing io_service::run(). The execution of the completion handler is
-    /// always deferred to the event loop, meaning that it never happens as a
-    /// synchronous side effect of the execution of async_wait(), even when
-    /// async_wait() is executed by the event loop thread. The completion
-    /// handler is guaranteed to be called eventually, as long as there is time
-    /// enough for the operation to complete or fail, and a thread is executing
-    /// io_service::run() for long enough.
+    /// An asynchronous wait operation in progress can be canceled by calling
+    /// cancel(), and will be automatically canceled if the deadline timer is
+    /// destroyed. If the operation is canceled, its completion handler will be
+    /// called with `error::operation_aborted`.
     ///
-    /// The operation can be canceled by calling cancel(), and will be
-    /// automatically canceled if the timer is destroyed. If the operation is
-    /// canceled, it will fail with `error::operation_aborted`. The operation
-    /// remains cancelable up until the point in time where the completion
-    /// handler starts to execute. This means that if cancel() is called before
-    /// the completion handler starts to execute, then the completion handler is
-    /// guaranteed to have `error::operation_aborted` passed to it. This is true
-    /// regardless of whether cancel() is called explicitly or implicitly, such
-    /// as when the timer is destroyed.
-    ///
-    /// The specified handler will be executed by an expression on the form
-    /// `handler(ec)` where `ec` is the error code. If the the handler object is
-    /// movable, it will never be copied. Otherwise, it will be copied as
-    /// necessary.
+    /// The specified handler object will be copied as necessary, and will be
+    /// executed by an expression on the form `handler(ec)` where `ec` is the
+    /// error code.
     ///
     /// It is an error to start a new asynchronous wait operation while an
     /// another one is in progress. An asynchronous wait operation is in
     /// progress until its completion handler starts executing.
+    ///
+    /// \param ep The remote endpoint of the connection to be established.
     template<class R, class P, class H>
-    void async_wait(std::chrono::duration<R,P> delay, H handler);
+    void async_wait(std::chrono::duration<R,P> delay, const H& handler) noexcept;
 
     /// \brief Cancel an asynchronous wait operation.
     ///
@@ -1211,17 +1087,17 @@ public:
         m_expiration_time(expiration_time)
     {
     }
-    void proceed() noexcept override final
+    void proceed() noexcept override
     {
         REALM_ASSERT(false); // Never called
     }
-    void recycle() noexcept override final
+    void recycle() noexcept override
     {
         bool orphaned = !m_timer;
         // Note: do_recycle() commits suicide.
         do_recycle(orphaned);
     }
-    void orphan() noexcept override final
+    void orphan() noexcept override
     {
         m_timer = 0;
     }
@@ -1239,16 +1115,16 @@ public:
         m_service(serv)
     {
     }
-    void proceed() noexcept override final
+    void proceed() noexcept override
     {
         REALM_ASSERT(false); // Never called
     }
-    void recycle() noexcept override final
+    void recycle() noexcept override
     {
         // io_service::recycle_post_oper() destroys this operation object
         io_service::recycle_post_oper(m_service, this);
     }
-    void orphan() noexcept override final
+    void orphan() noexcept override
     {
         REALM_ASSERT(false); // Never called
     }
@@ -1260,12 +1136,12 @@ template<class H>
 class io_service::post_oper:
         public post_oper_base {
 public:
-    post_oper(size_t size, impl& serv, H handler):
+    post_oper(size_t size, impl& serv, const H& handler):
         post_oper_base(size, serv),
-        m_handler(std::move(handler))
+        m_handler(handler)
     {
     }
-    void recycle_and_execute() override final
+    void recycle_and_execute() override
     {
         // Recycle the operation object before the handler is exceuted, such
         // that the memory is available for a new post operation that might be
@@ -1287,7 +1163,7 @@ public:
         }
     }
 private:
-    H m_handler;
+    const H m_handler;
 };
 
 class io_service::UnusedOper:
@@ -1297,28 +1173,28 @@ public:
         async_oper(size, false) // Second argument is `in_use`
     {
     }
-    void proceed() noexcept override final
+    void proceed() noexcept override
     {
         REALM_ASSERT(false); // Never called
     }
-    void recycle_and_execute() override final
+    void recycle_and_execute() override
     {
         // Must never be called
         REALM_ASSERT(false);
     }
-    void recycle() noexcept override final
+    void recycle() noexcept override
     {
         // Must never be called
         REALM_ASSERT(false);
     }
-    void orphan() noexcept override final
+    void orphan() noexcept override
     {
         // Must never be called
         REALM_ASSERT(false);
     }
 };
 
-template<class H> inline void io_service::post(H handler)
+template<class H> inline void io_service::post(const H& handler)
 {
     do_post(&io_service::post_oper_constr<H>, sizeof (post_oper<H>), &handler);
 }
@@ -1382,10 +1258,10 @@ inline void io_service::execute(std::unique_ptr<Oper, LendersOperDeleter>& lende
 }
 
 template<class H> inline io_service::post_oper_base*
-io_service::post_oper_constr(void* addr, size_t size, impl& serv, void* cookie)
+io_service::post_oper_constr(void* addr, size_t size, impl& serv, const void* cookie)
 {
-    H& handler = *static_cast<H*>(cookie);
-    return new (addr) post_oper<H>(size, serv, std::move(handler)); // Throws
+    const H& handler = *static_cast<const H*>(cookie);
+    return new (addr) post_oper<H>(size, serv, handler); // Throws
 }
 
 inline bool io_service::async_oper::in_use() const noexcept
@@ -1410,9 +1286,9 @@ inline void io_service::async_oper::cancel() noexcept
     m_canceled = true;
 }
 
-inline io_service::async_oper::async_oper(size_t size, bool is_in_use) noexcept:
+inline io_service::async_oper::async_oper(size_t size, bool in_use) noexcept:
     m_size(size),
-    m_in_use(is_in_use)
+    m_in_use(in_use)
 {
 }
 
@@ -1491,32 +1367,32 @@ inline void resolver::resolve(const query& q, endpoint::list& l)
         throw std::system_error(ec);
 }
 
-inline resolver::query::query(std::string service_port, int init_flags):
-    m_flags(init_flags),
-    m_service(service_port)
+inline resolver::query::query(std::string service, int flags):
+    m_flags(flags),
+    m_service(service)
 {
 }
 
-inline resolver::query::query(const class protocol& prot, std::string service_port, int init_flags):
-    m_flags(init_flags),
+inline resolver::query::query(const class protocol& prot, std::string service, int flags):
+    m_flags(flags),
     m_protocol(prot),
-    m_service(service_port)
+    m_service(service)
 {
 }
 
-inline resolver::query::query(std::string host_name, std::string service_port, int init_flags):
-    m_flags(init_flags),
-    m_host(host_name),
-    m_service(service_port)
+inline resolver::query::query(std::string host, std::string service, int flags):
+    m_flags(flags),
+    m_host(host),
+    m_service(service)
 {
 }
 
-inline resolver::query::query(const class protocol& prot, std::string host_name, std::string service_port,
-                              int init_flags):
-    m_flags(init_flags),
+inline resolver::query::query(const class protocol& prot, std::string host, std::string service,
+                              int flags):
+    m_flags(flags),
     m_protocol(prot),
-    m_host(host_name),
-    m_service(service_port)
+    m_host(host),
+    m_service(service)
 {
 }
 
@@ -1546,9 +1422,9 @@ inline std::string resolver::query::service() const
 
 // ---------------- socket_base ----------------
 
-inline socket_base::socket_base(io_service& s):
+inline socket_base::socket_base(io_service& service):
     m_sock_fd(-1),
-    m_service(s)
+    m_service(service)
 {
 }
 
@@ -1583,32 +1459,32 @@ inline void socket_base::close() noexcept
 }
 
 template<class O>
-inline void socket_base::get_option(O& opt) const
+inline void socket_base::get_option(O& option) const
 {
     std::error_code ec;
-    if (get_option(opt, ec))
+    if (get_option(option, ec))
         throw std::system_error(ec);
 }
 
 template<class O>
-inline std::error_code socket_base::get_option(O& opt, std::error_code& ec) const
+inline std::error_code socket_base::get_option(O& option, std::error_code& ec) const
 {
-    opt.get(*this, ec);
+    option.get(*this, ec);
     return ec;
 }
 
 template<class O>
-inline void socket_base::set_option(const O& opt)
+inline void socket_base::set_option(const O& option)
 {
     std::error_code ec;
-    if (set_option(opt, ec))
+    if (set_option(option, ec))
         throw std::system_error(ec);
 }
 
 template<class O>
-inline std::error_code socket_base::set_option(const O& opt, std::error_code& ec)
+inline std::error_code socket_base::set_option(const O& option, std::error_code& ec)
 {
-    opt.set(*this, ec);
+    option.set(*this, ec);
     return ec;
 }
 
@@ -1660,8 +1536,8 @@ inline std::error_code socket_base::ensure_nonblocking_mode(std::error_code& ec)
 }
 
 template<class T, int opt, class U>
-inline socket_base::option<T, opt, U>::option(T init_value):
-    m_value(init_value)
+inline socket_base::option<T, opt, U>::option(T value):
+    m_value(value)
 {
 }
 
@@ -1689,8 +1565,8 @@ inline void socket_base::option<T, opt, U>::get(const socket_base& sock, std::er
 template<class T, int opt, class U>
 inline void socket_base::option<T, opt, U>::set(socket_base& sock, std::error_code& ec) const
 {
-    U value_to_set = U(m_value);
-    sock.set_option(opt_enum(opt), &value_to_set, sizeof value_to_set, ec);
+    U value = U(m_value);
+    sock.set_option(opt_enum(opt), &value, sizeof value, ec);
 }
 
 // ---------------- socket ----------------
@@ -1705,7 +1581,7 @@ public:
         if (m_socket->initiate_async_connect(ep, m_error_code))
             set_is_complete(true); // Failure, or immediate completion
     }
-    void proceed() noexcept override final
+    void proceed() noexcept override
     {
         REALM_ASSERT(!is_complete());
         REALM_ASSERT(!is_canceled());
@@ -1713,13 +1589,13 @@ public:
         m_socket->finalize_async_connect(m_error_code);
         set_is_complete(true);
     }
-    void recycle() noexcept override final
+    void recycle() noexcept override
     {
         bool orphaned = !m_socket;
         // Note: do_recycle() commits suicide.
         do_recycle(orphaned);
     }
-    void orphan() noexcept override final
+    void orphan() noexcept override
     {
         m_socket = nullptr;
     }
@@ -1732,12 +1608,12 @@ template<class H>
 class socket::connect_oper:
         public connect_oper_base {
 public:
-    connect_oper(size_t size, socket& sock, const endpoint& ep, H handler):
+    connect_oper(size_t size, socket& sock, const endpoint& ep, const H& handler):
         connect_oper_base(size, sock, ep),
-        m_handler(std::move(handler))
+        m_handler(handler)
     {
     }
-    void recycle_and_execute() override final
+    void recycle_and_execute() override
     {
         REALM_ASSERT(is_complete() || (is_canceled() && !m_error_code));
         bool orphaned = !m_socket;
@@ -1745,10 +1621,10 @@ public:
         if (is_canceled())
             ec = error::operation_aborted;
         // Note: do_recycle_and_execute() commits suicide.
-        do_recycle_and_execute<H>(orphaned, m_handler, ec); // Throws
+        do_recycle_and_execute(orphaned, m_handler, ec); // Throws
     }
 private:
-    H m_handler;
+    const H m_handler;
 };
 
 class socket::write_oper_base:
@@ -1773,7 +1649,7 @@ public:
             set_is_complete(true); // Failure
         }
     }
-    void proceed() noexcept override final
+    void proceed() noexcept override
     {
         REALM_ASSERT(!is_complete());
         REALM_ASSERT(!is_canceled());
@@ -1783,34 +1659,15 @@ public:
         size_t n_2 = m_socket->do_write_some(m_curr, n_1, m_error_code);
         REALM_ASSERT(n_2 <= n_1);
         m_curr += n_2;
-        // During asynchronous operation the socket is in nonblocking mode, and
-        // proceed() will only be called when the socket is reported ready for
-        // writing (by poll() or select()). Even then, it may still occasionally
-        // happen that write() (the system call) fails with EAGAIN
-        // (error::resource_unavailable_try_again). The Linux man page for
-        // select() notes that such a situation might occur. This has been
-        // observed to occur on Mac OSX when writing large amounts of data
-        // quickly.
-        //
-        // The best way to deal with a situation like this, seems to be to
-        // ignore the incidence and go back to waiting for the socket to become
-        // ready for writing again. It is hoped (and assumed) that these
-        // incidences are sufficiently rare, that it does not lead to an
-        // effective busy wait for the socket to become truly ready for writing.
-        if (REALM_UNLIKELY(m_error_code == error::resource_unavailable_try_again)) {
-            m_error_code = std::error_code(); // Clear
-        }
-        else {
-            set_is_complete(m_error_code || m_curr == m_end);
-        }
+        set_is_complete(m_error_code || m_curr == m_end);
     }
-    void recycle() noexcept override final
+    void recycle() noexcept override
     {
         bool orphaned = !m_socket;
         // Note: do_recycle() commits suicide.
         do_recycle(orphaned);
     }
-    void orphan() noexcept override final
+    void orphan() noexcept override
     {
         m_socket = 0;
     }
@@ -1826,12 +1683,12 @@ template<class H>
 class socket::write_oper:
         public write_oper_base {
 public:
-    write_oper(size_t size_1, socket& sock, const char* data, size_t size_2, H handler):
+    write_oper(size_t size_1, socket& sock, const char* data, size_t size_2, const H& handler):
         write_oper_base(size_1, sock, data, size_2),
-        m_handler(std::move(handler))
+        m_handler(handler)
     {
     }
-    void recycle_and_execute() override final
+    void recycle_and_execute() override
     {
         REALM_ASSERT(is_complete() || is_canceled());
         REALM_ASSERT(is_complete() == (m_error_code || m_curr == m_end));
@@ -1842,14 +1699,14 @@ public:
             ec = error::operation_aborted;
         size_t num_bytes_transferred = size_t(m_curr - m_begin);
         // Note: do_recycle_and_execute() commits suicide.
-        do_recycle_and_execute<H>(orphaned, m_handler, ec, num_bytes_transferred); // Throws
+        do_recycle_and_execute(orphaned, m_handler, ec, num_bytes_transferred); // Throws
     }
 private:
-    H m_handler;
+    const H m_handler;
 };
 
-inline socket::socket(io_service& s):
-    socket_base(s)
+inline socket::socket(io_service& service):
+    socket_base(service)
 {
 }
 
@@ -1865,10 +1722,10 @@ inline void socket::connect(const endpoint& ep)
 }
 
 template<class H>
-inline void socket::async_connect(const endpoint& ep, H handler)
+inline void socket::async_connect(const endpoint& ep, const H& handler)
 {
     LendersConnectOperPtr op =
-        io_service::alloc<connect_oper<H>>(m_write_oper, *this, ep, std::move(handler)); // Throws
+        io_service::alloc<connect_oper<H>>(m_write_oper, *this, ep, handler); // Throws
     do_async_connect(std::move(op)); // Throws
 }
 
@@ -1880,11 +1737,10 @@ inline void socket::write(const char* data, size_t size)
 }
 
 template<class H>
-inline void socket::async_write(const char* data, size_t size, H handler)
+inline void socket::async_write(const char* data, size_t size, const H& handler)
 {
     LendersWriteOperPtr op =
-        io_service::alloc<write_oper<H>>(m_write_oper, *this, data, size,
-                                         std::move(handler)); // Throws
+        io_service::alloc<write_oper<H>>(m_write_oper, *this, data, size, handler); // Throws
     do_async_write(std::move(op)); // Throws
 }
 
@@ -1933,7 +1789,6 @@ inline void socket::do_async_connect(LendersConnectOperPtr op)
         m_service.add_completed_oper(std::move(op));
     }
     else {
-        REALM_ASSERT(op == m_write_oper);
         m_service.add_io_oper(get_sock_fd(), std::move(op), io_service::io_op_Write); // Throws
     }
 }
@@ -1945,7 +1800,6 @@ inline void socket::do_async_write(LendersWriteOperPtr op)
         m_service.add_completed_oper(std::move(op));
     }
     else {
-        REALM_ASSERT(op == m_write_oper);
         m_service.add_io_oper(get_sock_fd(), std::move(op), io_service::io_op_Write); // Throws
     }
 }
@@ -1968,39 +1822,22 @@ public:
         if (m_acceptor->ensure_nonblocking_mode(m_error_code))
             set_is_complete(true); // Failure
     }
-    void proceed() noexcept override final
+    void proceed() noexcept override
     {
         REALM_ASSERT(!is_complete());
         REALM_ASSERT(!is_canceled());
         REALM_ASSERT(!m_error_code);
         REALM_ASSERT(!m_socket.is_open());
         m_acceptor->do_accept(m_socket, m_endpoint, m_error_code);
-        // During asynchronous operation the listening socket is in nonblocking
-        // mode, and proceed() will only be called when the socket is reported
-        // ready for reading (by poll() or select()). Even then, it may still
-        // occasionally happen that accept() (the system call) fails with EAGAIN
-        // (error::resource_unavailable_try_again). The Linux man page for
-        // select() notes that such a situation might occur.
-        //
-        // The best way to deal with a situation like this, seems to be to
-        // ignore the incidence and go back to waiting for the socket to become
-        // ready for reading again. It is hoped (and assumed) that these
-        // incidences are sufficiently rare, that it does not lead to an
-        // effective busy wait for the socket to become truly ready for reading.
-        if (REALM_UNLIKELY(m_error_code == error::resource_unavailable_try_again)) {
-            m_error_code = std::error_code(); // Clear
-        }
-        else {
-            set_is_complete(true);
-        }
+        set_is_complete(true);
     }
-    void recycle() noexcept override final
+    void recycle() noexcept override
     {
         bool orphaned = !m_acceptor;
         // Note: do_recycle() commits suicide.
         do_recycle(orphaned);
     }
-    void orphan() noexcept override final
+    void orphan() noexcept override
     {
         m_acceptor = 0;
     }
@@ -2015,12 +1852,12 @@ template<class H>
 class acceptor::accept_oper:
         public accept_oper_base {
 public:
-    accept_oper(size_t size, acceptor& a, socket& s, endpoint* e, H handler):
+    accept_oper(size_t size, acceptor& a, socket& s, endpoint* e, const H& handler):
         accept_oper_base(size, a, s, e),
-        m_handler(std::move(handler))
+        m_handler(handler)
     {
     }
-    void recycle_and_execute() override final
+    void recycle_and_execute() override
     {
         REALM_ASSERT(is_complete() || (is_canceled() && !m_error_code));
         REALM_ASSERT(is_canceled() || m_error_code || m_socket.is_open());
@@ -2029,14 +1866,14 @@ public:
         if (is_canceled())
             ec = error::operation_aborted;
         // Note: do_recycle_and_execute() commits suicide.
-        do_recycle_and_execute<H>(orphaned, m_handler, ec); // Throws
+        do_recycle_and_execute(orphaned, m_handler, ec); // Throws
     }
 private:
-    H m_handler;
+    const H m_handler;
 };
 
-inline acceptor::acceptor(io_service& s):
-    socket_base(s)
+inline acceptor::acceptor(io_service& service):
+    socket_base(service)
 {
 }
 
@@ -2076,15 +1913,17 @@ inline std::error_code acceptor::accept(socket& sock, endpoint& ep, std::error_c
     return accept(sock, &ep, ec); // Throws
 }
 
-template<class H> inline void acceptor::async_accept(socket& sock, H handler)
+template<class H>
+inline void acceptor::async_accept(socket& sock, const H& handler)
 {
     endpoint* ep = nullptr;
-    async_accept(sock, ep, std::move(handler)); // Throws
+    async_accept(sock, ep, handler); // Throws
 }
 
-template<class H> inline void acceptor::async_accept(socket& sock, endpoint& ep, H handler)
+template<class H>
+inline void acceptor::async_accept(socket& sock, endpoint& ep, const H& handler)
 {
-    async_accept(sock, &ep, std::move(handler)); // Throws
+    async_accept(sock, &ep, handler); // Throws
 }
 
 inline std::error_code acceptor::accept(socket& sock, endpoint* ep, std::error_code& ec)
@@ -2097,13 +1936,13 @@ inline std::error_code acceptor::accept(socket& sock, endpoint* ep, std::error_c
     return do_accept(sock, ep, ec);
 }
 
-template<class H> inline void acceptor::async_accept(socket& sock, endpoint* ep, H handler)
+template<class H>
+inline void acceptor::async_accept(socket& sock, endpoint* ep, const H& handler)
 {
     if (REALM_UNLIKELY(sock.is_open()))
         throw std::runtime_error("Socket is already open");
     LendersAcceptOperPtr op =
-        io_service::alloc<accept_oper<H>>(m_read_oper, *this, sock, ep,
-                                          std::move(handler)); // Throws
+        io_service::alloc<accept_oper<H>>(m_read_oper, *this, sock, ep, handler); // Throws
     do_async_accept(std::move(op)); // Throws
 }
 
@@ -2114,7 +1953,6 @@ inline void acceptor::do_async_accept(LendersAcceptOperPtr op)
         m_service.add_completed_oper(std::move(op));
     }
     else {
-        REALM_ASSERT(op == m_read_oper);
         m_service.add_io_oper(get_sock_fd(), std::move(op), io_service::io_op_Read); // Throws
     }
 }
@@ -2144,14 +1982,14 @@ public:
         }
     }
     void process_buffered_input() noexcept;
-    void proceed() noexcept override final;
-    void recycle() noexcept override final
+    void proceed() noexcept override;
+    void recycle() noexcept override
     {
         bool orphaned = !m_stream;
         // Note: do_recycle() commits suicide.
         do_recycle(orphaned);
     }
-    void orphan() noexcept override final
+    void orphan() noexcept override
     {
         m_stream = 0;
     }
@@ -2169,12 +2007,12 @@ class buffered_input_stream::read_oper:
         public read_oper_base {
 public:
     read_oper(size_t size_1, buffered_input_stream& stream, char* buffer, size_t size_2, int delim,
-              H handler):
+              const H& h):
         read_oper_base(size_1, stream, buffer, size_2, delim),
-        m_handler(std::move(handler))
+        m_handler(h)
     {
     }
-    void recycle_and_execute() override final
+    void recycle_and_execute() override
     {
         REALM_ASSERT(is_complete() || (is_canceled() && !m_error_code));
         REALM_ASSERT(is_canceled() || m_error_code ||
@@ -2189,10 +2027,10 @@ public:
             ec = error::operation_aborted;
         size_t num_bytes_transferred = size_t(m_out_curr - m_out_begin);
         // Note: do_recycle_and_execute() commits suicide.
-        do_recycle_and_execute<H>(orphaned, m_handler, ec, num_bytes_transferred); // Throws
+        do_recycle_and_execute(orphaned, m_handler, ec, num_bytes_transferred); // Throws
     }
 private:
-    H m_handler;
+    const H m_handler;
 };
 
 inline buffered_input_stream::buffered_input_stream(socket& sock):
@@ -2236,16 +2074,16 @@ inline size_t buffered_input_stream::read_until(char* buffer, size_t size, char 
 }
 
 template<class H>
-inline void buffered_input_stream::async_read(char* buffer, size_t size, H handler)
+inline void buffered_input_stream::async_read(char* buffer, size_t size, const H& handler)
 {
-    async_read(buffer, size, std::char_traits<char>::eof(), std::move(handler));
+    async_read(buffer, size, std::char_traits<char>::eof(), handler);
 }
 
 template<class H>
 inline void buffered_input_stream::async_read_until(char* buffer, size_t size, char delim,
-                                                    H handler)
+                                                    const H& handler)
 {
-    async_read(buffer, size, std::char_traits<char>::to_int_type(delim), std::move(handler));
+    async_read(buffer, size, std::char_traits<char>::to_int_type(delim), handler);
 }
 
 inline void buffered_input_stream::reset() noexcept
@@ -2255,11 +2093,12 @@ inline void buffered_input_stream::reset() noexcept
 }
 
 template<class H>
-inline void buffered_input_stream::async_read(char* buffer, size_t size, int delim, H handler)
+inline void buffered_input_stream::async_read(char* buffer, size_t size, int delim,
+                                              const H& handler)
 {
     LendersReadOperPtr op =
         io_service::alloc<read_oper<H>>(m_socket.m_read_oper, *this, buffer, size, delim,
-                                        std::move(handler)); // Throws
+                                       handler); // Throws
     do_async_read(std::move(op)); // Throws
 }
 
@@ -2270,7 +2109,6 @@ inline void buffered_input_stream::do_async_read(LendersReadOperPtr op)
         m_socket.m_service.add_completed_oper(std::move(op));
     }
     else {
-        REALM_ASSERT(op == m_socket.m_read_oper);
         m_socket.m_service.add_io_oper(m_socket.get_sock_fd(), std::move(op),
                                        io_service::io_op_Read); // Throws
     }
@@ -2282,22 +2120,22 @@ template<class H>
 class deadline_timer::wait_oper:
         public io_service::wait_oper_base {
 public:
-    wait_oper(size_t size, deadline_timer& timer, clock::time_point expiration_time, H handler):
+    wait_oper(size_t size, deadline_timer& timer, clock::time_point expiration_time, const H& handler):
         io_service::wait_oper_base(size, timer, expiration_time),
-        m_handler(std::move(handler))
+        m_handler(handler)
     {
     }
-    void recycle_and_execute() override final
+    void recycle_and_execute() override
     {
         bool orphaned = !m_timer;
         std::error_code ec;
         if (is_canceled())
             ec = error::operation_aborted;
         // Note: do_recycle_and_execute() commits suicide.
-        do_recycle_and_execute<H>(orphaned, m_handler, ec); // Throws
+        do_recycle_and_execute(orphaned, m_handler, ec); // Throws
     }
 private:
-    H m_handler;
+    const H m_handler;
 };
 
 inline deadline_timer::deadline_timer(io_service& serv):
@@ -2316,7 +2154,7 @@ inline io_service& deadline_timer::service() noexcept
 }
 
 template<class R, class P, class H>
-inline void deadline_timer::async_wait(std::chrono::duration<R,P> delay, H handler)
+inline void deadline_timer::async_wait(std::chrono::duration<R,P> delay, const H& handler) noexcept
 {
     clock::time_point now = clock::now();
     auto max_add = clock::time_point::max() - now;
@@ -2324,8 +2162,7 @@ inline void deadline_timer::async_wait(std::chrono::duration<R,P> delay, H handl
         throw std::runtime_error("Expiration time overflow");
     clock::time_point expiration_time = now + delay;
     io_service::LendersWaitOperPtr op =
-        io_service::alloc<wait_oper<H>>(m_wait_oper, *this, expiration_time,
-                                        std::move(handler)); // Throws
+        io_service::alloc<wait_oper<H>>(m_wait_oper, *this, expiration_time, handler); // Throws
     m_service.add_wait_oper(std::move(op)); // Throws
 }
 

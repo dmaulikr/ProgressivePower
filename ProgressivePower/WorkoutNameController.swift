@@ -34,6 +34,7 @@ class WorkoutNameController: UIViewController {
                 //Save to realm
                 let workout = Workout()
                 workout.name = text
+                
                 nameToPass = text
                 
                 let realm = try! Realm()

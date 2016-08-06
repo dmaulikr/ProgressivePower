@@ -26,7 +26,7 @@ class AddExerciseController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupTextField()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(animated: Bool) {
@@ -74,7 +74,6 @@ class AddExerciseController: UIViewController {
             return
         }
         
-        
         if let weight = weightField.text{
             let weightValue = Double(weight)
             if let weight = weightValue{
@@ -90,7 +89,7 @@ class AddExerciseController: UIViewController {
             exercise.progression = 2.5
         case 2:
             exercise.progression = 7.5
-        case 4:
+        case 3:
             exercise.progression = 10.0
         default:
             exercise.progression = 5.0
@@ -137,7 +136,49 @@ class AddExerciseController: UIViewController {
         //Pop back to build controller
         self.navigationController?.popViewControllerAnimated(true)
     }
-
+    func setupTextField(){
+        var strings: [String] = []
+        if let exerciseArray = ExerciseData.allExercises{
+            for exercise in exerciseArray{
+                strings.append(exercise.name)
+            }
+        }
+        
+        exerciseField.autoCompleteTextColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 1.0)
+        exerciseField.autoCompleteTextFont = UIFont.systemFontOfSize(14)
+        exerciseField.autoCompleteCellHeight = 35.0
+        exerciseField.maximumAutoCompleteCount = 10
+        exerciseField.autocorrectionType = .No
+        exerciseField.hidesWhenSelected = true
+        exerciseField.hidesWhenEmpty = true
+        exerciseField.enableAttributedText = true
+        var attributes = [String:AnyObject]()
+        attributes[NSForegroundColorAttributeName] = UIColor.blackColor()
+        attributes[NSFontAttributeName] = UIFont.systemFontOfSize(14)
+        exerciseField.autoCompleteAttributes = attributes
+        
+        exerciseField.onTextChange = {text in
+        self.exerciseField.autoCompleteStrings = self.filteredArrayForArray(strings, filterTerm: text)
+        }
+        
+        exerciseField.onSelect = {text, indexpath in
+        print(text)
+        print(indexpath.row)
+        }
+    }
+    
+    func filteredArrayForArray(arrayToFilter: [String], filterTerm term: String) -> [String] {
+        if (term == "") {
+            return arrayToFilter
+        }
+        var filteredArray: [String] = []
+        for entry: String in arrayToFilter {
+            if entry.lowercaseString.containsString(term.lowercaseString) {
+                filteredArray.append(entry)
+            }
+        }
+        return filteredArray
+    }
     /*
     // MARK: - Navigation
 

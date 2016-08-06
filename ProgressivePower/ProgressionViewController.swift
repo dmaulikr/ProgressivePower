@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ProgressionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let realm = try! Realm()
+        let allWorkouts = realm.objects(Workout.self)
+        let testWorkout = allWorkouts.first
+        
+        let testWorkoutHistoryLogs = realm.objects(WorkoutHistoryLog.self).filter("")
+        
         
         // Do any additional setup after loading the view, typically from a nib.
     }

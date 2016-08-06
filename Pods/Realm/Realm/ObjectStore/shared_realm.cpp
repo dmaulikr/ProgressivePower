@@ -21,10 +21,8 @@
 #include "binding_context.hpp"
 #include "impl/realm_coordinator.hpp"
 #include "impl/transact_log_handler.hpp"
-#include "object_schema.hpp"
 #include "object_store.hpp"
 #include "schema.hpp"
-#include "util/format.hpp"
 
 #include <realm/commit_log.hpp>
 #include <realm/group_shared.hpp>
@@ -64,7 +62,7 @@ Realm::Config& Realm::Config::operator=(realm::Realm::Config const& c)
 Realm::Realm(Config config)
 : m_config(std::move(config))
 {
-    open_with_config(m_config, m_history, m_shared_group, m_read_only_group, this);
+    open_with_config(m_config, m_history, m_shared_group, m_read_only_group);
 
     if (m_read_only_group) {
         m_group = m_read_only_group.get();
@@ -78,18 +76,19 @@ REALM_NOINLINE static void translate_file_exception(StringData path, bool read_o
     }
     catch (util::File::PermissionDenied const& ex) {
         throw RealmFileException(RealmFileException::Kind::PermissionDenied, ex.get_path(),
-                                 util::format("Unable to open a realm at path '%1'. Please use a path where your app has %2 permissions.",
-                                              ex.get_path(), read_only ? "read" : "read-write"),
+                                 "Unable to open a realm at path '" + ex.get_path() +
+                                 "'. Please use a path where your app has " + (read_only ? "read" : "read-write") + " permissions.",
                                  ex.what());
     }
     catch (util::File::Exists const& ex) {
         throw RealmFileException(RealmFileException::Kind::Exists, ex.get_path(),
-                                 util::format("File at path '%1' already exists.", ex.get_path()),
+                                 "File at path '" + ex.get_path() + "' already exists.",
                                  ex.what());
     }
     catch (util::File::NotFound const& ex) {
         throw RealmFileException(RealmFileException::Kind::NotFound, ex.get_path(),
-                                 util::format("Directory at path '%1' does not exist.", ex.get_path()), ex.what());
+                                 "Directory at path '" + ex.get_path() + "' does not exist.",
+                                 ex.what());
     }
     catch (util::File::AccessError const& ex) {
         // Errors for `open()` include the path, but other errors don't. We
@@ -102,13 +101,13 @@ REALM_NOINLINE static void translate_file_exception(StringData path, bool read_o
             underlying.replace(pos - 1, ex.get_path().size() + 2, "");
         }
         throw RealmFileException(RealmFileException::Kind::AccessError, ex.get_path(),
-                                 util::format("Unable to open a realm at path '%1': %2.", ex.get_path(), underlying), ex.what());
+                                 "Unable to open a realm at path '" + ex.get_path() + "': " + underlying,
+                                 ex.what());
     }
     catch (IncompatibleLockFile const& ex) {
         throw RealmFileException(RealmFileException::Kind::IncompatibleLockFile, path,
                                  "Realm file is currently open in another process "
-                                 "which cannot share access with this process. "
-                                 "All processes sharing a single file must be the same architecture.",
+                                 "which cannot share access with this process. All processes sharing a single file must be the same architecture.",
                                  ex.what());
     }
     catch (FileFormatUpgradeRequired const& ex) {
@@ -122,12 +121,8 @@ REALM_NOINLINE static void translate_file_exception(StringData path, bool read_o
 void Realm::open_with_config(const Config& config,
                              std::unique_ptr<Replication>& history,
                              std::unique_ptr<SharedGroup>& shared_group,
-                             std::unique_ptr<Group>& read_only_group,
-                             Realm *realm)
+                             std::unique_ptr<Group>& read_only_group)
 {
-    if (config.encryption_key.data() && config.encryption_key.size() != 64) {
-        throw InvalidEncryptionKeyException();
-    }
     try {
         if (config.read_only) {
             read_only_group = std::make_unique<Group>(config.path, config.encryption_key.data(), Group::mode_ReadOnly);
@@ -136,13 +131,7 @@ void Realm::open_with_config(const Config& config,
             history = realm::make_client_history(config.path, config.encryption_key.data());
             SharedGroup::DurabilityLevel durability = config.in_memory ? SharedGroup::durability_MemOnly :
                                                                            SharedGroup::durability_Full;
-            shared_group = std::make_unique<SharedGroup>(*history, durability, config.encryption_key.data(), !config.disable_format_upgrade,
-                                                         [&](int from_version, int to_version) {
-                if (realm) {
-                    realm->upgrade_initial_version = from_version;
-                    realm->upgrade_final_version = to_version;
-                }
-            });
+            shared_group = std::make_unique<SharedGroup>(*history, durability, config.encryption_key.data(), !config.disable_format_upgrade);
         }
     }
     catch (...) {
@@ -215,8 +204,7 @@ Group *Realm::read_group()
 
 SharedRealm Realm::get_shared_realm(Config config)
 {
-    auto coordinator = RealmCoordinator::get_coordinator(config.path);
-    return coordinator->get_realm(std::move(config));
+    return RealmCoordinator::get_coordinator(config.path)->get_realm(std::move(config));
 }
 
 void Realm::update_schema(std::unique_ptr<Schema> schema, uint64_t version)
@@ -283,7 +271,6 @@ void Realm::update_schema(std::unique_ptr<Schema> schema, uint64_t version)
         if (m_config.migration_function) {
             m_config.migration_function(old_realm, shared_from_this());
         }
-        m_config.migration_function = nullptr;
     };
 
     try {
@@ -321,7 +308,7 @@ void Realm::verify_thread() const
 void Realm::verify_in_write() const
 {
     if (!is_in_transaction()) {
-        throw InvalidTransactionException("Cannot modify managed objects outside of a write transaction.");
+        throw InvalidTransactionException("Cannot modify persisted objects outside of a write transaction.");
     }
 }
 
@@ -509,14 +496,3 @@ void Realm::close()
     m_binding_context = nullptr;
     m_coordinator = nullptr;
 }
-
-util::Optional<int> Realm::file_format_upgraded_from_version() const
-{
-    if (upgrade_initial_version != upgrade_final_version) {
-        return upgrade_initial_version;
-    }
-    return util::Optional<int>();
-}
-
-MismatchedConfigException::MismatchedConfigException(StringData message, StringData path)
-: std::runtime_error(util::format(message.data(), path)) { }

@@ -40,8 +40,6 @@ public:
     void notify();
 
 private:
-    void invalidate();
-
     CFRunLoopRef m_runloop;
     CFRunLoopSourceRef m_signal;
 };

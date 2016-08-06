@@ -56,8 +56,6 @@ public:
     void adj_acc_swap_rows(size_t, size_t) noexcept override;
     void mark(int) noexcept override;
     void refresh_accessor_tree(size_t, const Spec&) override;
-    bool supports_search_index() const noexcept override { return false; }
-    StringIndex* create_search_index() override { return nullptr; }
 
 #ifdef REALM_DEBUG
     void verify() const override;
@@ -106,11 +104,11 @@ protected:
         void recursive_mark() noexcept;
         void refresh_accessor_tree(size_t spec_ndx_in_parent);
     private:
-        struct SubtableEntry {
+        struct entry {
             size_t m_subtable_ndx;
             Table* m_table;
         };
-        typedef std::vector<SubtableEntry> entries;
+        typedef std::vector<entry> entries;
         entries m_entries;
     };
 
@@ -400,7 +398,7 @@ inline void SubtableColumnBase::discard_subtable_accessor(size_t row_ndx) noexce
 
 inline void SubtableColumnBase::SubtableMap::add(size_t subtable_ndx, Table* table)
 {
-    SubtableEntry e;
+    entry e;
     e.m_subtable_ndx = subtable_ndx;
     e.m_table        = table;
     m_entries.push_back(e);
@@ -464,7 +462,7 @@ bool SubtableColumnBase::SubtableMap::adj_move_over(size_t from_row_ndx,
         return false;
 
     while (i < n) {
-        SubtableEntry& e = m_entries[i];
+        entry& e = m_entries[i];
         if (REALM_UNLIKELY(e.m_subtable_ndx == to_row_ndx)) {
             // Must hold a counted reference while detaching
             TableRef table(e.m_table);

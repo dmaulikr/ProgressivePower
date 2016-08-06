@@ -17,9 +17,24 @@ class UserExercises: Object{
     dynamic var progression = 0.0
 }
 class Workout: Object{
+    
     dynamic var name = ""
     let exercises = List<UserExercises>()
 }
 class Split: Object {
     let workouts = List<Workout>()
+}
+
+//History databasing
+class ExerciseHistoryLog: Object{
+    dynamic var linkedExercise: Exercise?
+    dynamic var weight = 0.0
+    dynamic var sets = 0
+    dynamic var reps = 0
+    dynamic var progression = 0.0
+}
+class WorkoutHistoryLog: Object{
+    dynamic var linkedWorkout: Workout?
+    dynamic var name = ""
+    let exerciseLogs = List<ExerciseHistoryLog>()
 }

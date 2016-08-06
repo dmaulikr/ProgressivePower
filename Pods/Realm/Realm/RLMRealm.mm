@@ -49,7 +49,7 @@ using util::File;
 
 @interface RLMRealm ()
 @property (nonatomic, strong) NSHashTable *notificationHandlers;
-- (void)sendNotifications:(RLMNotification)notification;
+- (void)sendNotifications:(NSString *)notification;
 @end
 
 void RLMDisableSyncToDisk() {
@@ -74,7 +74,7 @@ void RLMDisableSyncToDisk() {
     if (_realm || _block) {
         NSLog(@"RLMNotificationToken released without unregistering a notification. You must hold "
               @"on to the RLMNotificationToken returned from addNotificationBlock and call "
-              @"-[RLMNotificationToken stop] when you no longer wish to receive RLMRealm notifications.");
+              @"-[RLMNotificationToken stop] when you no longer wish to recieve RLMRealm notifications.");
     }
 }
 @end
@@ -174,6 +174,9 @@ static void RLMCopyColumnMapping(RLMObjectSchema *targetSchema, const ObjectSche
         RLMProperty *targetProp = targetSchema[@(prop.name.c_str())];
         targetProp.column = prop.table_column;
     }
+
+    // re-order properties
+    [targetSchema sortPropertiesByColumn];
 }
 
 static void RLMRealmSetSchemaAndAlign(RLMRealm *realm, RLMSchema *targetSchema) {
@@ -440,7 +443,7 @@ REALM_NOINLINE void RLMRealmTranslateException(NSError **error) {
     return token;
 }
 
-- (void)sendNotifications:(RLMNotification)notification {
+- (void)sendNotifications:(NSString *)notification {
     NSAssert(!_realm->config().read_only, @"Read-only realms do not have notifications");
 
     NSUInteger count = _notificationHandlers.count;
@@ -696,7 +699,7 @@ REALM_NOINLINE void RLMRealmTranslateException(NSError **error) {
     }
 
     @autoreleasepool {
-        NSError *error = nil;
+        NSError *error;
         [RLMRealm realmWithConfiguration:configuration error:&error];
         return error;
     }
