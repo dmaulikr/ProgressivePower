@@ -4,10 +4,10 @@ use_frameworks!
 
 target 'ProgressivePower' do
     pod 'ChameleonFramework'
-    pod 'RealmSwift', '~> 0.97' 
+    pod 'RealmSwift'
     pod 'SnapKit', '~> 0.15.0'
     pod 'ObjectMapper', '~> 1.3'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
-    pod 'Charts/Realm'
+    pod 'Charts'
 end
 

@@ -484,10 +484,10 @@
             </objects>
             <point key="canvasLocation" x="4269" y="-81"/>
         </scene>
-        <!--View Controller-->
+        <!--Progression View Controller-->
         <scene sceneID="zHO-I9-i2C">
             <objects>
-                <viewController id="r5P-nM-pkn" sceneMemberID="viewController">
+                <viewController id="r5P-nM-pkn" customClass="ProgressionViewController" customModule="ProgressivePower" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qlV-GW-Leu"/>
                         <viewControllerLayoutGuide type="bottom" id="aft-0w-mAZ"/>

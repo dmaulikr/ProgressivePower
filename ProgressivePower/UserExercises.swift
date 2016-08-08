@@ -27,14 +27,14 @@ class Split: Object {
 
 //History databasing
 class ExerciseHistoryLog: Object{
-    dynamic var linkedExercise: Exercise?
+    dynamic var name = ""
     dynamic var weight = 0.0
     dynamic var sets = 0
     dynamic var reps = 0
     dynamic var progression = 0.0
 }
 class WorkoutHistoryLog: Object{
-    dynamic var linkedWorkout: Workout?
     dynamic var name = ""
+    dynamic var date = NSDate()
     let exerciseLogs = List<ExerciseHistoryLog>()
 }
