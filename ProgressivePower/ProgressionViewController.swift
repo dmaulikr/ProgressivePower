@@ -36,8 +36,8 @@ class ProgressionViewController: UIViewController, ChartViewDelegate {
             for j in 0..<length{
                 weightArray.append(testWorkoutHistoryLogs[j].exerciseLogs[i].weight)
             }
-        }
         
+        }
         
         let chart = LineChartView(frame: CGRectMake(0,0,self.view.frame.size.width, 300));
         chart.center = self.view.center

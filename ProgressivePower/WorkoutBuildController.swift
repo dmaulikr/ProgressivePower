@@ -10,29 +10,10 @@ import UIKit
 import RealmSwift
 
 class WorkoutBuildController: UITableViewController {
+    
     var workoutName : String?
-    var workout : Workout{
-        get{
-            if let name = workoutName{
-                let realm = try! Realm()
-                let workout = realm.objects(Workout.self).filter("name = '\(name)'")
-                if let first = workout.first{
-                    return first
-                }
-                else{
-                    return Workout()
-                }
-            }
-            else{
-                return Workout()
-            }
-        }
-    }
-    var exercises : List<UserExercises>{
-        get{
-            return workout.exercises
-        }
-    }
+    
+    //MARK : Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,13 +30,26 @@ class WorkoutBuildController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func workout() -> Workout{
+        if let name = workoutName{
+            let realm = try! Realm()
+            let workout = realm.objects(Workout.self).filter("name = '\(name)'")
+            if let first = workout.first{
+                return first
+            }
+        }
+        return Workout()
+    }
+    
+    // MARK : Table View Delegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exercises.count
+        return workout().exercises.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .Default, reuseIdentifier: "WorkoutBuildCell")
-        cell.textLabel?.text = exercises[indexPath.row].name
+        cell.textLabel?.text = workout().exercises[indexPath.row].name
         return cell
     }
     func addExercisePressed(){
@@ -68,7 +62,7 @@ class WorkoutBuildController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "addExercise" {
             let destVC = segue.destinationViewController as! AddExerciseController
-            destVC.workout = self.workout
+            destVC.workout = workout()
         }
         // Get the new view controller using segue.destinationViewController.
     }

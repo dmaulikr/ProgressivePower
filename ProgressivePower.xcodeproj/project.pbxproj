@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4C2634821D4D0B6E00DF939B /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */; };
+		4C553E041D5A6170004F3549 /* WorkoutCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553E021D5A6170004F3549 /* WorkoutCollectionCell.swift */; };
+		4C553E051D5A6170004F3549 /* WorkoutCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C553E031D5A6170004F3549 /* WorkoutCollectionCell.xib */; };
 		4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */; };
 		4C57E1BA1D4A1BAA0034CBF0 /* WorkoutDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B91D4A1BAA0034CBF0 /* WorkoutDisplayController.swift */; };
 		4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */; };
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
+		4C553E021D5A6170004F3549 /* WorkoutCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutCollectionCell.swift; sourceTree = "<group>"; };
+		4C553E031D5A6170004F3549 /* WorkoutCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutCollectionCell.xib; sourceTree = "<group>"; };
 		4C57E1B41D4A1BAA0034CBF0 /* ProgressivePower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgressivePower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C57E1B91D4A1BAA0034CBF0 /* WorkoutDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDisplayController.swift; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 		4C8794811D4D582200AC1814 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4C553E021D5A6170004F3549 /* WorkoutCollectionCell.swift */,
+				4C553E031D5A6170004F3549 /* WorkoutCollectionCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -238,6 +244,7 @@
 			files = (
 				4C57E1C21D4A1BAA0034CBF0 /* LaunchScreen.storyboard in Resources */,
 				4C57E1BF1D4A1BAA0034CBF0 /* Assets.xcassets in Resources */,
+				4C553E051D5A6170004F3549 /* WorkoutCollectionCell.xib in Resources */,
 				4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */,
 				4CC6F4E81D4A1ED6002D69B8 /* exercises.json in Resources */,
 			);
@@ -309,6 +316,7 @@
 				4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */,
 				4CCB68B51D4A6B6F00B2A1B1 /* ProgressionViewController.swift in Sources */,
 				4C8794861D4D665400AC1814 /* WorkoutBuildController.swift in Sources */,
+				4C553E041D5A6170004F3549 /* WorkoutCollectionCell.swift in Sources */,
 				4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */,
 				4C2634821D4D0B6E00DF939B /* AutoCompleteTextField.swift in Sources */,
 				4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */,
