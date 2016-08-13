@@ -17,7 +17,6 @@ class UserExercises: Object{
     dynamic var progression = 0.0
 }
 class Workout: Object{
-    
     dynamic var name = ""
     let exercises = List<UserExercises>()
 }

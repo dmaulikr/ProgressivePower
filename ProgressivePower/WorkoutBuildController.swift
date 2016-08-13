@@ -21,6 +21,7 @@ class WorkoutBuildController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNav()
+        print(workoutName)
         // Do any additional setup after loading the view.
     }
     

@@ -62,15 +62,18 @@ class AddExerciseController: UIViewController {
     }
 
     //Check whether exercise name exists in exercise data.
-    @IBAction func createExercisePressed(sender: AnyObject) throws{
+    @IBAction func createExercisePressed(sender: AnyObject){
         do{
             try createExercise()
+            self.navigationController?.popViewControllerAnimated(true)
         } catch PPError.DBFail{
             Algorithm.presentErrorAlertWithMessage("Save failure.  Please try again.", sender: self)
         } catch PPError.NoValue{
             Algorithm.presentErrorAlertWithMessage("One or more fields were empty", sender: self)
         } catch PPError.InvalidValue{
             Algorithm.presentErrorAlertWithMessage("One or more fields had an invalid value.", sender: self)
+        } catch{
+            Algorithm.presentErrorAlertWithMessage("An unknown error occured", sender: self)
         }
     }
     

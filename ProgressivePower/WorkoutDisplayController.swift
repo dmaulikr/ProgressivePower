@@ -17,6 +17,8 @@ class WorkoutDisplayController: UICollectionViewController, UICollectionViewDele
     let BuildWorkoutSegueIdentifier = "buildWorkout"
     let margin = 10 as CGFloat
     
+    var selectedCell = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
@@ -29,18 +31,13 @@ class WorkoutDisplayController: UICollectionViewController, UICollectionViewDele
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
         if segue.identifier == BuildWorkoutSegueIdentifier{
-            if let cell = sender as? UICollectionViewCell{
-                let indexPath = self.collectionView?.indexPathForCell(cell)!
-                let buildVC = segue.destinationViewController as! WorkoutBuildController
-                if let index = indexPath?.row{
-                    buildVC.workoutName = allWorkouts()[index].name
-                }
-            }
+            let buildVC = segue.destinationViewController as! WorkoutBuildController
+            buildVC.workoutName = allWorkouts()[selectedCell - 1].name
         }
     }
-    
+
     func allWorkouts() -> Results<Workout>{
         let realm = try! Realm()
         return realm.objects(Workout.self)
@@ -73,6 +70,7 @@ class WorkoutDisplayController: UICollectionViewController, UICollectionViewDele
         if indexPath.row == 0{
             self.performSegueWithIdentifier(CreateSegueIdentifier, sender: self)
         } else{
+            selectedCell = indexPath.row
             self.performSegueWithIdentifier(BuildWorkoutSegueIdentifier, sender: self)
         }
     }

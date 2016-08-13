@@ -12,6 +12,7 @@ enum PPError : ErrorType {
     case NoValue
     case DuplicateValue
     case DBFail
-    
     case InvalidValue
+    
+    case UnexpectedError
 }

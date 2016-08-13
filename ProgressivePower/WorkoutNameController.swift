@@ -31,7 +31,7 @@ class WorkoutNameController: UIViewController {
         self.title = "Create Workout"
     }
     
-    @IBAction func createWorkoutPressed(sender: AnyObject) throws {
+    @IBAction func createWorkoutPressed(sender: AnyObject){
         do{
             try createWorkout()
         } catch PPError.DBFail{
@@ -40,6 +40,8 @@ class WorkoutNameController: UIViewController {
             Algorithm.presentErrorAlertWithMessage("You already have a workout with that name.  Pick another one.", sender: self)
         } catch PPError.NoValue{
             Algorithm.presentErrorAlertWithMessage("You need to specify a name!", sender: self)
+        } catch{
+            Algorithm.presentErrorAlertWithMessage("An unknown error occured", sender: self)
         }
 
     }
@@ -58,6 +60,7 @@ class WorkoutNameController: UIViewController {
         nameToPass = text
         
         realm.beginWrite()
+        realm.add(workout)
         do{
             try realm.commitWrite()
         } catch{
