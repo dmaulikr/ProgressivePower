@@ -9,7 +9,10 @@
 import UIKit
 import RealmSwift
 
+
 class WorkoutBuildController: UITableViewController {
+    
+    let AddExerciseSegueIdentifier = "addExercise"
     
     var workoutName : String?
     
@@ -17,12 +20,13 @@ class WorkoutBuildController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNav()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.reloadSections(NSIndexSet(index: 0) , withRowAnimation: .Automatic)
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +34,11 @@ class WorkoutBuildController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setupNav(){
+        if let name = workoutName{
+            self.title = name
+        }
+    }
     
     func workout() -> Workout{
         if let name = workoutName{
@@ -44,23 +53,33 @@ class WorkoutBuildController: UITableViewController {
     
     // MARK : Table View Delegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return workout().exercises.count
+        return workout().exercises.count + 1
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .Default, reuseIdentifier: "WorkoutBuildCell")
-        cell.textLabel?.text = workout().exercises[indexPath.row].name
+        if indexPath.row == 0{
+            cell.textLabel?.text = "Add exercise"
+        }
+        else{
+            cell.textLabel?.text = workout().exercises[indexPath.row - 1].name
+        }
         return cell
     }
-    func addExercisePressed(){
-        self.navigationController?.performSegueWithIdentifier("addExercise", sender: self)
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0{
+            self.performSegueWithIdentifier(AddExerciseSegueIdentifier, sender: self)
+        } else{
+            
+        }
     }
+    
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "addExercise" {
+        if segue.identifier == AddExerciseSegueIdentifier {
             let destVC = segue.destinationViewController as! AddExerciseController
             destVC.workout = workout()
         }

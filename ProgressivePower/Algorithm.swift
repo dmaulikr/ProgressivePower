@@ -33,12 +33,25 @@ struct Algorithm{
         return [p45, p25, p10, p5, lp25]
 
     }
-    static func errorAlertWithMessage(message :String) -> UIAlertController {
+    static func presentErrorAlertWithMessage(message :String, sender : UIViewController){
         let controller = UIAlertController(title: "Error", message:message, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
         controller.addAction(okAction)
         
-        return controller
+        sender.presentViewController(controller, animated: true, completion: nil)
+    }
+    
+    static func filteredArrayForArray(arrayToFilter: [String], filterTerm term: String) -> [String] {
+        if (term == "") {
+            return arrayToFilter
+        }
+        var filteredArray: [String] = []
+        for entry: String in arrayToFilter {
+            if entry.lowercaseString.containsString(term.lowercaseString) {
+                filteredArray.append(entry)
+            }
+        }
+        return filteredArray
     }
     
     

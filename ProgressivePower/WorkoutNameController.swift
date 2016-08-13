@@ -10,13 +10,15 @@ import UIKit
 import RealmSwift
 
 class WorkoutNameController: UIViewController {
+    
+    let BuildWorkoutSegueIdentifier = "buildWorkout"
 
     var nameToPass: String?
     
     @IBOutlet weak var nameField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupNav()
         // Do any additional setup after loading the view.
     }
 
@@ -25,43 +27,48 @@ class WorkoutNameController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    @IBAction func createWorkoutPressed(sender: AnyObject) {
-        if let text = nameField.text{
-            let realm = try! Realm()
-            let workouts = realm.objects(Workout.self).filter("name = '\(text)'")
-            if workouts.count == 0 {
-                //Save to realm
-                let workout = Workout()
-                workout.name = text
-                
-                nameToPass = text
-                
-                let realm = try! Realm()
-                try! realm.write({
-                    realm.add(workout)
-                })
-                self.navigationController?.performSegueWithIdentifier("buildWorkout", sender: self)
-            } else{
-                duplicateError()
-            }
-        } else{
-            noNameError()
+    func setupNav(){
+        self.title = "Create Workout"
+    }
+    
+    @IBAction func createWorkoutPressed(sender: AnyObject) throws {
+        do{
+            try createWorkout()
+        } catch PPError.DBFail{
+            Algorithm.presentErrorAlertWithMessage("Save failure.  Please try again.", sender: self)
+        } catch PPError.DuplicateValue{
+            Algorithm.presentErrorAlertWithMessage("You already have a workout with that name.  Pick another one.", sender: self)
+        } catch PPError.NoValue{
+            Algorithm.presentErrorAlertWithMessage("You need to specify a name!", sender: self)
         }
+
     }
     
-    func noNameError(){
-        let controller = Algorithm.errorAlertWithMessage("You didn't specify a name!")
-        self.presentViewController(controller, animated: true, completion: nil)
+    func createWorkout() throws{
+        guard let text = nameField.text else{
+            throw PPError.NoValue
+        }
+        let realm = try! Realm()
+        let workouts = realm.objects(Workout.self).filter("name = '\(text)'")
+        guard workouts.count == 0 else{
+            throw PPError.DuplicateValue
+        }
+        let workout = Workout()
+        workout.name = text
+        nameToPass = text
+        
+        realm.beginWrite()
+        do{
+            try realm.commitWrite()
+        } catch{
+            throw PPError.DBFail
+        }
+        self.performSegueWithIdentifier(BuildWorkoutSegueIdentifier, sender: self)
     }
-    
-    func duplicateError(){
-        let controller = Algorithm.errorAlertWithMessage("You already have a workout with that name.  Pick another one.")
-        self.presentViewController(controller, animated: true, completion: nil)
-    }
+
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "buildWorkout"{
+        if segue.identifier == BuildWorkoutSegueIdentifier{
             let destVC = segue.destinationViewController as! WorkoutBuildController
             destVC.workoutName = nameToPass
         }

@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
         var tempArray: Array<Exercise> = []
         
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT

@@ -116,6 +116,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="QCM-ho-IdT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.83466743510928965" green="0.83466743510928965" blue="0.83466743510928965" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RZk-cY-UKy">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -141,11 +142,12 @@
                     <navigationItem key="navigationItem" id="Lvd-N8-NeR"/>
                     <connections>
                         <segue destination="TaN-Yt-DaZ" kind="show" identifier="createWorkoutSegue" id="n9c-SY-W6y"/>
+                        <segue destination="oFx-zx-Fda" kind="show" identifier="buildWorkout" id="NaD-Fb-BDT"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ao-od-4fh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1904" y="343"/>
+            <point key="canvasLocation" x="2118" y="426"/>
         </scene>
         <!--Workout Name-->
         <scene sceneID="iCS-Nd-kjt">
@@ -254,12 +256,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exercise Search:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QF4-rh-Vlc">
-                                <rect key="frame" x="30" y="35" width="148" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <rect key="frame" x="30" y="64" width="114" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Barbell Bench Press" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AaK-8n-KZD" customClass="AutoCompleteTextField" customModule="ProgressivePower" customModuleProvider="target">
-                                <rect key="frame" x="30" y="74" width="540" height="30"/>
+                                <rect key="frame" x="30" y="97" width="540" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="FYi-5x-6qN"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -284,18 +289,18 @@
                                 <state key="normal" title="5   x   5"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZn-NC-P1H">
-                                <rect key="frame" x="30" y="149" width="69" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <rect key="frame" x="30" y="182" width="53" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="130" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHY-Tc-E3Q">
-                                <rect key="frame" x="162" y="146" width="408" height="30"/>
+                                <rect key="frame" x="136" y="176" width="434" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r1c-RH-2Ez">
-                                <rect key="frame" x="520" y="349" width="50" height="30"/>
+                                <rect key="frame" x="520" y="379" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="nhS-fr-Tuh"/>
                                 </constraints>
@@ -303,12 +308,12 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yxn-Bc-8hU">
-                                <rect key="frame" x="520" y="380" width="50" height="30"/>
+                                <rect key="frame" x="520" y="410" width="50" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q87-vx-vEm">
-                                <rect key="frame" x="231" y="442" width="139" height="36"/>
+                                <rect key="frame" x="231" y="402" width="139" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Create Exercise"/>
                                 <connections>
@@ -316,58 +321,62 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progression:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6I9-jH-Ock">
-                                <rect key="frame" x="30" y="223" width="112" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <rect key="frame" x="30" y="256" width="86" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scheme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFi-qj-hcv">
-                                <rect key="frame" x="30" y="296" width="74" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <rect key="frame" x="30" y="329" width="56" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sets:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXG-jH-IeC">
-                                <rect key="frame" x="448" y="352" width="46" height="24"/>
+                                <rect key="frame" x="448" y="382" width="46" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reps:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkD-5T-I4j">
-                                <rect key="frame" x="448" y="383" width="51" height="24"/>
+                                <rect key="frame" x="448" y="413" width="51" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the weight you will add every workout." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4a2-ik-eHX">
-                                <rect key="frame" x="313" y="254" width="257" height="15"/>
+                                <rect key="frame" x="313" y="284" width="257" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.51676699110000002" green="0.51676699110000002" blue="0.51676699110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sets x reps for the exercise." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfK-Hb-qCh">
-                                <rect key="frame" x="412" y="327" width="158" height="15"/>
+                                <rect key="frame" x="412" y="357" width="158" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.51676699110000002" green="0.51676699110000002" blue="0.51676699110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start typing, and select from the filtered exercises" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWf-ef-qUM">
-                                <rect key="frame" x="286" y="109" width="284" height="15"/>
+                                <rect key="frame" x="286" y="142" width="284" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.51676699110000002" green="0.51676699110000002" blue="0.51676699110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="apK-R6-2qa">
-                                <rect key="frame" x="162" y="221" width="408" height="29"/>
+                                <rect key="frame" x="136" y="251" width="434" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="pj3-lB-a85"/>
+                                </constraints>
                                 <segments>
                                     <segment title="+ 2.5 lbs"/>
                                     <segment title="+ 5.0 lbs"/>
-                                    <segment title="+ 7.5 lbs"/>
-                                    <segment title="+ 10 lbs"/>
                                 </segments>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lUl-6S-101">
-                                <rect key="frame" x="162" y="294" width="408" height="29"/>
+                                <rect key="frame" x="136" y="324" width="434" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="Fzs-1M-cj8"/>
+                                </constraints>
                                 <segments>
                                     <segment title="5x5"/>
                                     <segment title="3x8"/>
@@ -383,7 +392,7 @@
                                 <state key="normal" title="5   x   5"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight in pounds." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXY-Cg-nKp">
-                                <rect key="frame" x="468" y="181" width="102" height="15"/>
+                                <rect key="frame" x="468" y="211" width="102" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.51676699110000002" green="0.51676699110000002" blue="0.51676699110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -399,6 +408,7 @@
                             <constraint firstItem="apK-R6-2qa" firstAttribute="trailing" secondItem="FHY-Tc-E3Q" secondAttribute="trailing" id="6VM-Tx-rRq"/>
                             <constraint firstItem="WSm-Ak-ZtS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="q87-vx-vEm" secondAttribute="bottom" constant="20" id="6cq-ad-IBi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FHY-Tc-E3Q" secondAttribute="trailing" constant="57" id="8Eh-vO-axS"/>
+                            <constraint firstItem="QF4-rh-Vlc" firstAttribute="top" secondItem="FJT-wn-HPQ" secondAttribute="bottom" id="9v9-w3-WWr"/>
                             <constraint firstItem="NkD-5T-I4j" firstAttribute="centerY" secondItem="yxn-Bc-8hU" secondAttribute="centerY" id="AAh-03-5xu"/>
                             <constraint firstItem="6I9-jH-Ock" firstAttribute="leading" secondItem="SZn-NC-P1H" secondAttribute="leading" id="ArE-oC-xDG"/>
                             <constraint firstItem="yxn-Bc-8hU" firstAttribute="top" secondItem="r1c-RH-2Ez" secondAttribute="bottom" constant="1" id="CEV-lu-sr5"/>
@@ -444,7 +454,7 @@
                             <constraint firstItem="4a2-ik-eHX" firstAttribute="leading" secondItem="6I9-jH-Ock" secondAttribute="leading" id="tTL-yl-lRV"/>
                             <constraint firstItem="q87-vx-vEm" firstAttribute="centerX" secondItem="w61-v3-DZe" secondAttribute="centerX" id="uZY-xQ-js3"/>
                             <constraint firstItem="yxn-Bc-8hU" firstAttribute="leading" secondItem="r1c-RH-2Ez" secondAttribute="leading" id="ub4-ZY-deU"/>
-                            <constraint firstItem="q87-vx-vEm" firstAttribute="top" secondItem="lUl-6S-101" secondAttribute="bottom" priority="750" constant="120" id="yPp-ne-aHL"/>
+                            <constraint firstItem="q87-vx-vEm" firstAttribute="top" secondItem="lUl-6S-101" secondAttribute="bottom" priority="750" constant="50" id="yPp-ne-aHL"/>
                             <constraint firstItem="FHY-Tc-E3Q" firstAttribute="centerY" secondItem="SZn-NC-P1H" secondAttribute="centerY" id="yyN-WY-sgd"/>
                         </constraints>
                         <variation key="default">
@@ -456,6 +466,7 @@
                                 <exclude reference="F4a-xP-6fQ"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Va9-jO-5vH"/>
                                 <exclude reference="1aE-7J-xqb"/>
                                 <exclude reference="8Eh-vO-axS"/>
                                 <exclude reference="YFZ-Zb-MSL"/>
@@ -526,4 +537,7 @@
             <point key="canvasLocation" x="1281" y="1025"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="NaD-Fb-BDT"/>
+    </inferredMetricsTieBreakers>
 </document>

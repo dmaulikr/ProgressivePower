@@ -27,6 +27,8 @@ class AddExerciseController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextField()
+        setupNav()
+        print(workout!)
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(animated: Bool) {
@@ -38,13 +40,17 @@ class AddExerciseController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setupNav(){
+        self.title = "Create Exercise"
+    }
+    
     @IBAction func schemeDidChange(sender: AnyObject) {
         let control = sender as! UISegmentedControl
         if control.selectedSegmentIndex == 2{
-            changeSchemeFieldAlphaTo(true)
+            changeSchemeFieldAlphaTo(false)
         }
         else {
-            changeSchemeFieldAlphaTo(false)
+            changeSchemeFieldAlphaTo(true)
         }
     
     }
@@ -54,46 +60,43 @@ class AddExerciseController: UIViewController {
         setsField.hidden = value
         repsField.hidden = value
     }
-    func error(){
-        let alertController = Algorithm.errorAlertWithMessage("One or more fields were invalid.  Please change them, and try again.")
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
+
     //Check whether exercise name exists in exercise data.
-    @IBAction func createExercisePressed(sender: AnyObject) {
-        if self.exerciseField.text == nil || self.weightField.text == nil || (schemeControl.selectedSegmentIndex == 2 && (self.setsField.text == nil || self.repsField.text == nil)){
-        //Error message
-            return;
+    @IBAction func createExercisePressed(sender: AnyObject) throws{
+        do{
+            try createExercise()
+        } catch PPError.DBFail{
+            Algorithm.presentErrorAlertWithMessage("Save failure.  Please try again.", sender: self)
+        } catch PPError.NoValue{
+            Algorithm.presentErrorAlertWithMessage("One or more fields were empty", sender: self)
+        } catch PPError.InvalidValue{
+            Algorithm.presentErrorAlertWithMessage("One or more fields had an invalid value.", sender: self)
         }
-        
+    }
+    
+    func createExercise() throws{
+        if schemeControl.selectedSegmentIndex == 2 && (self.setsField.text == nil || self.repsField.text == nil){
+            throw PPError.NoValue
+        }
         let exercise = UserExercises()
-        if let name = exerciseField.text{
-            exercise.name = name
+        guard let name = exerciseField.text else{
+            throw PPError.NoValue
         }
-        else{
-            error()
-            return
+        guard let weight = weightField.text else{
+            throw PPError.NoValue
+        }
+        guard let exerciseWeight = Double(weight) else{
+            throw PPError.InvalidValue
+        }
+        exercise.name = name
+        exercise.weight = exerciseWeight
+        
+        if progressionControl.selectedSegmentIndex == 0{
+            exercise.progression = 2.5
+        } else{
+            exercise.progression = 2.5
         }
         
-        if let weight = weightField.text{
-            let weightValue = Double(weight)
-            if let weight = weightValue{
-                exercise.weight = weight
-            }
-            else{
-                error()
-                return
-            }
-        }
-        switch progressionControl.selectedSegmentIndex {
-        case 0:
-            exercise.progression = 2.5
-        case 2:
-            exercise.progression = 7.5
-        case 3:
-            exercise.progression = 10.0
-        default:
-            exercise.progression = 5.0
-        }
         switch schemeControl.selectedSegmentIndex {
         case 0:
             exercise.sets = 5
@@ -102,27 +105,23 @@ class AddExerciseController: UIViewController {
             exercise.sets = 3
             exercise.reps = 8
         case 2:
-            if let sets = setsField.text{
-                let setValue = Int(sets)
-                if let sets = setValue{
-                    exercise.sets = sets
-                }
-                else{
-                    error()
-                    return
-                }
-
+            guard let sets = setsField.text else{
+                throw PPError.NoValue
             }
-            if let reps = repsField.text{
-                let repValue = Int(reps)
-                if let reps = repValue{
-                    exercise.reps = reps
-                }
-                else{
-                    error()
-                    return
-                }
+            guard let exerciseSets = Int(sets) else{
+                throw PPError.InvalidValue
             }
+            exercise.sets = exerciseSets
+            
+            
+            guard let reps = repsField.text else{
+                throw PPError.NoValue
+            }
+            guard let exerciseReps = Int(reps) else{
+                throw PPError.InvalidValue
+            }
+            exercise.reps = exerciseReps
+            
         default:
             exercise.sets = 5
             exercise.reps = 5
@@ -132,10 +131,15 @@ class AddExerciseController: UIViewController {
         realm.beginWrite()
         realm.add(exercise)
         workout?.exercises.append(exercise)
-        try! realm.commitWrite()
+        do{
+            try realm.commitWrite()
+        } catch {
+            throw PPError.DBFail
+        }
         //Pop back to build controller
-        self.navigationController?.popViewControllerAnimated(true)
+        //self.navigationController?.popViewControllerAnimated(true)
     }
+    
     func setupTextField(){
         var strings: [String] = []
         if let exerciseArray = ExerciseData.allExercises{
@@ -143,8 +147,11 @@ class AddExerciseController: UIViewController {
                 strings.append(exercise.name)
             }
         }
+        var attributes = [String:AnyObject]()
+        attributes[NSForegroundColorAttributeName] = UIColor.blackColor()
+        attributes[NSFontAttributeName] = UIFont.systemFontOfSize(14)
         
-        exerciseField.autoCompleteTextColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 1.0)
+        exerciseField.autoCompleteTextColor = UIColor.flatGrayColorDark()
         exerciseField.autoCompleteTextFont = UIFont.systemFontOfSize(14)
         exerciseField.autoCompleteCellHeight = 35.0
         exerciseField.maximumAutoCompleteCount = 10
@@ -152,41 +159,13 @@ class AddExerciseController: UIViewController {
         exerciseField.hidesWhenSelected = true
         exerciseField.hidesWhenEmpty = true
         exerciseField.enableAttributedText = true
-        var attributes = [String:AnyObject]()
-        attributes[NSForegroundColorAttributeName] = UIColor.blackColor()
-        attributes[NSFontAttributeName] = UIFont.systemFontOfSize(14)
         exerciseField.autoCompleteAttributes = attributes
-        
         exerciseField.onTextChange = {text in
-        self.exerciseField.autoCompleteStrings = self.filteredArrayForArray(strings, filterTerm: text)
+            self.exerciseField.autoCompleteStrings = Algorithm.filteredArrayForArray(strings, filterTerm: text)
         }
-        
         exerciseField.onSelect = {text, indexpath in
-        print(text)
-        print(indexpath.row)
+            print(text)
+            print(indexpath.row)
         }
     }
-    
-    func filteredArrayForArray(arrayToFilter: [String], filterTerm term: String) -> [String] {
-        if (term == "") {
-            return arrayToFilter
-        }
-        var filteredArray: [String] = []
-        for entry: String in arrayToFilter {
-            if entry.lowercaseString.containsString(term.lowercaseString) {
-                filteredArray.append(entry)
-            }
-        }
-        return filteredArray
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

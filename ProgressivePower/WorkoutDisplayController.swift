@@ -10,17 +10,17 @@ import UIKit
 import Spring
 import RealmSwift
 
-let WorkoutCellIdentifier = "WorkoutCollectionCell"
-let CreateSegueIdentifier = "createWorkoutSegue"
-
-let cellHeight = 150 as CGFloat
-let margin = 10 as CGFloat
-
 class WorkoutDisplayController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    let WorkoutCellIdentifier = "WorkoutCollectionCell"
+    let CreateSegueIdentifier = "createWorkoutSegue"
+    let BuildWorkoutSegueIdentifier = "buildWorkout"
+    let margin = 10 as CGFloat
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        setupNav()
                 // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -29,14 +29,31 @@ class WorkoutDisplayController: UICollectionViewController, UICollectionViewDele
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == BuildWorkoutSegueIdentifier{
+            if let cell = sender as? UICollectionViewCell{
+                let indexPath = self.collectionView?.indexPathForCell(cell)!
+                let buildVC = segue.destinationViewController as! WorkoutBuildController
+                if let index = indexPath?.row{
+                    buildVC.workoutName = allWorkouts()[index].name
+                }
+            }
+        }
+    }
+    
     func allWorkouts() -> Results<Workout>{
         let realm = try! Realm()
         return realm.objects(Workout.self)
     }
     
+    func setupNav(){
+        self.navigationItem.title = "Your Workouts"
+    }
+
     func setupCollectionView(){
         self.collectionView?.registerNib(UINib(nibName: WorkoutCellIdentifier, bundle: nil), forCellWithReuseIdentifier: WorkoutCellIdentifier);
     }
+    
     
     // MARK: Collection view delegate
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -46,9 +63,9 @@ class WorkoutDisplayController: UICollectionViewController, UICollectionViewDele
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = self.collectionView?.dequeueReusableCellWithReuseIdentifier(WorkoutCellIdentifier, forIndexPath: indexPath) as! WorkoutCollectionCell
         if indexPath.row == 0{
-            cell.nameLabel.text = "Add workout";
+            cell.nameLabel.text = "Add a workout";
         } else{
-            cell.nameLabel.text = allWorkouts()[indexPath.row - 1].name;
+            cell.nameLabel.text = allWorkouts()[indexPath.row - 1].name
         }
         return cell
     }
@@ -56,16 +73,15 @@ class WorkoutDisplayController: UICollectionViewController, UICollectionViewDele
         if indexPath.row == 0{
             self.performSegueWithIdentifier(CreateSegueIdentifier, sender: self)
         } else{
-            
+            self.performSegueWithIdentifier(BuildWorkoutSegueIdentifier, sender: self)
         }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = self.view.frame.size.width;
-        let height = cellHeight
         //Two cells on each row with 3 spaces in total
-        let width = (screenWidth/2) - ((margin * 3)/2)
-        return CGSizeMake(width, height)
+        let size = (screenWidth/2) - ((margin * 3)/2)
+        return CGSizeMake(size, size)
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(margin, margin, margin, margin)
