@@ -215,16 +215,18 @@
         <scene sceneID="PLc-R4-Fo1">
             <objects>
                 <tableViewController storyboardIdentifier="WorkoutBuildController" id="oFx-zx-Fda" customClass="WorkoutBuildController" customModule="ProgressivePower" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="1tQ-3J-79i">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="1tQ-3J-79i">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <color key="sectionIndexBackgroundColor" red="0.9528873101494697" green="0.9528873101494697" blue="0.9528873101494697" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BuilderCell" id="QnV-0z-X36">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QnV-0z-X36" id="KdE-z6-w08">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -498,10 +500,10 @@
             </objects>
             <point key="canvasLocation" x="4269" y="-81"/>
         </scene>
-        <!--Progression View Controller-->
+        <!--Plate View Controller-->
         <scene sceneID="zHO-I9-i2C">
             <objects>
-                <viewController id="r5P-nM-pkn" customClass="ProgressionViewController" customModule="ProgressivePower" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="r5P-nM-pkn" customClass="PlateViewController" customModule="ProgressivePower" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qlV-GW-Leu"/>
                         <viewControllerLayoutGuide type="bottom" id="aft-0w-mAZ"/>

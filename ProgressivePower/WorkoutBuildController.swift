@@ -13,6 +13,8 @@ import RealmSwift
 class WorkoutBuildController: UITableViewController {
     
     let AddExerciseSegueIdentifier = "addExercise"
+    let WorkoutBuildTableCellIdentifier = "WorkoutBuildTableCell"
+    let firstCellHeight = 44 as CGFloat
     
     var workoutName : String?
     
@@ -21,6 +23,7 @@ class WorkoutBuildController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNav()
+        setupTableView()
         print(workoutName)
         // Do any additional setup after loading the view.
     }
@@ -41,6 +44,11 @@ class WorkoutBuildController: UITableViewController {
         }
     }
     
+    func setupTableView(){
+        self.tableView.registerNib(UINib.init(nibName: WorkoutBuildTableCellIdentifier, bundle: nil), forCellReuseIdentifier: WorkoutBuildTableCellIdentifier)
+        self.tableView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.00)
+    }
+    
     func workout() -> Workout{
         if let name = workoutName{
             let realm = try! Realm()
@@ -57,13 +65,18 @@ class WorkoutBuildController: UITableViewController {
         return workout().exercises.count + 1
     }
     
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: "WorkoutBuildCell")
+        let cell : WorkoutBuildTableCell
+       
         if indexPath.row == 0{
-            cell.textLabel?.text = "Add exercise"
+            let firstCell = UITableViewCell(style: .Default, reuseIdentifier: "normalCell")
+            firstCell.textLabel?.text = "Add exercise"
+            return firstCell
         }
         else{
-            cell.textLabel?.text = workout().exercises[indexPath.row - 1].name
+            cell = self.tableView.dequeueReusableCellWithIdentifier(WorkoutBuildTableCellIdentifier, forIndexPath: indexPath) as! WorkoutBuildTableCell
+            cell.configureCellWithExercise(workout().exercises[indexPath.row - 1])
         }
         return cell
     }
@@ -72,6 +85,13 @@ class WorkoutBuildController: UITableViewController {
             self.performSegueWithIdentifier(AddExerciseSegueIdentifier, sender: self)
         } else{
             
+        }
+    }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0{
+            return firstCellHeight
+        } else{
+            return WorkoutBuildTableCell.cellHeight()
         }
     }
     
