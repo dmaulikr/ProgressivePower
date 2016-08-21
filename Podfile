@@ -9,5 +9,6 @@ target 'ProgressivePower' do
     pod 'ObjectMapper', '~> 1.3'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
     pod 'Charts'
+    pod 'DZNEmptyDataSet'
 end
 

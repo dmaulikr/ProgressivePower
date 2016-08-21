@@ -25,6 +25,7 @@
 		4C8794881D4D667D00AC1814 /* AddExerciseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8794871D4D667D00AC1814 /* AddExerciseController.swift */; };
 		4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */; };
 		4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */; };
+		4CAB48C11D6948D80016332A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB48C01D6948D80016332A /* Constants.swift */; };
 		4CC65E481D4C570400950011 /* PlateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC65E471D4C570400950011 /* PlateViewController.swift */; };
 		4CC6F4E81D4A1ED6002D69B8 /* exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6F4E71D4A1ED6002D69B8 /* exercises.json */; };
 		4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */; };
@@ -56,6 +57,7 @@
 		4C8794871D4D667D00AC1814 /* AddExerciseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExerciseController.swift; sourceTree = "<group>"; };
 		4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateGenerator.swift; sourceTree = "<group>"; };
 		4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
+		4CAB48C01D6948D80016332A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4CC65E471D4C570400950011 /* PlateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateViewController.swift; sourceTree = "<group>"; };
 		4CC6F4E71D4A1ED6002D69B8 /* exercises.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exercises.json; sourceTree = "<group>"; };
 		4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseLoading.swift; sourceTree = "<group>"; };
@@ -134,10 +136,9 @@
 				4C1659AD1D4A706D00ABD352 /* Views */,
 				4CC6F4E91D4A1EF5002D69B8 /* Model */,
 				4C1659AC1D4A6F5100ABD352 /* View Controllers */,
-				4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */,
-				4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */,
 				4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */,
 				4C57E1C01D4A1BAA0034CBF0 /* LaunchScreen.storyboard */,
+				4CAB48C21D694ABA0016332A /* Utilities */,
 				4CCB68B11D4A6AC400B2A1B1 /* Supporting Files */,
 			);
 			path = ProgressivePower;
@@ -165,6 +166,16 @@
 				4C8794871D4D667D00AC1814 /* AddExerciseController.swift */,
 			);
 			name = Workout;
+			sourceTree = "<group>";
+		};
+		4CAB48C21D694ABA0016332A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */,
+				4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */,
+				4CAB48C01D6948D80016332A /* Constants.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		4CC6F4E91D4A1EF5002D69B8 /* Model */ = {
@@ -323,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CC6F4F31D4A5BD1002D69B8 /* UserExercises.swift in Sources */,
+				4CAB48C11D6948D80016332A /* Constants.swift in Sources */,
 				4C8794881D4D667D00AC1814 /* AddExerciseController.swift in Sources */,
 				4C0B2FE31D5F787E00DC2251 /* PPError.swift in Sources */,
 				4CC65E481D4C570400950011 /* PlateViewController.swift in Sources */,

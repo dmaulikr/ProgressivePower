@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7NG-yK-Vx6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="La3-eP-K5g">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="BKY-X3-blc">
-            <objects>
-                <navigationController id="7NG-yK-Vx6" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="40S-nq-cgP">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="La3-eP-K5g" kind="relationship" relationship="rootViewController" id="D7Q-bf-GX3"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Alk-pe-Q4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-247" y="447"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="qPR-gM-cCy">
             <objects>
@@ -84,11 +68,19 @@
                             <outlet property="delegate" destination="72o-bB-Bi6" id="Qm7-pg-feM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="5uE-bg-3IA"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="5uE-bg-3IA">
+                        <barButtonItem key="rightBarButtonItem" title="Change" id="xJI-2X-4WL">
+                            <connections>
+                                <action selector="changeTouched:" destination="72o-bB-Bi6" id="8pi-D8-YEb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrU-7j-pv9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1952" y="-392"/>
+            <point key="canvasLocation" x="2064" y="-392"/>
         </scene>
         <!--Item 2-->
         <scene sceneID="4YW-6z-vyr">
@@ -162,12 +154,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name your workout:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goa-jr-799">
-                                <rect key="frame" x="214" y="52" width="172" height="23"/>
+                                <rect key="frame" x="214" y="96" width="172" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A12-Fj-cSk">
-                                <rect key="frame" x="233" y="181" width="134" height="35"/>
+                                <rect key="frame" x="233" y="225" width="134" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Create Workout"/>
                                 <connections>
@@ -175,12 +167,12 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zrn-jL-TWy">
-                                <rect key="frame" x="45" y="113" width="510" height="30"/>
+                                <rect key="frame" x="45" y="157" width="510" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Give your workout a memorable name." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3np-aM-oeo">
-                                <rect key="frame" x="192" y="148" width="217" height="15"/>
+                                <rect key="frame" x="192" y="192" width="217" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.51676699110000002" green="0.51676699110000002" blue="0.51676699110000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -540,6 +532,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NaD-Fb-BDT"/>
+        <segue reference="q08-HX-Qlr"/>
     </inferredMetricsTieBreakers>
 </document>

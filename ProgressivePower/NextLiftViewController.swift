@@ -8,14 +8,25 @@
 
 import UIKit
 import RealmSwift
+import DZNEmptyDataSet
 
-
-class NextLiftViewController: UITableViewController {
+class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
+    @IBAction func changeTouched(sender: AnyObject) {
+        let randomColor = UIColor(randomColorInArray: Constants.themeColorPalette)
+        
+        self.navigationController?.navigationBar.barTintColor = randomColor
+        
+        self.tabBarController?.tabBar.barTintColor = randomColor
+        UITabBar.appearance().tintColor = UIColor.whiteColor()
+        
+        
+    }
     let NextLiftTableCellIdentifier = "NextLiftTableCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
         // Do any additional setup after loading the view.
     }
 
@@ -27,6 +38,10 @@ class NextLiftViewController: UITableViewController {
     func setupTableView(){
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.emptyDataSetSource = self
+        self.tableView.tableFooterView = UIView()
+        
         self.tableView.registerNib(UINib(nibName: NextLiftTableCellIdentifier, bundle: nil), forCellReuseIdentifier: NextLiftTableCellIdentifier)
     }
     
@@ -34,27 +49,49 @@ class NextLiftViewController: UITableViewController {
         let realm = try! Realm()
         return realm.objects(WorkoutHistoryLog.self)
     }
+    func currentSplit() -> Results<CurrentState>{
+        let realm = try! Realm()
+        return realm.objects(CurrentState.self)
+    }
+    //MARK: -Empty Data Set Delegate
+
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "Welcome"
+        let attributes = [
+            NSFontAttributeName : UIFont.boldSystemFontOfSize(18.0),
+            NSForegroundColorAttributeName: UIColor.flatGrayColorDark()
+        ]
+        return NSAttributedString(string: text, attributes: attributes)
+    }
     
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "This is where you will come to get Stronger Every Day. Make a split in the Plan tab!"
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .ByWordWrapping
+        paragraph.alignment = .Center
+        
+        let attributes = [
+            NSFontAttributeName : UIFont.systemFontOfSize(14.0),
+            NSForegroundColorAttributeName: UIColor.flatGrayColor(),
+            NSParagraphStyleAttributeName: paragraph
+        ]
+        
+        return NSAttributedString(string: text, attributes: attributes)
+    }
     
     //MARK: -Table View Delegate
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(NextLiftTableCellIdentifier, forIndexPath: indexPath) as! NextLiftTableCell
         
-        
         return cell
-    }
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
     }
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return ["Current Lift", "Next Lifts"]
-    }
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1{
-            return 1
+            return currentSplit().count
         } else{
             return workoutHistory().count
         }

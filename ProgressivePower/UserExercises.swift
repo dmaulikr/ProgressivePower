@@ -23,8 +23,12 @@ class Workout: Object{
 class Split: Object {
     let workouts = List<Workout>()
 }
-
 //History databasing
+class CurrentState : Object{
+    dynamic var currentSplit :Split?
+    dynamic var splitIndex = 0
+    dynamic var themeColorIndex = 0
+}
 class ExerciseHistoryLog: Object{
     dynamic var name = ""
     dynamic var weight = 0.0

@@ -48,6 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
         }
+        let randomColor = UIColor(randomColorInArray: Constants.themeColorPalette)
+    
+        UINavigationBar.appearance().barTintColor = randomColor
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+
+        UITabBar.appearance().barTintColor = randomColor
+        UITabBar.appearance().tintColor = UIColor.whiteColor()
 
         // Override point for customization after application launch.
         return true
