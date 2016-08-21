@@ -15,5 +15,4 @@ class WorkoutCollectionCell: UICollectionViewCell {
         super.awakeFromNib()
         self.layer.cornerRadius = 5;
     }
-
 }

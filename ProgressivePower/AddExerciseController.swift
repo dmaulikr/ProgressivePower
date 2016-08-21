@@ -97,7 +97,7 @@ class AddExerciseController: UIViewController {
         if progressionControl.selectedSegmentIndex == 0{
             exercise.progression = 2.5
         } else{
-            exercise.progression = 2.5
+            exercise.progression = 5.0
         }
         
         switch schemeControl.selectedSegmentIndex {

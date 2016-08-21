@@ -10,6 +10,8 @@
 		4C0B2FE31D5F787E00DC2251 /* PPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B2FE21D5F787E00DC2251 /* PPError.swift */; };
 		4C0B2FE81D68DE3400DC2251 /* WorkoutBuildTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B2FE61D68DE3400DC2251 /* WorkoutBuildTableCell.swift */; };
 		4C0B2FE91D68DE3400DC2251 /* WorkoutBuildTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0B2FE71D68DE3400DC2251 /* WorkoutBuildTableCell.xib */; };
+		4C0B2FF21D69124E00DC2251 /* NextLiftTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B2FF01D69124E00DC2251 /* NextLiftTableCell.swift */; };
+		4C0B2FF31D69124E00DC2251 /* NextLiftTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0B2FF11D69124E00DC2251 /* NextLiftTableCell.xib */; };
 		4C2634821D4D0B6E00DF939B /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */; };
 		4C553E041D5A6170004F3549 /* WorkoutCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553E021D5A6170004F3549 /* WorkoutCollectionCell.swift */; };
 		4C553E051D5A6170004F3549 /* WorkoutCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C553E031D5A6170004F3549 /* WorkoutCollectionCell.xib */; };
@@ -37,6 +39,8 @@
 		4C0B2FE21D5F787E00DC2251 /* PPError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPError.swift; sourceTree = "<group>"; };
 		4C0B2FE61D68DE3400DC2251 /* WorkoutBuildTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutBuildTableCell.swift; sourceTree = "<group>"; };
 		4C0B2FE71D68DE3400DC2251 /* WorkoutBuildTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutBuildTableCell.xib; sourceTree = "<group>"; };
+		4C0B2FF01D69124E00DC2251 /* NextLiftTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextLiftTableCell.swift; sourceTree = "<group>"; };
+		4C0B2FF11D69124E00DC2251 /* NextLiftTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NextLiftTableCell.xib; sourceTree = "<group>"; };
 		4C2634811D4D0B6E00DF939B /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
 		4C553E021D5A6170004F3549 /* WorkoutCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutCollectionCell.swift; sourceTree = "<group>"; };
 		4C553E031D5A6170004F3549 /* WorkoutCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutCollectionCell.xib; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 				4C553E031D5A6170004F3549 /* WorkoutCollectionCell.xib */,
 				4C0B2FE61D68DE3400DC2251 /* WorkoutBuildTableCell.swift */,
 				4C0B2FE71D68DE3400DC2251 /* WorkoutBuildTableCell.xib */,
+				4C0B2FF01D69124E00DC2251 /* NextLiftTableCell.swift */,
+				4C0B2FF11D69124E00DC2251 /* NextLiftTableCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -257,6 +263,7 @@
 				4C553E051D5A6170004F3549 /* WorkoutCollectionCell.xib in Resources */,
 				4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */,
 				4CC6F4E81D4A1ED6002D69B8 /* exercises.json in Resources */,
+				4C0B2FF31D69124E00DC2251 /* NextLiftTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +328,7 @@
 				4CC65E481D4C570400950011 /* PlateViewController.swift in Sources */,
 				4C8794831D4D646F00AC1814 /* WorkoutNameController.swift in Sources */,
 				4C0B2FE81D68DE3400DC2251 /* WorkoutBuildTableCell.swift in Sources */,
+				4C0B2FF21D69124E00DC2251 /* NextLiftTableCell.swift in Sources */,
 				4CCB68B01D4A6A3300B2A1B1 /* ExerciseData.swift in Sources */,
 				4CCB68AE1D4A664100B2A1B1 /* NextLiftViewController.swift in Sources */,
 				4C57E1BA1D4A1BAA0034CBF0 /* WorkoutDisplayController.swift in Sources */,
