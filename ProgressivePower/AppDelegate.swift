@@ -27,13 +27,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let jsonData = try NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
                     do {
                         let jsonResult: NSArray = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .MutableContainers ) as! NSArray
+                        var mapResult = [:]
+                        if let mapPath = NSBundle.mainBundle().pathForResource("exercisePictureMap", ofType: "json"){
+                            do{
+                                let mapData = try NSData(contentsOfFile: mapPath, options: .DataReadingMappedIfSafe)
+                                mapResult = try NSJSONSerialization.JSONObjectWithData(mapData, options: .MutableContainers ) as! NSDictionary
+                            } catch let error as NSError{
+                                print(error)
+                            }
+                        }
                         for dict in jsonResult as! [NSDictionary]{
                             let exerciseName: String = dict.allKeys[0] as! String//Get key value to open object data
+                            
                             let details = dict.valueForKey(exerciseName) //Get details
 
                             let exerciseDetails = Mapper<ExerciseDetails>().map(details)
                             
                             let exercise = Exercise()
+                            
+                            let exerciseImageName = mapResult.objectForKey(exerciseName) as? String
+                            if let exerciseImageName = exerciseImageName{
+                                if exerciseImageName != ""{
+                                    exercise.imageName =  "\(exerciseImageName)_1.png"
+                                }
+                            }
                             exercise.name = exerciseName
                             if let exerciseDetails = exerciseDetails{
                                 exercise.details = exerciseDetails
@@ -57,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = titleDict as? [String : AnyObject]
 
-        let realm = try! Realm()
+        //let realm = try! Realm()
         
         // Override point for customization after application launch.
         return true

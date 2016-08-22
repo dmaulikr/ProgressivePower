@@ -86,7 +86,7 @@ public class AutoCompleteTextField:UITextField {
     
     private func setupAutocompleteTable(view:UIView){
         let screenSize = UIScreen.mainScreen().bounds.size
-        let tableView = UITableView(frame: CGRectMake(self.frame.origin.x - 2, self.frame.origin.y + CGRectGetHeight(self.frame) + 45, screenSize.width - (self.frame.origin.x * 2), 30.0))
+        let tableView = UITableView(frame: CGRectMake(self.frame.origin.x, self.frame.origin.y + CGRectGetHeight(self.frame), screenSize.width - (self.frame.origin.x * 2), 30.0))
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = autoCompleteCellHeight
@@ -96,7 +96,7 @@ public class AutoCompleteTextField:UITextField {
         
         view.addSubview(tableView)
         autoCompleteTableView = tableView
-        autoCompleteTableHeight = 120.0
+        autoCompleteTableHeight = 230
     }
     
     private func redrawTable(){
@@ -167,6 +167,10 @@ extension AutoCompleteTextField: UITableViewDataSource, UITableViewDelegate {
             cell?.textLabel?.font = autoCompleteTextFont
             cell?.textLabel?.textColor = autoCompleteTextColor
             cell?.textLabel?.text = autoCompleteStrings![indexPath.row]
+            
+            
+            cell?.imageView?.image = UIImage(named: )
+            
         }
         
         cell?.contentView.gestureRecognizers = nil

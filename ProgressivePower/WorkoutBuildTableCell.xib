@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -16,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+5 lbs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSr-by-1kb">
-                        <rect key="frame" x="66" y="56" width="38" height="16"/>
+                        <rect key="frame" x="139" y="56" width="38" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.55198727800000003" green="0.55198727800000003" blue="0.55198727800000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -28,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WEIGHT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7hr-dz-4tO">
-                        <rect key="frame" x="10" y="39" width="48" height="15"/>
+                        <rect key="frame" x="83" y="39" width="48" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.42655369640000002" green="0.475846082" blue="0.4802647531" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -52,13 +53,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120 lbs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh6-OQ-aw1">
-                        <rect key="frame" x="10" y="54" width="52" height="20"/>
+                        <rect key="frame" x="83" y="54" width="52" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.25164468290000003" green="0.2509984556" blue="0.25183860850000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barbell Bench Press" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxK-sZ-8v3">
-                        <rect key="frame" x="10" y="8" width="153" height="21"/>
+                        <rect key="frame" x="83" y="8" width="153" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.25164468288421632" green="0.25099845562696882" blue="0.25183860846937967" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -70,6 +71,14 @@
                             <constraint firstAttribute="width" constant="5" id="mYI-pc-7qh"/>
                         </constraints>
                     </view>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sZX-xW-EYa">
+                        <rect key="frame" x="7" y="5" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="AJG-tG-b5j"/>
+                            <constraint firstAttribute="width" secondItem="sZX-xW-EYa" secondAttribute="height" multiplier="1:1" id="Taw-BP-pvH"/>
+                            <constraint firstAttribute="height" constant="70" id="mK7-jd-Ygo"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -86,8 +95,11 @@
                     <constraint firstItem="ebD-WW-585" firstAttribute="centerY" secondItem="Hh6-OQ-aw1" secondAttribute="centerY" id="NO5-3r-Zkr"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Hh6-OQ-aw1" secondAttribute="bottom" id="Ojt-Pz-WVd"/>
                     <constraint firstItem="Hh6-OQ-aw1" firstAttribute="leading" secondItem="bxK-sZ-8v3" secondAttribute="leading" id="QfK-6m-R4A"/>
+                    <constraint firstItem="bxK-sZ-8v3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="75" id="RWt-lG-y0Q"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="sZX-xW-EYa" secondAttribute="bottom" constant="-8" id="U0w-wN-h2l"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="bxK-sZ-8v3" secondAttribute="trailing" id="UDm-T9-jAY"/>
                     <constraint firstAttribute="trailingMargin" secondItem="KKn-gT-e8X" secondAttribute="trailing" constant="5" id="UUI-Hy-poi"/>
+                    <constraint firstItem="sZX-xW-EYa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WsU-aX-pw5"/>
                     <constraint firstItem="9lg-MA-Lsa" firstAttribute="centerY" secondItem="Hh6-OQ-aw1" secondAttribute="centerY" id="YvD-zJ-iwJ"/>
                     <constraint firstItem="Lra-Ki-5PK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="a7y-45-wG5"/>
                     <constraint firstItem="KKn-gT-e8X" firstAttribute="leading" secondItem="Zbb-zA-qW7" secondAttribute="trailing" constant="15" id="bJw-M8-Ild"/>
@@ -96,6 +108,8 @@
                     <constraint firstItem="Zbb-zA-qW7" firstAttribute="centerY" secondItem="7hr-dz-4tO" secondAttribute="centerY" id="mAK-b5-7Io"/>
                     <constraint firstAttribute="leadingMargin" secondItem="bxK-sZ-8v3" secondAttribute="leading" constant="-20" id="nHT-rv-600"/>
                     <constraint firstItem="9lg-MA-Lsa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ndZ-rP-njM"/>
+                    <constraint firstItem="sZX-xW-EYa" firstAttribute="leading" secondItem="Lra-Ki-5PK" secondAttribute="trailing" constant="2" id="rWf-yc-zpG"/>
+                    <constraint firstItem="sZX-xW-EYa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="wMu-sZ-fRN"/>
                     <constraint firstItem="7hr-dz-4tO" firstAttribute="leading" secondItem="bxK-sZ-8v3" secondAttribute="leading" id="wYC-Nh-vEw"/>
                     <constraint firstItem="Lra-Ki-5PK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="xei-Vv-EOK"/>
                     <constraint firstItem="bxK-sZ-8v3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="xyO-lL-lqN"/>
@@ -103,6 +117,9 @@
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="xei-Vv-EOK"/>
+                        <exclude reference="U0w-wN-h2l"/>
+                        <exclude reference="wMu-sZ-fRN"/>
+                        <exclude reference="LtH-NC-ALG"/>
                         <exclude reference="N3x-4N-G7M"/>
                         <exclude reference="nHT-rv-600"/>
                         <exclude reference="I5Z-e0-bPZ"/>
@@ -112,7 +129,9 @@
                 </variation>
             </tableViewCellContentView>
             <connections>
+                <outlet property="exerciseImageView" destination="sZX-xW-EYa" id="1DW-XD-Z0p"/>
                 <outlet property="highlightView" destination="Lra-Ki-5PK" id="EZl-QP-BFo"/>
+                <outlet property="leadingConstraint" destination="RWt-lG-y0Q" id="chV-8v-Nfo"/>
                 <outlet property="nameLabel" destination="bxK-sZ-8v3" id="560-Oc-G2p"/>
                 <outlet property="progressionLabel" destination="VSr-by-1kb" id="60F-mH-STz"/>
                 <outlet property="repsLabel" destination="9lg-MA-Lsa" id="dX2-8x-VHr"/>

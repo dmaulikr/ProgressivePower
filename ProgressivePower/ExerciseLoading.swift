@@ -12,6 +12,7 @@ import ObjectMapper
 class Exercise: NSObject {
     //Don't map this object because need to get name from key
     dynamic var name = ""
+    dynamic var imageName = ""
     dynamic var details: ExerciseDetails?
 }
 class ExerciseDetails: NSObject, Mappable {

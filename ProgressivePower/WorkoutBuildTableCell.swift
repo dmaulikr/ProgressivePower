@@ -16,6 +16,9 @@ class WorkoutBuildTableCell: UITableViewCell {
     @IBOutlet weak var setsLabel: UILabel!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var highlightView: UIView!
+    @IBOutlet weak var exerciseImageView: UIImageView!
+    
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     
     static func cellHeight() -> CGFloat{
         return 80.0
@@ -40,6 +43,22 @@ class WorkoutBuildTableCell: UITableViewCell {
         progressionLabel.text = "+\(String(exercise.progression)) lbs"
         setsLabel.text = String(exercise.sets)
         repsLabel.text = String(exercise.reps)
+        
+        var imageNameText = ""
+        if let exercises = ExerciseData.allExercises{
+            for exc in exercises{
+                if exc.name == exercise.name{
+                    imageNameText = exc.imageName
+                    break
+                }
+            }
+        }
+        if imageNameText != ""{
+            leadingConstraint.constant = WorkoutBuildTableCell.cellHeight() - 5
+            exerciseImageView.hidden = false
+            exerciseImageView.image = UIImage(named: imageNameText)
+        }
+        
     }
     
 }

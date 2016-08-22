@@ -54,5 +54,16 @@ struct Algorithm{
         return filteredArray
     }
     
+    static func imageNameForExerciseName(name: String) -> String{
+        if let exercises = ExerciseData.allExercises{
+            for exc in exercises{
+                if exc.name == name{
+                    return exc.imageName
+                }
+            }
+        }
+        return ""
+    }
+    
     
 }
