@@ -9,6 +9,9 @@
 import UIKit
 
 class NextLiftTableCell: UITableViewCell {
+    let elementHeight = 20 as CGFloat
+    
+    var height = 60 as CGFloat
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -25,6 +28,7 @@ class NextLiftTableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 
@@ -45,16 +49,19 @@ class NextLiftTableCell: UITableViewCell {
             exerciseOneInfoLabel.text = infoTextForExercise(exercises[0])
             exerciseOneNameLabel.text = exercises[0].name
             if count > 1{
+                height += elementHeight
                 exerciseTwoNameLabel.hidden = false
                 exerciseTwoInfoLabel.hidden = false
                 exerciseTwoNameLabel.text = exercises[1].name
                 exerciseTwoInfoLabel.text = infoTextForExercise(exercises[1])
                 if count > 2{
+                    height += elementHeight
                     exerciseThreeNameLabel.hidden = false
                     exerciseThreeInfoLabel.hidden = false
                     exerciseThreeNameLabel.text = exercises[2].name
                     exerciseThreeInfoLabel.text = infoTextForExercise(exercises[2])
                     if count > 3{
+                        height += elementHeight
                         moreLabel.hidden = false
                     }
                 }

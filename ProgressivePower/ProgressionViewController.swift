@@ -16,7 +16,7 @@ class ProgressionViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.title = "Progression"
         let realm = try! Realm()
         let allWorkouts = realm.objects(Workout.self)
         let testWorkout = allWorkouts.first

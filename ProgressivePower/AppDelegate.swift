@@ -8,6 +8,8 @@
 
 import UIKit
 import ObjectMapper
+import RealmSwift
+
 @UIApplicationMain
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         for dict in jsonResult as! [NSDictionary]{
                             let exerciseName: String = dict.allKeys[0] as! String//Get key value to open object data
                             let details = dict.valueForKey(exerciseName) //Get details
-                            
+
                             let exerciseDetails = Mapper<ExerciseDetails>().map(details)
                             
                             let exercise = Exercise()
@@ -49,13 +51,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         }
         let randomColor = UIColor(randomColorInArray: Constants.themeColorPalette)
-    
+        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+
         UINavigationBar.appearance().barTintColor = randomColor
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = titleDict as? [String : AnyObject]
 
-        UITabBar.appearance().barTintColor = randomColor
-        UITabBar.appearance().tintColor = UIColor.whiteColor()
-
+        let realm = try! Realm()
+        
         // Override point for customization after application launch.
         return true
     }

@@ -15,18 +15,15 @@ class WorkoutBuildTableCell: UITableViewCell {
     @IBOutlet weak var progressionLabel: UILabel!
     @IBOutlet weak var setsLabel: UILabel!
     @IBOutlet weak var repsLabel: UILabel!
-    @IBOutlet weak var viewBackground: UIView!
     @IBOutlet weak var highlightView: UIView!
     
     static func cellHeight() -> CGFloat{
-        return 90.0
+        return 80.0
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .None
-        self.contentView.backgroundColor = UIColor.clearColor()
-        self.backgroundColor = UIColor.clearColor()
         
         // Initialization code
     }

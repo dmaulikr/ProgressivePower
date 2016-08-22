@@ -12,16 +12,6 @@ import DZNEmptyDataSet
 
 class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
-    @IBAction func changeTouched(sender: AnyObject) {
-        let randomColor = UIColor(randomColorInArray: Constants.themeColorPalette)
-        
-        self.navigationController?.navigationBar.barTintColor = randomColor
-        
-        self.tabBarController?.tabBar.barTintColor = randomColor
-        UITabBar.appearance().tintColor = UIColor.whiteColor()
-        
-        
-    }
     let NextLiftTableCellIdentifier = "NextLiftTableCell"
 
     override func viewDidLoad() {
@@ -36,6 +26,8 @@ class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNE
     }
     
     func setupTableView(){
+        self.title = "Lift"
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.emptyDataSetDelegate = self
@@ -65,7 +57,7 @@ class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNE
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "This is where you will come to get Stronger Every Day. Make a split in the Plan tab!"
+        let text = "This is where you will get Stronger Every Day. Make a split in the Plan tab!"
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .ByWordWrapping
         paragraph.alignment = .Center

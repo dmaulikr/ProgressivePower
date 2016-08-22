@@ -14,9 +14,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="158" height="90"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyE-bj-Kld">
-                        <rect key="frame" x="24" y="34" width="111" height="21"/>
+                        <rect key="frame" x="24" y="5" width="111" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -24,6 +24,7 @@
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="pyE-bj-Kld" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="Dg1-lE-kkn"/>
                 <constraint firstItem="pyE-bj-Kld" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="TS8-6O-dzB"/>
                 <constraint firstItem="pyE-bj-Kld" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="i1d-Ub-2Cd"/>
                 <constraint firstItem="pyE-bj-Kld" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="nQI-u5-ANw"/>
@@ -31,6 +32,7 @@
             <size key="customSize" width="158" height="90"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="i1d-Ub-2Cd"/>
                     <exclude reference="nQI-u5-ANw"/>
                 </mask>
             </variation>

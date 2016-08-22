@@ -16,7 +16,7 @@
 		4C553E041D5A6170004F3549 /* WorkoutCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553E021D5A6170004F3549 /* WorkoutCollectionCell.swift */; };
 		4C553E051D5A6170004F3549 /* WorkoutCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C553E031D5A6170004F3549 /* WorkoutCollectionCell.xib */; };
 		4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */; };
-		4C57E1BA1D4A1BAA0034CBF0 /* WorkoutDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B91D4A1BAA0034CBF0 /* WorkoutDisplayController.swift */; };
+		4C57E1BA1D4A1BAA0034CBF0 /* PlanDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57E1B91D4A1BAA0034CBF0 /* PlanDisplayController.swift */; };
 		4C57E1BD1D4A1BAA0034CBF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BB1D4A1BAA0034CBF0 /* Main.storyboard */; };
 		4C57E1BF1D4A1BAA0034CBF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */; };
 		4C57E1C21D4A1BAA0034CBF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C57E1C01D4A1BAA0034CBF0 /* LaunchScreen.storyboard */; };
@@ -26,6 +26,7 @@
 		4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */; };
 		4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */; };
 		4CAB48C11D6948D80016332A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB48C01D6948D80016332A /* Constants.swift */; };
+		4CAB48C61D6A6C720016332A /* WorkoutDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB48C51D6A6C720016332A /* WorkoutDisplayController.swift */; };
 		4CC65E481D4C570400950011 /* PlateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC65E471D4C570400950011 /* PlateViewController.swift */; };
 		4CC6F4E81D4A1ED6002D69B8 /* exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6F4E71D4A1ED6002D69B8 /* exercises.json */; };
 		4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */; };
@@ -47,7 +48,7 @@
 		4C553E031D5A6170004F3549 /* WorkoutCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutCollectionCell.xib; sourceTree = "<group>"; };
 		4C57E1B41D4A1BAA0034CBF0 /* ProgressivePower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgressivePower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C57E1B71D4A1BAA0034CBF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4C57E1B91D4A1BAA0034CBF0 /* WorkoutDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDisplayController.swift; sourceTree = "<group>"; };
+		4C57E1B91D4A1BAA0034CBF0 /* PlanDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDisplayController.swift; sourceTree = "<group>"; };
 		4C57E1BC1D4A1BAA0034CBF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C57E1BE1D4A1BAA0034CBF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C57E1C11D4A1BAA0034CBF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,9 +56,11 @@
 		4C8794821D4D646F00AC1814 /* WorkoutNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutNameController.swift; sourceTree = "<group>"; };
 		4C8794851D4D665400AC1814 /* WorkoutBuildController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutBuildController.swift; sourceTree = "<group>"; };
 		4C8794871D4D667D00AC1814 /* AddExerciseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExerciseController.swift; sourceTree = "<group>"; };
+		4C97068A1D6B64750065309C /* ChameleonFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ChameleonFramework.framework; path = "/Users/Michael/Library/Developer/Xcode/DerivedData/ProgressivePower-arjoacoihrayuweszwdqxsjuukej/Build/Products/Debug-iphonesimulator/ChameleonFramework/ChameleonFramework.framework"; sourceTree = "<absolute>"; };
 		4CAA82781D4B87D400A5C0D3 /* PlateGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateGenerator.swift; sourceTree = "<group>"; };
 		4CAA827A1D4BDBB700A5C0D3 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		4CAB48C01D6948D80016332A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4CAB48C51D6A6C720016332A /* WorkoutDisplayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDisplayController.swift; sourceTree = "<group>"; };
 		4CC65E471D4C570400950011 /* PlateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateViewController.swift; sourceTree = "<group>"; };
 		4CC6F4E71D4A1ED6002D69B8 /* exercises.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exercises.json; sourceTree = "<group>"; };
 		4CC6F4EA1D4A1F9C002D69B8 /* ExerciseLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseLoading.swift; sourceTree = "<group>"; };
@@ -95,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				4CCB68AD1D4A664100B2A1B1 /* NextLiftViewController.swift */,
+				4C57E1B91D4A1BAA0034CBF0 /* PlanDisplayController.swift */,
 				4C8794841D4D647D00AC1814 /* Workout */,
 				4CCB68B41D4A6B6F00B2A1B1 /* ProgressionViewController.swift */,
 				4CC65E471D4C570400950011 /* PlateViewController.swift */,
@@ -115,6 +119,7 @@
 		4C57E1AB1D4A1BAA0034CBF0 = {
 			isa = PBXGroup;
 			children = (
+				4C97068A1D6B64750065309C /* ChameleonFramework.framework */,
 				4C57E1B61D4A1BAA0034CBF0 /* ProgressivePower */,
 				4C57E1B51D4A1BAA0034CBF0 /* Products */,
 				4B62A32D10825FEAFD3BFE1B /* Pods */,
@@ -160,7 +165,7 @@
 		4C8794841D4D647D00AC1814 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
-				4C57E1B91D4A1BAA0034CBF0 /* WorkoutDisplayController.swift */,
+				4CAB48C51D6A6C720016332A /* WorkoutDisplayController.swift */,
 				4C8794821D4D646F00AC1814 /* WorkoutNameController.swift */,
 				4C8794851D4D665400AC1814 /* WorkoutBuildController.swift */,
 				4C8794871D4D667D00AC1814 /* AddExerciseController.swift */,
@@ -343,7 +348,7 @@
 				4C0B2FF21D69124E00DC2251 /* NextLiftTableCell.swift in Sources */,
 				4CCB68B01D4A6A3300B2A1B1 /* ExerciseData.swift in Sources */,
 				4CCB68AE1D4A664100B2A1B1 /* NextLiftViewController.swift in Sources */,
-				4C57E1BA1D4A1BAA0034CBF0 /* WorkoutDisplayController.swift in Sources */,
+				4C57E1BA1D4A1BAA0034CBF0 /* PlanDisplayController.swift in Sources */,
 				4C57E1B81D4A1BAA0034CBF0 /* AppDelegate.swift in Sources */,
 				4CAA82791D4B87D400A5C0D3 /* PlateGenerator.swift in Sources */,
 				4CCB68B51D4A6B6F00B2A1B1 /* ProgressionViewController.swift in Sources */,
@@ -351,6 +356,7 @@
 				4C553E041D5A6170004F3549 /* WorkoutCollectionCell.swift in Sources */,
 				4CAA827B1D4BDBB700A5C0D3 /* Algorithm.swift in Sources */,
 				4C2634821D4D0B6E00DF939B /* AutoCompleteTextField.swift in Sources */,
+				4CAB48C61D6A6C720016332A /* WorkoutDisplayController.swift in Sources */,
 				4CC6F4EB1D4A1F9C002D69B8 /* ExerciseLoading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +422,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -456,6 +463,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -472,7 +480,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = ProgressivePower/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ProgressivePower.ProgressivePower;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ProgressivePower.StrongerEveryDay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/ProgressivePower/AutocompleteTextfieldSwift-master\"/**";
@@ -487,7 +495,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ProgressivePower/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ProgressivePower.ProgressivePower;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ProgressivePower.StrongerEveryDay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/ProgressivePower/AutocompleteTextfieldSwift-master\"/**";
 			};

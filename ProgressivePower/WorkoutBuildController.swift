@@ -38,6 +38,23 @@ class WorkoutBuildController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func willMoveToParentViewController(parent:UIViewController?)
+    {
+        super.willMoveToParentViewController(parent)
+        
+        if (parent == nil) {
+            if let navigationController = self.navigationController {
+                var viewControllers = navigationController.viewControllers
+                let viewControllersCount = viewControllers.count
+                if (viewControllersCount > 2) {
+                    viewControllers.removeAtIndex(viewControllersCount - 2)
+                    navigationController.setViewControllers(viewControllers, animated:false)
+                }
+            }
+        }
+    }
+
+    
     func setupNav(){
         if let name = workoutName{
             self.title = name
@@ -77,6 +94,7 @@ class WorkoutBuildController: UITableViewController {
         else{
             cell = self.tableView.dequeueReusableCellWithIdentifier(WorkoutBuildTableCellIdentifier, forIndexPath: indexPath) as! WorkoutBuildTableCell
             cell.configureCellWithExercise(workout().exercises[indexPath.row - 1])
+            
         }
         return cell
     }

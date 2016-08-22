@@ -16,8 +16,10 @@ class WorkoutNameController: UIViewController {
     var nameToPass: String?
     
     @IBOutlet weak var nameField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        nameField.autocorrectionType = .No
         setupNav()
         // Do any additional setup after loading the view.
     }
@@ -27,8 +29,10 @@ class WorkoutNameController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     func setupNav(){
         self.title = "Create Workout"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     }
     
     @IBAction func createWorkoutPressed(sender: AnyObject){

@@ -1,34 +1,100 @@
 //
-//  PlanViewController.swift
+//  WorkoutDisplayController.swift
 //  ProgressivePower
 //
-//  Created by Michael Lee on 7/28/16.
+//  Created by Michael Lee on 8/21/16.
 //  Copyright © 2016 ProgressivePower. All rights reserved.
 //
 
 import UIKit
-import Spring
 import RealmSwift
 
-class WorkoutDisplayController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
-    let WorkoutCellIdentifier = "WorkoutCollectionCell"
-    let CreateSegueIdentifier = "createWorkoutSegue"
+class WorkoutDisplayController: UITableViewController {
+
+    let NextLiftTableCellIdentifier = "NextLiftTableCell"
+    let CreateSegueIdentifier = "createWorkout"
     let BuildWorkoutSegueIdentifier = "buildWorkout"
-    let margin = 10 as CGFloat
+    let BasicCellHeight = 44 as CGFloat
     
     var selectedCell = 0
-    
+    var workouts : Results<Workout>?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView()
+        
+        workouts = allWorkouts()
         setupNav()
-                // Do any additional setup after loading the view, typically from a nib.
+        setupTable()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func allWorkouts() -> Results<Workout>{
+        let realm = try! Realm()
+        return realm.objects(Workout.self)
+    }
+    
+    func setupNav(){
+        self.title = "Plan"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func setupTable(){
+        self.tableView.registerNib(UINib(nibName: NextLiftTableCellIdentifier, bundle: nil), forCellReuseIdentifier: NextLiftTableCellIdentifier)
+        self.tableView.tableFooterView = UIView()
+    }
+    
+    // MARK: - Table view data source
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let workouts = workouts{
+            return workouts.count + 1
+        } else{
+            return 1
+        }
+    }
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.row == 0{
+            let cell = UITableViewCell(style: .Default, reuseIdentifier: "First")
+            cell.accessoryType = .DisclosureIndicator
+            cell.textLabel?.textColor = UIColor.flatBlackColor()
+            cell.textLabel?.text = "New Workout"
+            return cell
+        }
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(NextLiftTableCellIdentifier, forIndexPath: indexPath) as! NextLiftTableCell
+        if let workouts = workouts{
+            cell.configureCellForWorkout(workouts[indexPath.row - 1])
+        }
+        return cell
+    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0{
+            self.performSegueWithIdentifier(CreateSegueIdentifier, sender: self)
+        } else{
+            selectedCell = indexPath.row
+            self.performSegueWithIdentifier(BuildWorkoutSegueIdentifier, sender: self)
+        }
+    }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row != 0{
+            return 120
+        }
+        else {
+            return BasicCellHeight
+        }
+    }
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
@@ -38,60 +104,4 @@ class WorkoutDisplayController: UICollectionViewController, UICollectionViewDele
         }
     }
 
-    func allWorkouts() -> Results<Workout>{
-        let realm = try! Realm()
-        return realm.objects(Workout.self)
-    }
-    
-    func setupNav(){
-        self.navigationItem.title = "Your Workouts"
-    }
-
-    func setupCollectionView(){
-        self.collectionView?.registerNib(UINib(nibName: WorkoutCellIdentifier, bundle: nil), forCellWithReuseIdentifier: WorkoutCellIdentifier);
-    }
-    
-    
-    // MARK: Collection view delegate
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //Add a cell for add workout cell
-        return allWorkouts().count + 1
-    }
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = self.collectionView?.dequeueReusableCellWithReuseIdentifier(WorkoutCellIdentifier, forIndexPath: indexPath) as! WorkoutCollectionCell
-        if indexPath.row == 0{
-            cell.nameLabel.text = "Add a workout";
-        } else{
-            cell.nameLabel.text = allWorkouts()[indexPath.row - 1].name
-        }
-        return cell
-    }
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 0{
-            self.performSegueWithIdentifier(CreateSegueIdentifier, sender: self)
-        } else{
-            selectedCell = indexPath.row
-            self.performSegueWithIdentifier(BuildWorkoutSegueIdentifier, sender: self)
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let screenWidth = self.view.frame.size.width;
-        //Two cells on each row with 3 spaces in total
-        let size = (screenWidth/2) - ((margin * 3)/2)
-        return CGSizeMake(size, size)
-    }
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(margin, margin, margin, margin)
-    }
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return margin
-    }
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return margin
-    }
-    
-
-
 }
-
