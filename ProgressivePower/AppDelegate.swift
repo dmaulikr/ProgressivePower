@@ -17,11 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
+        setupApplication()
+        // Override point for customization after application launch.
+        return true
+    }
+    func setupApplication(){
         var tempArray: Array<Exercise> = []
         
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        dispatch_async(dispatch_get_global_queue(priority, 0)){
             if let path = NSBundle.mainBundle().pathForResource("exercises", ofType: "json"){
                 do{
                     let jsonData = try NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
@@ -32,15 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             do{
                                 let mapData = try NSData(contentsOfFile: mapPath, options: .DataReadingMappedIfSafe)
                                 mapResult = try NSJSONSerialization.JSONObjectWithData(mapData, options: .MutableContainers ) as! NSDictionary
-                            } catch let error as NSError{
-                                print(error)
+                            } catch{
                             }
                         }
                         for dict in jsonResult as! [NSDictionary]{
                             let exerciseName: String = dict.allKeys[0] as! String//Get key value to open object data
                             
                             let details = dict.valueForKey(exerciseName) //Get details
-
+                            
                             let exerciseDetails = Mapper<ExerciseDetails>().map(details)
                             
                             let exercise = Exercise()
@@ -58,26 +61,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             tempArray.append(exercise)
                         }
                         ExerciseData.allExercises = tempArray
-                    } catch let error as NSError{
-                        print(error)
+                    } catch{
                     }
-                } catch let error as NSError{
-                    print(error)
+                } catch{
                 }
             }
-
+            
         }
-        let randomColor = UIColor(randomColorInArray: Constants.themeColorPalette)
+        
+        let realm = try! Realm()
+        let container = realm.objects(CurrentState.self)
+        if container.count == 0{
+            do{
+                try realm.write {
+                    realm.create(CurrentState.self, value: ["id": 1, "themeColorIndex": 0], update: true)
+                }
+            } catch{
+            }
+        }
+        let color = Algorithm.currentThemeColor()
+        
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-
-        UINavigationBar.appearance().barTintColor = randomColor
+        let tabBarItemAppearanceNormal = [NSForegroundColorAttributeName: UIColor.flatGrayColorDark()]
+        let tabBarItemAppearanceSelected = [NSForegroundColorAttributeName: color]
+        
+        UITabBarItem.appearance().setTitleTextAttributes(tabBarItemAppearanceNormal, forState: .Normal)
+        UITabBarItem.appearance().setTitleTextAttributes(tabBarItemAppearanceSelected, forState: .Selected)
+        
+        UINavigationBar.appearance().barTintColor = color
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = titleDict as? [String : AnyObject]
-
-        //let realm = try! Realm()
         
-        // Override point for customization after application launch.
-        return true
     }
 
     func applicationWillResignActive(application: UIApplication) {

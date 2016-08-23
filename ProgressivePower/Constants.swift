@@ -9,6 +9,6 @@
 import UIKit
 
 struct Constants{
-    static let themeColorPalette = [UIColor.flatBlueColor(), UIColor.flatRedColor(), UIColor.flatPurpleColor(), UIColor.flatGreenColor(), UIColor.flatOrangeColorDark()]
+    static let themeColorPalette = [UIColor.flatRedColor(), UIColor.flatPurpleColor(), UIColor.flatGreenColor(), UIColor.flatOrangeColorDark()]
 }
 

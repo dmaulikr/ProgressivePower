@@ -32,7 +32,7 @@ class WorkoutNameController: UIViewController {
     
     func setupNav(){
         self.title = "Create Workout"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     }
     
     @IBAction func createWorkoutPressed(sender: AnyObject){

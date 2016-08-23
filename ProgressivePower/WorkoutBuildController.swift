@@ -59,11 +59,13 @@ class WorkoutBuildController: UITableViewController {
         if let name = workoutName{
             self.title = name
         }
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     }
     
     func setupTableView(){
         self.tableView.registerNib(UINib.init(nibName: WorkoutBuildTableCellIdentifier, bundle: nil), forCellReuseIdentifier: WorkoutBuildTableCellIdentifier)
         self.tableView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.00)
+        self.tableView.tableFooterView = UIView()
     }
     
     func workout() -> Workout{
@@ -89,12 +91,18 @@ class WorkoutBuildController: UITableViewController {
         if indexPath.row == 0{
             let firstCell = UITableViewCell(style: .Default, reuseIdentifier: "normalCell")
             firstCell.textLabel?.text = "Add exercise"
+            firstCell.accessoryType = .DisclosureIndicator
             return firstCell
         }
         else{
             cell = self.tableView.dequeueReusableCellWithIdentifier(WorkoutBuildTableCellIdentifier, forIndexPath: indexPath) as! WorkoutBuildTableCell
             cell.configureCellWithExercise(workout().exercises[indexPath.row - 1])
-            
+            cell.accessoryType = .DisclosureIndicator
+            if indexPath.row % 2 == 0{
+                cell.highlightView.backgroundColor = Algorithm.currentThemeColor()
+            } else {
+                cell.highlightView.backgroundColor = UIColor.flatGrayColor()
+            }
         }
         return cell
     }
@@ -110,6 +118,29 @@ class WorkoutBuildController: UITableViewController {
             return firstCellHeight
         } else{
             return WorkoutBuildTableCell.cellHeight()
+        }
+    }
+    override func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
+        return "Remove"
+    }
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.row != 0{
+            return true
+        }
+        return false
+    }
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete{
+            let realm = try! Realm()
+            let exerciseToDelete = workout().exercises[indexPath.row - 1]
+            do{
+                try realm.write({
+                    realm.delete(exerciseToDelete)
+                })
+            } catch{
+                Algorithm.presentErrorAlertWithMessage("Delete error - try again", sender: self)
+            }
+            self.tableView.reloadSections(NSIndexSet(index:0), withRowAnimation: .Fade)
         }
     }
     

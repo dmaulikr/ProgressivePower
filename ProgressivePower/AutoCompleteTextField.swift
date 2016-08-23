@@ -20,7 +20,7 @@ public class AutoCompleteTextField:UITextField {
     /// Color of the text suggestions
     public var autoCompleteTextColor = UIColor.blackColor()
     /// Used to set the height of cell for each suggestions
-    public var autoCompleteCellHeight:CGFloat = 44.0
+    public var autoCompleteCellHeight:CGFloat = 70.0
     /// The maximum visible suggestion
     public var maximumAutoCompleteCount = 3
     /// Used to set your own preferred separator inset
@@ -162,6 +162,8 @@ extension AutoCompleteTextField: UITableViewDataSource, UITableViewDelegate {
         
         if enableAttributedText{
             cell?.textLabel?.attributedText = attributedAutoCompleteStrings[indexPath.row]
+            let imageNameText = Algorithm.imageNameForExerciseName(attributedAutoCompleteStrings[indexPath.row].string)
+            cell?.imageView?.image = UIImage(named: imageNameText)
         }
         else{
             cell?.textLabel?.font = autoCompleteTextFont
@@ -169,7 +171,6 @@ extension AutoCompleteTextField: UITableViewDataSource, UITableViewDelegate {
             cell?.textLabel?.text = autoCompleteStrings![indexPath.row]
             
             
-            cell?.imageView?.image = UIImage(named: )
             
         }
         

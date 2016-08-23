@@ -39,20 +39,12 @@ class WorkoutBuildTableCell: UITableViewCell {
     
     func configureCellWithExercise(exercise: UserExercises){
         nameLabel.text = exercise.name
-        weightLabel.text = "\(String(exercise.weight)) lbs"
+        weightLabel.text = String(exercise.weight)
         progressionLabel.text = "+\(String(exercise.progression)) lbs"
         setsLabel.text = String(exercise.sets)
         repsLabel.text = String(exercise.reps)
         
-        var imageNameText = ""
-        if let exercises = ExerciseData.allExercises{
-            for exc in exercises{
-                if exc.name == exercise.name{
-                    imageNameText = exc.imageName
-                    break
-                }
-            }
-        }
+        let imageNameText = Algorithm.imageNameForExerciseName(exercise.name)
         if imageNameText != ""{
             leadingConstraint.constant = WorkoutBuildTableCell.cellHeight() - 5
             exerciseImageView.hidden = false

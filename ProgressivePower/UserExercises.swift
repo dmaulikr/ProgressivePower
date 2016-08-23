@@ -25,9 +25,15 @@ class Split: Object {
 }
 //History databasing
 class CurrentState : Object{
-    dynamic var currentSplit :Split?
+    dynamic var id = 0
+    dynamic var currentSplit: Split?
     dynamic var splitIndex = 0
     dynamic var themeColorIndex = 0
+    
+    //Add a primary key to be able to update the state
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }
 class ExerciseHistoryLog: Object{
     dynamic var name = ""

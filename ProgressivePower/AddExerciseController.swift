@@ -41,7 +41,7 @@ class AddExerciseController: UIViewController {
     }
     
     func setupNav(){
-        self.title = "Create Exercise"
+        self.title = "New Exercise"
     }
     
     @IBAction func schemeDidChange(sender: AnyObject) {
@@ -156,7 +156,7 @@ class AddExerciseController: UIViewController {
         
         exerciseField.autoCompleteTextColor = UIColor.flatGrayColorDark()
         exerciseField.autoCompleteTextFont = UIFont.systemFontOfSize(14)
-        exerciseField.autoCompleteCellHeight = 35.0
+        exerciseField.autoCompleteCellHeight = 50.0
         exerciseField.maximumAutoCompleteCount = 10
         exerciseField.autocorrectionType = .No
         exerciseField.hidesWhenSelected = true

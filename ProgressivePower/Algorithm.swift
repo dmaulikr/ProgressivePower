@@ -65,5 +65,18 @@ struct Algorithm{
         return ""
     }
     
+    static func currentThemeColor() -> UIColor{
+        let realm = try! Realm()
+        let container = realm.objects(CurrentState.self)
+        let stateObject = container.first
+        if let state = stateObject{
+            let colors = Constants.themeColorPalette
+            if colors.count > state.themeColorIndex{
+                return colors[state.themeColorIndex]
+            }
+        }
+        
+        return UIColor.flatRedColor()
+    }
     
 }

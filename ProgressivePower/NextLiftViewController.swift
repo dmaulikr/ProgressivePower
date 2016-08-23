@@ -26,7 +26,7 @@ class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNE
     }
     
     func setupTableView(){
-        self.title = "Lift"
+        self.title = "Next Lift"
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -51,7 +51,7 @@ class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNE
         let text = "Welcome"
         let attributes = [
             NSFontAttributeName : UIFont.boldSystemFontOfSize(18.0),
-            NSForegroundColorAttributeName: UIColor.flatGrayColorDark()
+            NSForegroundColorAttributeName: UIColor.flatBlackColor()
         ]
         return NSAttributedString(string: text, attributes: attributes)
     }
@@ -64,7 +64,7 @@ class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNE
         
         let attributes = [
             NSFontAttributeName : UIFont.systemFontOfSize(14.0),
-            NSForegroundColorAttributeName: UIColor.flatGrayColor(),
+            NSForegroundColorAttributeName: UIColor.flatGrayColorDark(),
             NSParagraphStyleAttributeName: paragraph
         ]
         
@@ -83,7 +83,7 @@ class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNE
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1{
-            return currentSplit().count
+            return 0
         } else{
             return workoutHistory().count
         }

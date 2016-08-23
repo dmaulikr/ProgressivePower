@@ -44,7 +44,7 @@ class WorkoutDisplayController: UITableViewController {
     
     func setupNav(){
         self.title = "Plan"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
