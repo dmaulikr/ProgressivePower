@@ -12,6 +12,7 @@ import DZNEmptyDataSet
 
 class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
+    let NextLiftTableCellHeight = 120 as CGFloat
     let NextLiftTableCellIdentifier = "NextLiftTableCell"
 
     override func viewDidLoad() {
@@ -37,14 +38,6 @@ class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNE
         self.tableView.registerNib(UINib(nibName: NextLiftTableCellIdentifier, bundle: nil), forCellReuseIdentifier: NextLiftTableCellIdentifier)
     }
     
-    func workoutHistory() -> Results<WorkoutHistoryLog>{
-        let realm = try! Realm()
-        return realm.objects(WorkoutHistoryLog.self)
-    }
-    func currentSplit() -> Results<CurrentState>{
-        let realm = try! Realm()
-        return realm.objects(CurrentState.self)
-    }
     //MARK: -Empty Data Set Delegate
 
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
@@ -71,21 +64,38 @@ class NextLiftViewController: UITableViewController, DZNEmptyDataSetSource, DZNE
         return NSAttributedString(string: text, attributes: attributes)
     }
     
+    func workoutForRepeatingCycle(index : Int) -> Workout{
+        let workouts = DBAccessManager.objectsForType(Workout.self)
+        let trueIndex = index % workouts.count
+        
+        return workouts[trueIndex]
+    }
+    
     //MARK: -Table View Delegate
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(NextLiftTableCellIdentifier, forIndexPath: indexPath) as! NextLiftTableCell
-        
+        cell.configureCellForWorkout(workoutForRepeatingCycle(indexPath.row))
+
         return cell
+    }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return NextLiftTableCellHeight
     }
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1{
-            return 0
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0{
+            return "Your Next Lift"
         } else{
-            return workoutHistory().count
+            return "Future Lifts"
+        }
+    }
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if DBAccessManager.objectsForType(Workout.self).count > 0{
+            return section == 0 ? 1 : 5
+        } else{
+            return 0
         }
     }
     

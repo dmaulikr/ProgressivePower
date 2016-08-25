@@ -22,7 +22,7 @@ class WorkoutDisplayController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        workouts = allWorkouts()
+        workouts = DBAccessManager.objectsForType(Workout.self)
         setupNav()
         setupTable()
     }
@@ -35,11 +35,6 @@ class WorkoutDisplayController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    func allWorkouts() -> Results<Workout>{
-        let realm = try! Realm()
-        return realm.objects(Workout.self)
     }
     
     func setupNav(){
@@ -74,6 +69,7 @@ class WorkoutDisplayController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(NextLiftTableCellIdentifier, forIndexPath: indexPath) as! NextLiftTableCell
         if let workouts = workouts{
             cell.configureCellForWorkout(workouts[indexPath.row - 1])
+            cell.nameLabel.text = "Day \(indexPath.row) - \(workouts[indexPath.row - 1].name)"
         }
         return cell
     }
@@ -100,7 +96,7 @@ class WorkoutDisplayController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
         if segue.identifier == BuildWorkoutSegueIdentifier{
             let buildVC = segue.destinationViewController as! WorkoutBuildController
-            buildVC.workoutName = allWorkouts()[selectedCell - 1].name
+            buildVC.workoutName = DBAccessManager.objectsForType(Workout.self)[selectedCell - 1].name
         }
     }
 

@@ -68,20 +68,23 @@ class WorkoutBuildController: UITableViewController {
         self.tableView.tableFooterView = UIView()
     }
     
-    func workout() -> Workout{
-        if let name = workoutName{
-            let realm = try! Realm()
-            let workout = realm.objects(Workout.self).filter("name = '\(name)'")
-            if let first = workout.first{
+    func topWorkout() -> Workout{
+        if let workoutName = workoutName{
+            let workoutCollection = DBAccessManager.filteredObjectsForType(Workout.self, filterParam: "name", filterString: workoutName)
+            if let first = workoutCollection.first{
                 return first
+            } else{
+                return Workout()
             }
+        } else{
+            return Workout()
         }
-        return Workout()
     }
     
     // MARK : Table View Delegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return workout().exercises.count + 1
+
+        return topWorkout().exercises.count + 1
     }
     
     
@@ -96,7 +99,7 @@ class WorkoutBuildController: UITableViewController {
         }
         else{
             cell = self.tableView.dequeueReusableCellWithIdentifier(WorkoutBuildTableCellIdentifier, forIndexPath: indexPath) as! WorkoutBuildTableCell
-            cell.configureCellWithExercise(workout().exercises[indexPath.row - 1])
+            cell.configureCellWithExercise(topWorkout().exercises[indexPath.row - 1])
             cell.accessoryType = .DisclosureIndicator
             if indexPath.row % 2 == 0{
                 cell.highlightView.backgroundColor = Algorithm.currentThemeColor()
@@ -132,7 +135,7 @@ class WorkoutBuildController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete{
             let realm = try! Realm()
-            let exerciseToDelete = workout().exercises[indexPath.row - 1]
+            let exerciseToDelete = topWorkout().exercises[indexPath.row - 1]
             do{
                 try realm.write({
                     realm.delete(exerciseToDelete)
@@ -151,7 +154,7 @@ class WorkoutBuildController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == AddExerciseSegueIdentifier {
             let destVC = segue.destinationViewController as! AddExerciseController
-            destVC.workout = workout()
+            destVC.workout = topWorkout()
         }
         // Get the new view controller using segue.destinationViewController.
     }

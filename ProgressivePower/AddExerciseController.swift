@@ -17,6 +17,7 @@ class AddExerciseController: UIViewController {
     @IBOutlet weak var weightField: UITextField!
     @IBOutlet weak var progressionControl: UISegmentedControl!
     @IBOutlet weak var schemeControl: UISegmentedControl!
+    @IBOutlet weak var createExerciseButton: UIButton!
     
     @IBOutlet weak var setsLabel: UILabel!
     @IBOutlet weak var repsLabel: UILabel!
@@ -27,6 +28,7 @@ class AddExerciseController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextField()
+        setupUI()
         setupNav()
         print(workout!)
         // Do any additional setup after loading the view.
@@ -39,7 +41,12 @@ class AddExerciseController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func setupUI(){
+        let theme = Algorithm.currentThemeColor()
+        progressionControl.tintColor = theme
+        schemeControl.tintColor = theme
+        createExerciseButton.tintColor = theme
+    }
     func setupNav(){
         self.title = "New Exercise"
     }
@@ -94,12 +101,15 @@ class AddExerciseController: UIViewController {
         exercise.name = name
         exercise.weight = exerciseWeight
         
-        if progressionControl.selectedSegmentIndex == 0{
+        switch progressionControl.selectedSegmentIndex{
+        case 0:
+            exercise.progression = 0.0
+        case 1:
             exercise.progression = 2.5
-        } else{
+        default:
             exercise.progression = 5.0
         }
-        
+
         switch schemeControl.selectedSegmentIndex {
         case 0:
             exercise.sets = 5
